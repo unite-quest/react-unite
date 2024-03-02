@@ -24,11 +24,11 @@ function HomePage() {
 
   useEffect(() => {
     // wait for image and theme to load
-    if (imageLoaded && randomizedTheme) {
+    if (imageLoaded) {
       setLoading(false); // each page has to implement its own stop loading logic
       setAnimate(true);
     }
-  }, [imageLoaded, randomizedTheme, setLoading]);
+  }, [imageLoaded, setLoading]);
 
   const redirectRecordingFn = () => {
     if (!randomizedTheme) {
