@@ -23,10 +23,6 @@ workflows:
       - node/test:
           pkg-manager: yarn
           run-command: test
-      # - node/run:
-      #     pkg-manager: yarn
-      #     yarn-run: build
       - build:
           requires:
             - node/test
-            # - node/run
