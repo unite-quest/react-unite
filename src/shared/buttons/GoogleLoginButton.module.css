@@ -1,8 +1,0 @@
-@value basicGrey, defaultWhite, googleBorder from "../../colors.css";
-
-.button {
-  border-color: defaultWhite;
-  background-color: defaultWhite;
-  color: basicGrey;
-  box-shadow: 0px 0px 0.4rem 0px googleBorder;
-}

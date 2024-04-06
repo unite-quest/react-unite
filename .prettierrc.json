@@ -1,9 +1,0 @@
-{
-  "singleQuote": true,
-  "trailingComma": "all",
-  "endOfLine": "lf",
-  "printWidth": 100,
-  "quoteProps": "consistent",
-  "jsxBracketSameLine": false,
-  "arrowParens": "avoid"
-}
