@@ -21,6 +21,7 @@ function App() {
   const [count, setCount] = useState(0);
 
   const test = async () => {
+    throw new TypeError("Sentry test");
     setCount((count) => count + 1);
     await addDoc(collection(db, "users"), {
       first: "Ada",
