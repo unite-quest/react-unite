@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { Outlet } from "react-router-dom";
-import "./App.css";
+import { useState } from 'react';
+import { Outlet } from 'react-router-dom';
+import './App.css';
 
-import { getFirestore, collection, addDoc } from "firebase/firestore";
-import { firebaseApp } from "./shared/firebase/FirebaseService";
-import { AuthenticationProvider } from "./shared/authentication/AuthenticationProvider";
+import { addDoc, collection, getFirestore } from 'firebase/firestore';
+import { AuthenticationProvider } from './shared/authentication/AuthenticationProvider';
+import { firebaseApp } from './shared/firebase/FirebaseService';
 
 const db = getFirestore(firebaseApp);
 
@@ -12,11 +12,11 @@ function App() {
   const [count, setCount] = useState(0);
 
   const test = async () => {
-    throw new TypeError("Sentry test");
-    setCount((count) => count + 1);
-    await addDoc(collection(db, "users"), {
-      first: "Ada",
-      last: "Lovelace",
+    throw new TypeError('Sentry test');
+    setCount(count => count + 1);
+    await addDoc(collection(db, 'users'), {
+      first: 'Ada',
+      last: 'Lovelace',
       born: 1815,
     });
   };

@@ -1,37 +1,37 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App.tsx";
-import ErrorPage from "./ErrorPage.tsx";
-import Story from "./screens/story/Story.tsx";
-import Home from "./screens/home/Home.tsx";
-import Challenges from "./screens/challenges/Challenges.tsx";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import "./index.css";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import App from './App.tsx';
+import ErrorPage from './ErrorPage.tsx';
+import './index.css';
+import Challenges from './screens/challenges/Challenges.tsx';
+import Home from './screens/home/Home.tsx';
+import Story from './screens/story/Story.tsx';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <App />,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "home",
+        path: 'home',
         element: <Home />,
       },
       {
-        path: "story",
+        path: 'story',
         element: <Story />,
       },
       {
-        path: "challenge/:challengeId",
+        path: 'challenge/:challengeId',
         element: <Challenges />,
       },
     ],
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
+ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <RouterProvider router={router} />
-  </React.StrictMode>
+  </React.StrictMode>,
 );

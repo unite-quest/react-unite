@@ -1,16 +1,10 @@
-import {
-  useParams,
-} from "react-router-dom";
+import { useParams } from 'react-router-dom';
 
 function Challenges() {
   const { challengeId } = useParams();
-  console.log(challengeId)
+  console.log(challengeId);
 
-  return (
-    <>
-
-    </>
-  )
+  return <></>;
 }
 
-export default Challenges
+export default Challenges;
