@@ -1,15 +1,40 @@
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import logo from '../../assets/WeddingMain.svg';
+import gift from '../../assets/gift.svg';
+import landscape from '../../assets/pixelArt_landscape.svg';
 
 function Home() {
   return (
     <>
-      <Link to="/story">
-        <Button variant="destructive">Story</Button>
+        <div className="bg-blue items-center justify-center p-10">
+          <div className="text-beige font-sacramento text-5xl font-normal">Mimi & Gabriel</div>
+          <div className="text-black font-roboto text-lg font-medium">25 de agosto de 2024 | 16h</div>
+          <div className="text-black font-roboto text-xl font-light">Botânico Quintal - Av. Imperatriz Leopoldina, 681 - Vila Leopoldina, São Paulo - SP</div>
+        </div>
+        <div className="flex bg-gradient-to-t from-light-beige to-blue">
+          <img className="p-5" src={logo} alt="Logo" />
+        </div>
+        <div className="bg-light-blue p-10">
+          <div className="text-dark-green font-pt-serif text-4xl pb-10 font-bold text-left">A nossa história</div>
+          <div className="text-black font-roboto text-lg font-medium pb-10 text-left">Decidimos contar um pouco de nossa trajetória até aqui de uma maneira diferente! 
+          Convidamos cada um de vocês para participar de uma sequência de desafios preparados exclusivamente para o nosso casamento. 
+          Clique no botão abaixo e comece agora mesmo!</div>
+          <Link to="/story">
+        <Button>Iniciar aventura</Button>
       </Link>
-      <Button variant="destructive">
-     Challenges
-    </Button>
+      <img className="p-5" src={landscape} alt="Landscape" />
+        </div>
+        <div className="bg-light-beige p-10">
+        <div className="text-dark-green font-pt-serif text-4xl pb-10 font-bold text-left">Lista de presentes</div>
+        <div className="text-black font-roboto text-lg font-medium pb-10 text-left">
+          Como forma de receber auxílio em nossa nova fase, sugerimos algumas opções de presentes que serão revertidos em dinheiro para nós. Dessa maneira, receberemos uma quantia de cada um que nos gratificar que representará alguma das opções que estão listadas no link abaixo:
+          </div>
+          <Link to="/story">
+        <Button>Acessar lista de presentes</Button>
+      </Link>
+        <img className="p-5" src={gift} alt="Gifts" />
+        </div>
     </>
   );
 }

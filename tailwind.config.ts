@@ -12,13 +12,25 @@ module.exports = {
   theme: {
     container: {
       center: true,
-      padding: "2rem",
       screens: {
         "2xl": "1400px",
       },
     },
     extend: {
+      fontFamily: {
+        sacramento: ['Sacramento'],
+        roboto: ['Roboto'],
+        'pt-serif': ['PT Serif'],
+      },
       colors: {
+        'beige': "#F4E9CD", 
+        'light-beige': "#FFFEFB", 
+        'light-green': "#9DBEBB",
+        'medium-green': "#77ACA2",
+        'dark-green': "#468189",
+        'black': "#031926",
+        'blue': "#017BFD",
+        'light-blue': "#ECF7FF",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
