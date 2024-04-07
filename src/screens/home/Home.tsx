@@ -1,12 +1,25 @@
 import { Button } from '@/components/ui/button';
+import { AuthenticationContext } from '@/shared/authentication/AuthenticationProvider';
+import { LoaderContext } from '@/shared/loader/LoaderProvider';
+import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/WeddingMain.svg';
 import gift from '../../assets/gift.svg';
 import landscape from '../../assets/pixelArt_landscape.svg';
 
 function Home() {
+  const { user } = useContext(AuthenticationContext);
+  const { setLoading } = useContext(LoaderContext);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 400);
+  }, [setLoading]);
+
   return (
     <>
+      <span>User is {user?.email || ''}</span>
       <div className="bg-blue items-center justify-center p-10">
         <div className="text-beige font-sacramento text-5xl font-normal">Mimi & Gabriel</div>
         <div className="text-black font-roboto text-lg font-medium">25 de agosto de 2024 | 16h</div>

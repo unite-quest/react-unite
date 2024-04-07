@@ -5,6 +5,13 @@ export default class UserModel {
   public email: string = '';
   public isAnonymous: boolean = false;
   public uid: string = '';
+  public challengeStatus: {
+    completed: string[];
+    current: string | undefined;
+  } = {
+    completed: [],
+    current: undefined,
+  };
   private user: User | null = null;
 
   constructor(user: User) {

@@ -21,7 +21,9 @@ export const AuthenticationProvider: React.FC<PropsWithChildren> = ({ children }
         return;
       }
 
-      setUser(new UserModel(firebaseUser));
+      const u = new UserModel(firebaseUser);
+      console.log('user updated', u);
+      setUser(u);
     });
     return unsubscribe;
   }, []);

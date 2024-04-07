@@ -29,6 +29,9 @@
       "@/models/*": [
         "src/models/*"
       ],
+      "@/shared/*": [
+        "src/shared/*"
+      ],
     },
   },
   "include": [
