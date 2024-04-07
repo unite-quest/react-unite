@@ -2,19 +2,11 @@ import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import "./App.css";
 
-import { initializeApp } from "firebase/app";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
-import { firebaseConfig } from "./firebase/firebase.config";
-import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
+import { firebaseApp } from "./shared/firebase/FirebaseService";
+import { AuthenticationProvider } from "./shared/authentication/AuthenticationProvider";
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-initializeAppCheck(app, {
-  provider: new ReCaptchaV3Provider("6LfBZ7IpAAAAAF4q_HespEbH5Vz87TWyZPPOCfDh"),
-  // Optional argument. If true, the SDK automatically refreshes App Check
-  // tokens as needed.
-  isTokenAutoRefreshEnabled: true,
-});
+const db = getFirestore(firebaseApp);
 
 function App() {
   const [count, setCount] = useState(0);
@@ -29,13 +21,18 @@ function App() {
     });
   };
 
+  const googleLogin = () => {};
+  const facebookLogin = () => {};
+
   return (
-    <>
+    <AuthenticationProvider>
       <div id="detail">
         <Outlet />
         <button onClick={test}>count is {count}</button>
+        <button onClick={googleLogin}>google login</button>
+        <button onClick={facebookLogin}>facebook login</button>
       </div>
-    </>
+    </AuthenticationProvider>
   );
 }
 
