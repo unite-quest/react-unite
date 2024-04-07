@@ -1,13 +1,11 @@
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import "./App.css";
-import "./App.css";
 
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 import { firebaseConfig } from "./firebase/firebase.config";
 import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
-import React from "react";
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);

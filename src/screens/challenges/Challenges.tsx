@@ -1,10 +1,14 @@
-import { useState } from 'react'
+import {
+  useParams,
+} from "react-router-dom";
 
 function Challenges() {
-  const [count, setCount] = useState(0)
+  const { challengeId } = useParams();
+  console.log(challengeId)
 
   return (
     <>
+
     </>
   )
 }
