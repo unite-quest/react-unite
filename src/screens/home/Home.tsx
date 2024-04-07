@@ -7,6 +7,9 @@ function Home() {
       <Link to="/story">
         <Button variant="destructive">Story</Button>
       </Link>
+      <Button variant="destructive">
+     Challenges
+    </Button>
     </>
   );
 }
