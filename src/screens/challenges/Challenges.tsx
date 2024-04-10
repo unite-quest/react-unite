@@ -4,6 +4,7 @@ import { useAnswer } from '@/shared/database/useAnswer';
 import { LoaderContext } from '@/shared/loader/LoaderProvider';
 import { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import logicGatesHard from '../../assets/logic-gates-hard.png';
 
 function Challenges() {
   const { challengeId } = useParams();
@@ -39,6 +40,8 @@ function Challenges() {
 
   return (
     <>
+      <div className="flex bg-gradient-to-b from-blue to-[#8ce1fb] h-20"></div>
+      <img className="p-5" src={logicGatesHard} alt="Logo" />
       <Button variant="secondary" onClick={getAnswers}>
         Submit Answer
       </Button>

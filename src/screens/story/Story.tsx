@@ -4,6 +4,7 @@ import { authenticationService } from '@/shared/authentication/AuthenticationSer
 import { LoaderContext } from '@/shared/loader/LoaderProvider';
 import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import landscape from '../../assets/pixelArt_landscape.svg';
 
 function Story() {
   const { user } = useContext(AuthenticationContext);
@@ -35,15 +36,30 @@ function Story() {
 
   return (
     <>
-      <Link to="/challenge/1">
-        <Button>Iniciar</Button>
-      </Link>
-      <Button variant="secondary" onClick={googleLogin}>
-        Google Login
-      </Button>
-      <Button variant="secondary" onClick={facebookLogin}>
-        Facebook Login
-      </Button>
+      <div className="bg-light-blue h-screen">
+        <div className="text-dark-green font-pt-serif text-4xl p-10 font-bold text-left">
+          A nossa história
+        </div>
+        <div className="text-black font-roboto text-lg font-medium p-10 text-left">
+          Decidimos contar um pouco de nossa trajetória até aqui de uma maneira diferente!
+          Convidamos cada um de vocês para participar de uma sequência de desafios preparados
+          exclusivamente para o nosso casamento. Clique no botão abaixo e comece agora mesmo!
+        </div>
+      </div>
+      <div className="absolute inset-x-0 bottom-0">
+        <img src={landscape} alt="Landscape" />
+        <div className="bg-beige p-5">
+          <Link to="/challenge/1">
+            <Button>Iniciar</Button>
+          </Link>
+          <Button variant="secondary" onClick={googleLogin}>
+            Google Login
+          </Button>
+          <Button variant="secondary" onClick={facebookLogin}>
+            Facebook Login
+          </Button>
+        </div>
+      </div>
     </>
   );
 }
