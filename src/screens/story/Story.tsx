@@ -54,7 +54,10 @@ function Story() {
         <img src={landscape} alt="Landscape" />
         <div className="bg-beige p-5">
           <Link to="/challenge/1">
-            <Button>Iniciar</Button>
+            <Button>Challenge 1</Button>
+          </Link>
+          <Link to="/challenge/3">
+            <Button>Challenge 3</Button>
           </Link>
           <Button variant="secondary" onClick={googleLogin}>
             Google Login
