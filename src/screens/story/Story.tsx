@@ -1,20 +1,24 @@
 import { Button } from '@/components/ui/button';
 import { AuthenticationContext } from '@/shared/authentication/AuthenticationProvider';
-import { authenticationService } from '@/shared/authentication/AuthenticationService';
 import { LoaderContext } from '@/shared/loader/LoaderProvider';
 import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import landscape from '../../assets/pixelArt_landscape.svg';
 
+const getAuth = () => import('../../shared/authentication/AuthenticationService');
+
 function Story() {
   const { user } = useContext(AuthenticationContext);
   const { setLoading } = useContext(LoaderContext);
 
-  const googleLogin = () => {
-    authenticationService.login('google');
+  const googleLogin = async () => {
+    (await getAuth()).authenticationService.login('google');
   };
-  const facebookLogin = () => {
-    authenticationService.login('facebook');
+  const facebookLogin = async () => {
+    (await getAuth()).authenticationService.login('facebook');
+  };
+  const anonLogin = async () => {
+    (await getAuth()).authenticationService.anonymousLogin();
   };
 
   useEffect(() => {
@@ -28,7 +32,7 @@ function Story() {
       return;
     }
     if (user === null) {
-      authenticationService.anonymousLogin();
+      anonLogin();
     } else {
       console.log('already logged in');
     }

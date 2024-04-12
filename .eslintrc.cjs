@@ -10,9 +10,15 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: ['react-refresh'],
   rules: {
-    'react-refresh/only-export-components': [
-      'warn',
-      { allowConstantExport: true },
+    'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+    'no-restricted-imports': [
+      'error',
+      'firebase/app',
+      'firebase/firestore',
+      'firebase/firestore/lite',
+      'firebase/storage',
+      'firebase/auth',
+      'firebase/functions',
     ],
   },
-}
+};

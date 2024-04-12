@@ -1,6 +1,5 @@
-import { DatabaseService } from './DatabaseService';
+const getDb = () => import('../database/DatabaseService');
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const useAnswer = () => {
   const answerQuestion = async (
     question: {
@@ -9,13 +8,11 @@ export const useAnswer = () => {
     },
     answer: Record<string, string>,
   ) => {
-    const nextChallenge = await DatabaseService.validateAnswersAndGetNextChallenge(
-      question.challengeId,
-      answer,
-    );
+    const db = (await getDb()).DatabaseService;
+    const nextChallenge = await db.validateAnswersAndGetNextChallenge(question.challengeId, answer);
     console.log('nextChallenge', nextChallenge);
     if (nextChallenge) {
-      DatabaseService.completeChallenge(question.userId, question.challengeId, nextChallenge);
+      db.completeChallenge(question.userId, question.challengeId, nextChallenge);
     }
   };
   return {

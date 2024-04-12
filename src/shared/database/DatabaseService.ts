@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-restricted-imports
 import {
   addDoc,
   arrayUnion,
@@ -8,7 +9,7 @@ import {
   query,
   setDoc,
   where,
-} from 'firebase/firestore';
+} from 'firebase/firestore/lite';
 import { firebaseApp } from '../firebase/FirebaseService';
 
 const db = getFirestore(firebaseApp);
