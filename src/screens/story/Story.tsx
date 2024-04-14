@@ -56,8 +56,8 @@ function Story() {
           <Link to="/challenge/1">
             <Button>Challenge 1</Button>
           </Link>
-          <Link to="/challenge/3">
-            <Button>Challenge 3</Button>
+          <Link to="/challenge/2">
+            <Button>Challenge 2</Button>
           </Link>
           <Button variant="secondary" onClick={googleLogin}>
             Google Login

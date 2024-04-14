@@ -2,7 +2,7 @@ import { LoaderContext } from '@/shared/loader/LoaderProvider';
 import React, { Suspense, useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-function Challenges() {
+function ChallengesDetails() {
   const { challengeId: unsanitizedChallengeId } = useParams();
   const challengeId = unsanitizedChallengeId || '1';
   const { setLoading } = useContext(LoaderContext);
@@ -28,4 +28,4 @@ function Challenges() {
   );
 }
 
-export default Challenges;
+export default ChallengesDetails;

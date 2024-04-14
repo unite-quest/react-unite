@@ -2,13 +2,12 @@ import { Button } from './button';
 
 const FixedButton: React.FC<{
   title: string;
-  variant: 'white' | 'dark' | 'beige';
+  variant: 'white' | 'dark' | 'beige' | 'black';
   onClick: () => void;
-  disabled: boolean;
+  disabled?: boolean;
 }> = ({ title, variant, disabled, onClick }) => {
   return (
     <>
-      <div className="pb-20" />
       <div className="fixed bottom-0 w-full">
         <div className={`bg-${variant} p-5`}>
           <Button variant="secondary" onClick={onClick} disabled={disabled}>

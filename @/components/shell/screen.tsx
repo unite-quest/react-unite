@@ -10,7 +10,7 @@ const UniteScreen: React.FC<
 > = ({ Header, Footer, background, children }) => {
   return (
     <>
-      <div className={`bg-${background}`}>
+      <div className={`min-h-svh bg-${background}`}>
         {Header}
         <div className="pl-5 pr-5">{children}</div>
         {Footer}
