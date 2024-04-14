@@ -1,5 +1,6 @@
 import { UniteScreen } from '@/components/shell/screen';
 import { FixedButton } from '@/components/ui/fixed-button';
+import { Header } from '@/components/ui/header';
 import { LogoQuizTile } from '@/components/ui/tile';
 import { useState } from 'react';
 
@@ -73,7 +74,7 @@ function LogoQuizChallenge() {
     <>
       <UniteScreen
         background="cool-green"
-        Header={<div className="h-20">LOGO QUIZ CHALLENGE</div>}
+        Header={<Header title="Logo Quiz" variant="intro" style="bg-cool-green" />}
         Footer={
           <FixedButton
             title={`Finalizar ${answers}/${logos.length}`}
