@@ -15,10 +15,12 @@ function Challenges() {
 
   const LogoQuizChallenge = React.lazy(() => import('./LogoQuizChallenge'));
   const LogicGatesChallenge = React.lazy(() => import('./LogicGatesChallenge'));
+  const VideoChallenge = React.lazy(() => import('./VideoChallenge'));
 
   const Challenges: Record<string, { component: JSX.Element }> = {
     '1': { component: <LogoQuizChallenge /> },
     '2': { component: <LogicGatesChallenge /> },
+    '3': { component: <VideoChallenge /> },
   };
 
   return (

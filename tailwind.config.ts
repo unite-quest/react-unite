@@ -23,6 +23,7 @@ module.exports = {
         'pt-serif': ['PT Serif'],
       },
       colors: {
+        'separator': '#A0A0A0',
         'beige': '#F4E9CD',
         'light-beige': '#FFFEFB',
         'cool-green': '#DBF0EE',
