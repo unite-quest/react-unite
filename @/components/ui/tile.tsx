@@ -1,11 +1,16 @@
+import check from '../../../src/assets/check-mark.svg';
+
 const LogoQuizTile: React.FC<{
-  title: string;
+  image: string;
   onClick: () => void;
-}> = ({ title, onClick }) => {
+  variant?: 'done' | 'todo';
+}> = ({ image, onClick }) => {
   return (
-    <div className="bg-slate-500 w-full h-full object-cover aspect-square">
-      <button onClick={onClick}>
-        <span>{title}</span>
+    <div className="w-full aspect-square rounded-md place-center min-h-full">
+      <button className="relative" onClick={onClick}>
+        <img className="rounded-md" src={image} />
+        <div className="rounded-md bg-light-green opacity-50 h-full w-full absolute top-0" />
+        <img className="absolute top-0 right-0" src={check} />
       </button>
     </div>
   );

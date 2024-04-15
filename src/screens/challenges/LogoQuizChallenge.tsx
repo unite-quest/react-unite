@@ -3,10 +3,11 @@ import { FixedButton } from '@/components/ui/fixed-button';
 import { Header } from '@/components/ui/header';
 import { LogoQuizTile } from '@/components/ui/tile';
 import { useState } from 'react';
+import coc from '../../assets/logos/coc.png';
 
 const logos: { image: string; onClick: () => Promise<void> }[] = [
   {
-    image: 'test1',
+    image: coc,
     onClick: async () => {},
   },
   {
@@ -90,7 +91,7 @@ function LogoQuizChallenge() {
           </div>
           <div className="grid grid-cols-3 gap-4">
             {logos.map(i => {
-              return <LogoQuizTile title={i.image} onClick={i.onClick} key={i.image} />;
+              return <LogoQuizTile image={i.image} onClick={i.onClick} key={i.image} />;
             })}
           </div>
         </div>
