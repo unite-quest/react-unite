@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button';
+import { UniteButton } from '@/components/ui/button';
 import { AuthenticationContext } from '@/shared/authentication/AuthenticationProvider';
 import { LoaderContext } from '@/shared/loader/LoaderProvider';
 import { useContext, useEffect } from 'react';
@@ -54,17 +54,13 @@ function Story() {
         <img src={landscape} alt="Landscape" />
         <div className="bg-beige p-5">
           <Link to="/challenge/1">
-            <Button>Challenge 1</Button>
+            <UniteButton title="Challenge 1" />
           </Link>
           <Link to="/challenge/2">
-            <Button>Challenge 2</Button>
+            <UniteButton title="Challenge 2" />
           </Link>
-          <Button variant="secondary" onClick={googleLogin}>
-            Google Login
-          </Button>
-          <Button variant="secondary" onClick={facebookLogin}>
-            Facebook Login
-          </Button>
+          <UniteButton title="Google Login" onClick={googleLogin} />
+          <UniteButton title="Facebook Login" onClick={facebookLogin} />
         </div>
       </div>
     </>

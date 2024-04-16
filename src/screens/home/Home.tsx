@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button';
+import { UniteButton } from '@/components/ui/button';
 import { AuthenticationContext } from '@/shared/authentication/AuthenticationProvider';
 import { LoaderContext } from '@/shared/loader/LoaderProvider';
 import { useContext, useEffect } from 'react';
@@ -31,17 +31,20 @@ function Home() {
         <img className="p-5" src={logo} alt="Logo" />
       </div>
       <div className="bg-light-blue">
-        <div className="text-dark-green font-pt-serif text-4xl p-10 font-bold text-left">
-          A nossa história
+        <div className="p-10">
+          <div className="text-dark-green font-pt-serif text-4xl pb-10 font-bold text-left">
+            A nossa história
+          </div>
+          <div className="text-black font-roboto text-lg font-medium pb-10 text-left">
+            Decidimos contar um pouco de nossa trajetória até aqui de uma maneira diferente!
+            Convidamos cada um de vocês para participar de uma sequência de desafios preparados
+            exclusivamente para o nosso casamento. Clique no botão abaixo e comece agora mesmo!
+          </div>
+          <Link to="/story">
+            <UniteButton title="Iniciar aventura" buttonVariant="adventure" />
+          </Link>
         </div>
-        <div className="text-black font-roboto text-lg font-medium p-10 text-left">
-          Decidimos contar um pouco de nossa trajetória até aqui de uma maneira diferente!
-          Convidamos cada um de vocês para participar de uma sequência de desafios preparados
-          exclusivamente para o nosso casamento. Clique no botão abaixo e comece agora mesmo!
-        </div>
-        <Link to="/story">
-          <Button>Iniciar aventura</Button>
-        </Link>
+
         <img src={landscape} alt="Landscape" />
       </div>
       <div className="bg-light-beige">
@@ -55,7 +58,7 @@ function Home() {
           abaixo:
         </div>
         <Link to="/story">
-          <Button>Acessar lista de presentes</Button>
+          <UniteButton title="Acessar lista de presentes" />
         </Link>
         <img src={gift} alt="Gifts" />
       </div>

@@ -41,7 +41,8 @@ function LogoQuizChallenge() {
         Footer={
           <FixedButton
             title={`Finalizar ${correctAnswers.length}/${questions.length}`}
-            variant="white"
+            background="bg-black"
+            buttonVariant="black"
             onClick={console.log}
             disabled={correctAnswers.length !== questions.length}
           />
@@ -63,6 +64,7 @@ function LogoQuizChallenge() {
             {questions.map(({ question }, index) => {
               return (
                 <ListItem
+                  key={question}
                   title={question}
                   onClick={() => onOpenQuestion(index)}
                   checked={correctAnswers.includes(index)}

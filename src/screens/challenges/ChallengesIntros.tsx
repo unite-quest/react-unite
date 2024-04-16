@@ -68,7 +68,15 @@ function Challenges() {
       <UniteScreen
         background="cool-green"
         Header={<Header title={intro.period} variant="intro" style={intro.background} />}
-        Footer={<FixedButton title="Começar desafio" variant="black" onClick={submit} />}
+        Footer={
+          <FixedButton
+            title="Começar desafio"
+            background="bg-black"
+            buttonVariant="black"
+            onClick={submit}
+            withArrow
+          />
+        }
       >
         <div className="text-left">
           <span className="font-pt-serif font-bold text-5xl block pb-6">{intro.title}</span>

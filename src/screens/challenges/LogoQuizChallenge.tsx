@@ -79,7 +79,8 @@ function LogoQuizChallenge() {
         Footer={
           <FixedButton
             title={`Finalizar ${answers}/${logos.length}`}
-            variant="white"
+            background="bg-white"
+            buttonVariant="cool-green"
             onClick={console.log}
             disabled={answers !== logos.length}
           />
