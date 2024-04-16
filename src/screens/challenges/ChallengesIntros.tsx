@@ -4,6 +4,7 @@ import { Header } from '@/components/ui/header';
 import { LoaderContext } from '@/shared/loader/LoaderProvider';
 import { useContext, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import LogoQuizIntroImage from '../../assets/challenges-intro/IMG_3706_square.webp';
 
 type IntroMetadata = {
   title: string;
@@ -15,12 +16,12 @@ type IntroMetadata = {
 
 const intros: Record<string, IntroMetadata> = {
   '1': {
-    title: 'Logo Quiz',
+    title: 'Como tudo começou',
     period: '2012-2014',
     description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum id euismod odio. Donec varius iaculis est, nec varius justo fringilla vitae. Nam elementum, tellus a luctus pulvinar, risus erat sodales eros, non euismod augue metus vel quam.',
+      'Desde o começo do nosso relacionamento jogos sempre fizeram uma parte bem grande de nossas vidas. Ajude a nos aproximar descobrindo o nome dos jogos que vamos gostar!',
     background: '',
-    image: 'https://placehold.co/250x250',
+    image: LogoQuizIntroImage,
   },
   '2': {
     title: 'Logo Quiz',
@@ -81,7 +82,7 @@ function Challenges() {
         <div className="text-left">
           <span className="font-pt-serif font-bold text-5xl block pb-6">{intro.title}</span>
           <span className="font-roboto text-lg block">{intro.description}</span>
-          <div className="flex justify-center pt-10">
+          <div className="flex justify-center pt-10  p-10">
             <img className="rotate-[4deg] border-8 border-white" src={intro.image} />
           </div>
         </div>
