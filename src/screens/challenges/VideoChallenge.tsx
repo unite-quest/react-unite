@@ -2,7 +2,8 @@ import { UniteScreen } from '@/components/shell/screen';
 import { FixedButton } from '@/components/ui/fixed-button';
 import { Header } from '@/components/ui/header';
 import { ListItem } from '@/components/ui/list-item';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const questions: { question: string }[] = [
   {
@@ -26,11 +27,28 @@ const questions: { question: string }[] = [
 ];
 
 function LogoQuizChallenge() {
+  const navigate = useNavigate();
+
   // [0] means the first question has a correct answer
-  const [correctAnswers] = useState<Array<number>>([1]);
+  const [correctAnswers, setCorrectAnswers] = useState<Array<number>>([]);
+
+  useEffect(() => {
+    const fn = async () => {
+      // get api data
+      console.log('add refetch logic to prefill answers');
+      setCorrectAnswers([1]);
+    };
+    fn();
+    // anytime navigating?
+  }, []);
 
   const onOpenQuestion = (index: number) => {
     console.log('TODO video question', index);
+    navigate('./details', {
+      state: {
+        questionId: index,
+      },
+    });
   };
 
   return (
@@ -40,9 +58,9 @@ function LogoQuizChallenge() {
         Header={<Header title="Video Quiz" variant="intro" style="bg-beige" />}
         Footer={
           <FixedButton
-            title={`Finalizar ${correctAnswers.length}/${questions.length}`}
-            background="bg-black"
-            buttonVariant="black"
+            title={`Finalizar (${correctAnswers.length}/${questions.length})`}
+            background="bg-white"
+            buttonVariant="cool-green"
             onClick={console.log}
             disabled={correctAnswers.length !== questions.length}
           />
@@ -77,17 +95,5 @@ function LogoQuizChallenge() {
     </>
   );
 }
-/*
-.item {
-   margin-top: 10px;
-   border-top: 1px solid black;
-   padding-top: 10px;
-}
-
-.item:first-child {
-   margin-top: 0;
-   border-top: none;
-   padding-top: 0;
-}*/
 
 export default LogoQuizChallenge;

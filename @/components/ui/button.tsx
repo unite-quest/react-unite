@@ -9,7 +9,7 @@ const UniteButton: React.FC<{
     'w-full border-2 rounded-2xl p-3 pl-4 pr-4 text-left flex justify-between font-roboto font-medium items-center';
 
   const buttonColorMap: Record<typeof buttonVariant, string> = {
-    'cool-green': 'bg-beige border-white text-white',
+    'cool-green': 'bg-dark-green border-white text-white', // pending designs
     'black': 'bg-black border-white text-white',
     'adventure': 'bg-[#B1B1FF] border-black text-black',
   };
