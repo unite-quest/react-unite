@@ -13,7 +13,7 @@ function ChallengesDetails() {
     }, 400);
   }, [setLoading]);
 
-  const LogoQuizChallengeDetails = React.lazy(() => import('./LogoQuizChallengeDetails'));
+  const LogoQuizChallengeDetails = React.lazy(() => import('./details/LogoQuizChallengeDetails'));
   const LogicGatesChallenge = React.lazy(() => import('./LogicGatesChallenge'));
   const VideoChallengeDetails = React.lazy(() => import('./details/VideoChallengeDetails'));
 

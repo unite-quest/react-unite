@@ -90,7 +90,7 @@ function LogoQuizChallenge() {
     <>
       <UniteScreen
         background="cool-green"
-        Header={<Header title="Logo Quiz" variant="intro" style="bg-cool-green" />}
+        Header={<Header title="Logo Quiz" variant="details" style="bg-cool-green" />}
         Footer={
           <FixedButton
             title={`Finalizar ${answers}/${logos.length}`}

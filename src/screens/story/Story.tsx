@@ -53,10 +53,10 @@ function Story() {
       <div className="absolute inset-x-0 bottom-0">
         <img src={landscape} alt="Landscape" />
         <div className="bg-beige p-5">
-          <Link to="/challenge/1">
+          <Link to="/challenge/1/home">
             <UniteButton title="Challenge 1" />
           </Link>
-          <Link to="/challenge/2">
+          <Link to="/challenge/2/home">
             <UniteButton title="Challenge 2" />
           </Link>
           <UniteButton title="Google Login" onClick={googleLogin} />

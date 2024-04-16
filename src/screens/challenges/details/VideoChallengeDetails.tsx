@@ -51,7 +51,7 @@ function VideoChallengeDetails() {
   const [answer, setAnswer] = useState<string>('');
 
   const submitAnswer = () => {
-    navigate(`../challenge/${challengeId}/challenge`, {
+    navigate(`../challenge/${challengeId}`, {
       relative: 'route',
     });
   };
@@ -66,7 +66,7 @@ function VideoChallengeDetails() {
     <>
       <UniteScreen
         background="beige"
-        Header={<Header title="Video Quiz" variant="intro" style="bg-beige" />}
+        Header={<Header title="Video Quiz" variant="details" style="bg-beige" />}
         Footer={
           <FixedButton
             title={`Submeter palpite`}

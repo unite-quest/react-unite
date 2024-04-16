@@ -55,7 +55,8 @@ function Challenges() {
   }, [setLoading]);
 
   const submit = () => {
-    navigate('./challenge', {
+    navigate('..', {
+      relative: 'path',
       state: {},
     });
   };

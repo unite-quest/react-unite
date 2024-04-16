@@ -25,15 +25,15 @@ const router = createBrowserRouter([
         element: <Story />,
       },
       {
-        path: 'challenge/:challengeId',
+        path: 'challenge/:challengeId/home',
         element: <ChallengesIntros />,
       },
       {
-        path: 'challenge/:challengeId/challenge',
+        path: 'challenge/:challengeId',
         element: <Challenges />,
       },
       {
-        path: 'challenge/:challengeId/challenge/:detailId',
+        path: 'challenge/:challengeId/details',
         element: <ChallengesDetails />,
       },
     ],
