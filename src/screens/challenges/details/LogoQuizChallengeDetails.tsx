@@ -2,6 +2,7 @@ import { ChallengeFooter } from '@/components/shell/ChallengeFooter';
 import { ChallengeScreen } from '@/components/shell/ChallengeScreen';
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import lamp from '../../../assets/lamp.png';
 import logo1 from '../../../assets/logos/non-descriptive-image-1.png';
 import logo10 from '../../../assets/logos/non-descriptive-image-10.png';
 import logo11 from '../../../assets/logos/non-descriptive-image-11.png';
@@ -101,17 +102,17 @@ function LogoQuizChallenge() {
             <span>Qual o nome desse jogo?</span>
           </div>
           <div className="pb-10">
-            <div className="border-4 border-dark-green rounded-lg pb-15 bg-white relative aspect-square">
-              <img
-                className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2"
-                src={logo.image}
-              />
+            <div className="border-4 border-dark-green rounded-lg p-10 bg-white aspect-square">
+              <img className="w-full h-full" src={logo.image} />
             </div>
           </div>
           <input
             className="relative border-2 border-dark-green w-full h-11 rounded-lg"
             onChange={e => setAnswer(e.target.value)}
           />
+          <div>
+            <img src={lamp} />
+          </div>
         </div>
       </ChallengeScreen>
     </>
