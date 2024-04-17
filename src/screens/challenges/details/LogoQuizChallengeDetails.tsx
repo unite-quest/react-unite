@@ -1,6 +1,5 @@
-import { UniteScreen } from '@/components/shell/screen';
-import { FixedButton } from '@/components/ui/fixed-button';
-import { Header } from '@/components/ui/header';
+import { ChallengeFooter } from '@/components/shell/ChallengeFooter';
+import { ChallengeScreen } from '@/components/shell/ChallengeScreen';
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import logo1 from '../../../assets/logos/non-descriptive-image-1.png';
@@ -9,7 +8,7 @@ import logo11 from '../../../assets/logos/non-descriptive-image-11.png';
 import logo12 from '../../../assets/logos/non-descriptive-image-12.png';
 import logo13 from '../../../assets/logos/non-descriptive-image-13.webp';
 import logo14 from '../../../assets/logos/non-descriptive-image-14.png';
-import logo15 from '../../../assets/logos/non-descriptive-image-15.png';
+import logo15 from '../../../assets/logos/non-descriptive-image-15.webp';
 import logo2 from '../../../assets/logos/non-descriptive-image-2.png';
 import logo3 from '../../../assets/logos/non-descriptive-image-3.png';
 import logo4 from '../../../assets/logos/non-descriptive-image-4.webp';
@@ -94,18 +93,8 @@ function LogoQuizChallenge() {
 
   return (
     <>
-      <UniteScreen
-        background="cool-green"
-        Header={<Header title="Logo Quiz" variant="details" style="bg-cool-green" />}
-        Footer={
-          <FixedButton
-            title="Submeter palpite"
-            background="bg-white"
-            buttonVariant="cool-green"
-            onClick={submit}
-            disabled={!answer}
-          />
-        }
+      <ChallengeScreen
+        Footer={<ChallengeFooter title="Submeter palpite" onClick={submit} disabled={!answer} />}
       >
         <div>
           <div className="pt-6 pb-6 text-left">
@@ -124,7 +113,7 @@ function LogoQuizChallenge() {
             onChange={e => setAnswer(e.target.value)}
           />
         </div>
-      </UniteScreen>
+      </ChallengeScreen>
     </>
   );
 }

@@ -18,7 +18,8 @@ export const AuthenticationProvider: React.FC<PropsWithChildren> = ({ children }
   useEffect(() => {
     const t = async () => {
       // need workaround to unsubscribe
-      (await getAuth()).auth?.onAuthStateChanged(firebaseUser => {
+      const auth = await (await getAuth()).authenticationService.initializeAuth();
+      auth.onAuthStateChanged(firebaseUser => {
         if (!firebaseUser) {
           setUser(null);
           return;

@@ -1,11 +1,11 @@
 import { LoaderContext } from '@/shared/loader/LoaderProvider';
+import { ChallengeIdentifier } from '@/shared/utils/ChallengeIdentifiers';
 import React, { Suspense, useContext, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useCurrentChallenge } from '../../hooks/useCurrentChallenge';
 
 function ChallengesDetails() {
-  const { challengeId: unsanitizedChallengeId } = useParams();
-  const challengeId = unsanitizedChallengeId || '1';
   const { setLoading } = useContext(LoaderContext);
+  const { id: challengeId } = useCurrentChallenge();
 
   useEffect(() => {
     setTimeout(() => {
@@ -17,10 +17,28 @@ function ChallengesDetails() {
   const LogicGatesChallenge = React.lazy(() => import('./LogicGatesChallenge'));
   const VideoChallengeDetails = React.lazy(() => import('./details/VideoChallengeDetails'));
 
-  const Challenges: Record<string, { component: JSX.Element }> = {
-    '1': { component: <LogoQuizChallengeDetails /> },
-    '2': { component: <LogicGatesChallenge /> },
-    '3': { component: <VideoChallengeDetails /> },
+  const Challenges: Record<ChallengeIdentifier, { component: JSX.Element }> = {
+    [ChallengeIdentifier.One_LogoQuiz]: {
+      component: <LogoQuizChallengeDetails />,
+    },
+    [ChallengeIdentifier.Two_LogicGates]: {
+      component: <LogicGatesChallenge />,
+    },
+    [ChallengeIdentifier.Three_Video]: {
+      component: <VideoChallengeDetails />,
+    },
+    [ChallengeIdentifier.Four_DogCuisine]: {
+      component: <VideoChallengeDetails />,
+    },
+    [ChallengeIdentifier.Five_Labyrinth]: {
+      component: <VideoChallengeDetails />,
+    },
+    [ChallengeIdentifier.Six_ApartmentTinder]: {
+      component: <VideoChallengeDetails />,
+    },
+    [ChallengeIdentifier.Seven_SimonSays]: {
+      component: <VideoChallengeDetails />,
+    },
   };
 
   return (

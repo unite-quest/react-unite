@@ -1,6 +1,8 @@
+export type UniteButtonVariants = 'cool-green' | 'black' | 'adventure';
+
 const UniteButton: React.FC<{
   title: string;
-  buttonVariant?: 'cool-green' | 'black' | 'adventure';
+  buttonVariant?: UniteButtonVariants;
   onClick?: () => void;
   disabled?: boolean;
   icon?: JSX.Element;

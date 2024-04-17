@@ -7,7 +7,8 @@ export const Header: React.FC<{
   onFlagClick?: () => void;
   variant: 'intro' | 'home' | 'details';
 }> = ({ title, variant, style, onUserClick, onFlagClick }) => {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
+
   return (
     <header className={style}>
       {variant === 'intro' ? (

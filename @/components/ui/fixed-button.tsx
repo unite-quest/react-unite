@@ -1,10 +1,10 @@
 import arrow from '../../../src/assets/arrow.svg';
-import { UniteButton } from './button';
+import { UniteButton, UniteButtonVariants } from './button';
 
 const FixedButton: React.FC<{
   title: string;
   background: string;
-  buttonVariant: 'cool-green' | 'black';
+  buttonVariant: UniteButtonVariants;
   onClick: () => void;
   disabled?: boolean;
   withArrow?: boolean;

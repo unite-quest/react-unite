@@ -1,14 +1,13 @@
 import { UniteButton } from '@/components/ui/button';
-import { AuthenticationContext } from '@/shared/authentication/AuthenticationProvider';
 import { LoaderContext } from '@/shared/loader/LoaderProvider';
 import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import gift from '../../assets/gift.svg';
 import landscape from '../../assets/pixelArt_landscape.svg';
+import sword from '../../assets/sword.png';
 import logo from '../../assets/wedding-main.png';
 
 function Home() {
-  const { user } = useContext(AuthenticationContext);
   const { setLoading } = useContext(LoaderContext);
 
   useEffect(() => {
@@ -19,7 +18,6 @@ function Home() {
 
   return (
     <>
-      <span>User is {user?.email || ''}</span>
       <div className="bg-blue items-center justify-center p-10">
         <div className="text-beige font-sacramento text-5xl font-normal pb-10">Mimi & Gabriel</div>
         <div className="text-black font-roboto text-lg font-medium">25 de agosto de 2024 | 16h</div>
@@ -41,25 +39,32 @@ function Home() {
             exclusivamente para o nosso casamento. Clique no botão abaixo e comece agora mesmo!
           </div>
           <Link to="/story">
-            <UniteButton title="Iniciar aventura" buttonVariant="adventure" />
+            <UniteButton
+              title="Iniciar aventura"
+              buttonVariant="adventure"
+              icon={<img width={21} height={21} src={sword} alt="sword" />}
+            />
           </Link>
         </div>
 
         <img src={landscape} alt="Landscape" />
       </div>
       <div className="bg-light-beige">
-        <div className="text-dark-green font-pt-serif text-4xl p-10 font-bold text-left">
-          Lista de presentes
+        <div className="p-10">
+          <div className="text-dark-green font-pt-serif text-4xl font-bold text-left pb-10">
+            Lista de presentes
+          </div>
+          <div className="text-black font-roboto text-lg font-medium text-left pb-10">
+            Como forma de receber auxílio em nossa nova fase, sugerimos algumas opções de presentes
+            que serão revertidos em dinheiro para nós. Dessa maneira, receberemos uma quantia de
+            cada um que nos gratificar que representará alguma das opções que estão listadas no link
+            abaixo:
+          </div>
+          <Link to="/story">
+            <UniteButton title="Acessar lista de presentes" />
+          </Link>
         </div>
-        <div className="text-black font-roboto text-lg font-medium p-10 text-left">
-          Como forma de receber auxílio em nossa nova fase, sugerimos algumas opções de presentes
-          que serão revertidos em dinheiro para nós. Dessa maneira, receberemos uma quantia de cada
-          um que nos gratificar que representará alguma das opções que estão listadas no link
-          abaixo:
-        </div>
-        <Link to="/story">
-          <UniteButton title="Acessar lista de presentes" />
-        </Link>
+
         <img src={gift} alt="Gifts" />
       </div>
     </>

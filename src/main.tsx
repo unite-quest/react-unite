@@ -6,7 +6,7 @@ import ErrorPage from './ErrorPage.tsx';
 import './index.css';
 import Challenges from './screens/challenges/Challenges.tsx';
 import ChallengesDetails from './screens/challenges/ChallengesDetails.tsx';
-import ChallengesIntros from './screens/challenges/ChallengesIntros.tsx';
+import ChallengeLanding from './screens/challenges/ChallengesLanding.tsx';
 import Home from './screens/home/Home.tsx';
 import Story from './screens/story/Story.tsx';
 
@@ -25,8 +25,8 @@ const router = createBrowserRouter([
         element: <Story />,
       },
       {
-        path: 'challenge/:challengeId/home',
-        element: <ChallengesIntros />,
+        path: 'challenge/:challengeId/landing',
+        element: <ChallengeLanding />,
       },
       {
         path: 'challenge/:challengeId',

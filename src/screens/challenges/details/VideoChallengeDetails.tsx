@@ -1,6 +1,5 @@
-import { UniteScreen } from '@/components/shell/screen';
-import { FixedButton } from '@/components/ui/fixed-button';
-import { Header } from '@/components/ui/header';
+import { ChallengeFooter } from '@/components/shell/ChallengeFooter';
+import { ChallengeScreen } from '@/components/shell/ChallengeScreen';
 import { UniteRadio } from '@/components/ui/radio';
 import { useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
@@ -64,17 +63,9 @@ function VideoChallengeDetails() {
 
   return (
     <>
-      <UniteScreen
-        background="beige"
-        Header={<Header title="Video Quiz" variant="details" style="bg-beige" />}
+      <ChallengeScreen
         Footer={
-          <FixedButton
-            title={`Submeter palpite`}
-            background="bg-black"
-            buttonVariant="black"
-            onClick={submitAnswer}
-            disabled={!answer}
-          />
+          <ChallengeFooter title="Submeter palpite" onClick={submitAnswer} disabled={!answer} />
         }
       >
         <div>
@@ -92,7 +83,7 @@ function VideoChallengeDetails() {
             />
           </div>
         </div>
-      </UniteScreen>
+      </ChallengeScreen>
     </>
   );
 }

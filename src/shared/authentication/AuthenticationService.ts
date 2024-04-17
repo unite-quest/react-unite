@@ -4,7 +4,7 @@ import { Auth } from 'firebase/auth';
 import { firebaseApp } from '../firebase/FirebaseService';
 
 let auth: Auth | null = null;
-const getFirebaseAuthInstance = async () => {
+export const getFirebaseAuthInstance: () => Promise<Auth> = async () => {
   if (auth) {
     return auth;
   }
@@ -38,8 +38,9 @@ const anonymousLogin = async () => {
 };
 
 const authenticationService = {
+  initializeAuth: getFirebaseAuthInstance,
   login,
   anonymousLogin,
 };
 
-export { auth, authenticationService };
+export { authenticationService };

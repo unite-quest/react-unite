@@ -1,6 +1,5 @@
-import { UniteScreen } from '@/components/shell/screen';
-import { FixedButton } from '@/components/ui/fixed-button';
-import { Header } from '@/components/ui/header';
+import { ChallengeFooter } from '@/components/shell/ChallengeFooter';
+import { ChallengeScreen } from '@/components/shell/ChallengeScreen';
 import { ListItem } from '@/components/ui/list-item';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -53,14 +52,10 @@ function LogoQuizChallenge() {
 
   return (
     <>
-      <UniteScreen
-        background="beige"
-        Header={<Header title="Video Quiz" variant="intro" style="bg-beige" />}
+      <ChallengeScreen
         Footer={
-          <FixedButton
+          <ChallengeFooter
             title={`Finalizar (${correctAnswers.length}/${questions.length})`}
-            background="bg-white"
-            buttonVariant="cool-green"
             onClick={console.log}
             disabled={correctAnswers.length !== questions.length}
           />
@@ -91,7 +86,7 @@ function LogoQuizChallenge() {
             })}
           </div>
         </div>
-      </UniteScreen>
+      </ChallengeScreen>
     </>
   );
 }
