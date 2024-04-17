@@ -5,6 +5,7 @@ import { LoaderContext } from '@/shared/loader/LoaderProvider';
 import { useContext, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import LogoQuizIntroImage from '../../assets/challenges-intro/IMG_3706_square.webp';
+import VideoQuizIntroImage from '../../assets/challenges-intro/work.png';
 
 type IntroMetadata = {
   title: string;
@@ -37,7 +38,7 @@ const intros: Record<string, IntroMetadata> = {
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum id euismod odio. Donec varius iaculis est, nec varius justo fringilla vitae. Nam elementum, tellus a luctus pulvinar, risus erat sodales eros, non euismod augue metus vel quam.',
     background: 'bg-cool-green',
-    image: 'https://placehold.co/250x250',
+    image: VideoQuizIntroImage,
   },
 };
 

@@ -3,6 +3,7 @@ import { FixedButton } from '@/components/ui/fixed-button';
 import { Header } from '@/components/ui/header';
 import { LogoQuizTile } from '@/components/ui/tile';
 import { useState } from 'react';
+import { createSearchParams, useNavigate } from 'react-router-dom';
 import logo1 from '../../assets/logos/non-descriptive-image-1.png';
 import logo10 from '../../assets/logos/non-descriptive-image-10.png';
 import logo11 from '../../assets/logos/non-descriptive-image-11.png';
@@ -23,7 +24,6 @@ const logos: { image: string; onClick: () => Promise<void>; variant?: 'done' | '
   {
     image: logo1,
     onClick: async () => {},
-    variant: 'done',
   },
   {
     image: logo2,
@@ -84,30 +84,48 @@ const logos: { image: string; onClick: () => Promise<void>; variant?: 'done' | '
 ];
 
 function LogoQuizChallenge() {
-  const [answers] = useState(0);
+  const [answers] = useState<Array<'todo' | 'done'>>(Array(15).fill('todo'));
+  const navigate = useNavigate();
+
+  const goToLogoDetailedScreen = (index: number) => {
+    navigate({
+      pathname: 'details',
+      search: createSearchParams({
+        id: String(index),
+      }).toString(),
+    });
+  };
 
   return (
     <>
       <UniteScreen
         background="cool-green"
-        Header={<Header title="Logo Quiz" variant="intro" style="bg-cool-green" />}
+        Header={<Header title="Logo Quiz" variant="details" style="bg-cool-green" />}
         Footer={
           <FixedButton
-            title={`Finalizar ${answers}/${logos.length}`}
+            title={`Finalizar ${answers.filter(value => value === 'done')}/${logos.length}`}
             background="bg-white"
             buttonVariant="cool-green"
             onClick={console.log}
-            disabled={answers !== logos.length}
+            disabled={answers.filter(value => value === 'done').length !== logos.length}
           />
         }
       >
         <div>
           <div className="pt-6 pb-6 text-left">
-            <span>Você deve selecionar cada um dos itens abaixo e acertar a respectiva marca.</span>
+            <span>Selecione cada um dos jogos abaixo e descubra o nome.</span>
           </div>
           <div className="grid grid-cols-3 gap-4">
-            {logos.map(i => {
-              return <LogoQuizTile onClick={i.onClick} image={i.image} variant={i.variant} />;
+            {logos.map((logo, index) => {
+              return (
+                <LogoQuizTile
+                  onClick={() => {
+                    goToLogoDetailedScreen(index);
+                  }}
+                  image={logo.image}
+                  variant={answers[index]}
+                />
+              );
             })}
           </div>
         </div>
