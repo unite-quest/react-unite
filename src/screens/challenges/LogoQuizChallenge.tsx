@@ -1,8 +1,10 @@
 import { ChallengeFooter } from '@/components/shell/ChallengeFooter';
 import { ChallengeScreen } from '@/components/shell/ChallengeScreen';
 import { LogoQuizTile } from '@/components/ui/tile';
-import { useState } from 'react';
+import { LoaderContext } from '@/shared/loader/LoaderProvider';
+import { useContext, useEffect, useState } from 'react';
 import { createSearchParams, useNavigate } from 'react-router-dom';
+import useLoadAnswerForCurrentChallenge from 'src/hooks/useLoadAnswerForCurrentChallenge';
 import logo1 from '../../assets/logos/non-descriptive-image-1.png';
 import logo10 from '../../assets/logos/non-descriptive-image-10.png';
 import logo11 from '../../assets/logos/non-descriptive-image-11.png';
@@ -68,8 +70,10 @@ const logos: { image: string }[] = [
 ];
 
 function LogoQuizChallenge() {
+  const { setLoading } = useContext(LoaderContext);
   const [answers] = useState<Array<'todo' | 'done'>>(Array(15).fill('todo'));
   const navigate = useNavigate();
+  const answer = useLoadAnswerForCurrentChallenge();
 
   const goToLogoDetailedScreen = (index: number) => {
     navigate({
@@ -79,6 +83,14 @@ function LogoQuizChallenge() {
       }).toString(),
     });
   };
+
+  useEffect(() => {
+    if (answer === undefined) {
+      return;
+    }
+
+    setLoading(false);
+  }, [setLoading, answer]);
 
   return (
     <>

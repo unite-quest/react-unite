@@ -22,15 +22,8 @@ const completeChallenge = async (userId: string, challengeId: string, nextChalle
   });
 };
 
-const getAnswersForQuestion = async (
-  challengeId: string,
-  questionId: string,
-): Promise<AnswersModel | null> => {
-  const q = query(
-    collection(db, 'answers'),
-    where('challengeId', '==', challengeId),
-    where('questionId', '==', questionId),
-  );
+const getAnswersForQuestion = async (challengeId: string): Promise<AnswersModel | null> => {
+  const q = query(collection(db, 'answers'), where('challengeId', '==', challengeId));
 
   const querySnapshot = await getDocs(q);
   if (querySnapshot.empty) {
