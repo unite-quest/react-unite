@@ -1,7 +1,9 @@
 import { ChallengeFooter } from '@/components/shell/ChallengeFooter';
 import { ChallengeScreen } from '@/components/shell/ChallengeScreen';
+import { useAnswers } from '@/shared/database/useAnswers';
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { useCurrentChallenge } from 'src/hooks/useCurrentChallenge';
 import lamp from '../../../assets/lamp.png';
 import logo1 from '../../../assets/logos/non-descriptive-image-1.png';
 import logo10 from '../../../assets/logos/non-descriptive-image-10.png';
@@ -85,11 +87,19 @@ const logos: { image: string; onClick: () => Promise<void>; variant?: 'done' | '
 function LogoQuizChallenge() {
   const [answer, setAnswer] = useState<string>('');
   const [params] = useSearchParams();
+  const { id } = useCurrentChallenge();
   const questionId = Number(params.get('id') || 0);
   const logo = logos[questionId];
 
-  const submit = () => {
-    alert(`Submitted ${answer}`);
+  const { getAnswersForQuestion } = useAnswers();
+
+  const submit = async () => {
+    const valid = await getAnswersForQuestion({ challengeId: id, questionId }, answer);
+    if (valid) {
+      alert('Acertou!');
+    } else {
+      alert('Errou!');
+    }
   };
 
   return (

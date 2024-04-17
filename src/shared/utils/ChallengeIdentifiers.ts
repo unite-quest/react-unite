@@ -38,3 +38,24 @@ export function fromRouteToChallengeIdentifier(value?: string): ChallengeIdentif
       return ChallengeIdentifier.One_LogoQuiz;
   }
 }
+
+export function fromChallengeIdentifierToDBKey(id: ChallengeIdentifier): string {
+  switch (id) {
+    case ChallengeIdentifier.One_LogoQuiz:
+      return ChallengeRouteIdentifier.One_LogoQuiz;
+    case ChallengeIdentifier.Two_LogicGates:
+      return ChallengeRouteIdentifier.Two_LogicGates;
+    case ChallengeIdentifier.Three_Video:
+      return ChallengeRouteIdentifier.Three_Video;
+    case ChallengeIdentifier.Four_DogCuisine:
+      return ChallengeRouteIdentifier.Four_DogCuisine;
+    case ChallengeIdentifier.Five_Labyrinth:
+      return ChallengeRouteIdentifier.Five_Labyrinth;
+    case ChallengeIdentifier.Six_ApartmentTinder:
+      return ChallengeRouteIdentifier.Six_ApartmentTinder;
+    case ChallengeIdentifier.Seven_SimonSays:
+      return ChallengeRouteIdentifier.Seven_SimonSays;
+    default:
+      return ChallengeRouteIdentifier.One_LogoQuiz;
+  }
+}
