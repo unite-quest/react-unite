@@ -1,54 +1,27 @@
 import { AnswersModel } from '@/models/AnswersModel';
 import React, { PropsWithChildren, createContext, useEffect, useState } from 'react';
-import { ChallengeIdentifier } from '../utils/ChallengeIdentifiers';
-import { useAnswers } from './useAnswers';
 
 export interface AnswerManagerContextInput {
-  fetchAnswers: (challengeId: ChallengeIdentifier) => Promise<AnswersModel | null>;
+  answers: AnswersModel | null | undefined;
 }
 
 const defaultState: AnswerManagerContextInput = {
-  fetchAnswers: () => Promise.resolve(null),
+  answers: undefined,
 };
 
 export const AnswerManagerContext = createContext<AnswerManagerContextInput>(defaultState);
 export const AnswerManagerProvider: React.FC<PropsWithChildren> = ({ children }) => {
-  const [answerMap, setAnswersMap] = useState<
-    Partial<Record<ChallengeIdentifier, AnswersModel | null>> | undefined
-  >(undefined);
-  const { getAnswersForQuestion } = useAnswers();
-
-  // fetch if not on cache
-  const fetchAnswers = async (challengeId: ChallengeIdentifier): Promise<AnswersModel | null> => {
-    if (answerMap && answerMap[challengeId]) {
-      // should be impossible for this to return null (famous last words)
-      return answerMap[challengeId] || null;
-    }
-
-    const dbAnswers = await getAnswersForQuestion(challengeId);
-    setAnswersMap(previousAnswer => {
-      if (!previousAnswer) {
-        return {
-          [challengeId]: dbAnswers,
-        };
-      }
-
-      return {
-        ...previousAnswer,
-        [challengeId]: dbAnswers,
-      };
-    });
-
-    return dbAnswers;
-  };
+  const [answers, setAnswers] = useState<AnswersModel | undefined>(undefined);
 
   useEffect(() => {
-    console.log('update answerMap', answerMap);
-  }, [answerMap]);
+    const grabSecretsOnce = async () => {
+      const secrets = new AnswersModel(process.env.REACT_APP_SECRET);
+      setAnswers(secrets || undefined);
+    };
+    grabSecretsOnce();
+  }, []);
 
   return (
-    <AnswerManagerContext.Provider value={{ fetchAnswers }}>
-      {children}
-    </AnswerManagerContext.Provider>
+    <AnswerManagerContext.Provider value={{ answers }}>{children}</AnswerManagerContext.Provider>
   );
 };

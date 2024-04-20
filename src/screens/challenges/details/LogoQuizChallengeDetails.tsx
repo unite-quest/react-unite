@@ -1,9 +1,10 @@
 import { ChallengeFooter } from '@/components/shell/ChallengeFooter';
 import { ChallengeScreen } from '@/components/shell/ChallengeScreen';
 import { logoMap } from '@/shared/utils/logoMap';
-import { validateAnswer } from '@/shared/utils/validateAnswer';
+import { validateAndPersistAnswer } from '@/shared/utils/validateAnswer';
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { useCurrentChallenge } from 'src/hooks/useCurrentChallenge';
 import useLoadAnswerForCurrentChallenge from 'src/hooks/useLoadAnswerForCurrentChallenge';
 
 function LogoQuizChallenge() {
@@ -11,6 +12,7 @@ function LogoQuizChallenge() {
   const [params] = useSearchParams();
   const questionId = Number(params.get('id') || 0);
   const logo = logoMap[questionId];
+  const { id: challengeId } = useCurrentChallenge();
 
   const dbAnswers = useLoadAnswerForCurrentChallenge();
 
@@ -19,7 +21,12 @@ function LogoQuizChallenge() {
       return;
     }
 
-    const valid = await validateAnswer(dbAnswers, String(questionId), answer);
+    const { valid } = await validateAndPersistAnswer(
+      dbAnswers,
+      challengeId,
+      String(questionId + 1),
+      answer,
+    );
     if (valid) {
       alert('Acertou!');
     } else {

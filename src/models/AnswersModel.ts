@@ -1,32 +1,19 @@
-interface ArrayAnswers {
-  type: 'array';
-  challengeId: string;
-  data: string[];
-}
-interface StraightAnswer {
-  type: 'straight';
-  challengeId: string;
-  data: string;
-}
-
 export class AnswersModel {
-  answer: ArrayAnswers | StraightAnswer;
+  answers: string[];
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   constructor(data: any) {
-    if (!data || !data.type) {
-      throw new TypeError('Invalid data from collection');
+    if (!data) {
+      throw new TypeError('Invalid data from secret');
     }
 
-    if (data.type === 'array' && Array.isArray(data.answers)) {
-      this.answer = {
-        type: 'array',
-        challengeId: data.challengeId,
-        data: data.answers,
-      };
+    const open = atob(data);
+    const parsed = JSON.parse(open);
+    if (Array.isArray(parsed)) {
+      this.answers = parsed.filter(answer => !!answer).map(answer => String(answer));
       return;
     }
 
-    throw new TypeError('Unable to parse response');
+    throw new TypeError('Invalid data from secret');
   }
 }
