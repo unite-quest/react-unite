@@ -1,9 +1,9 @@
 import { LoaderContext } from '@/shared/loader/LoaderProvider';
 import { ChallengeIdentifier } from '@/shared/utils/ChallengeIdentifiers';
 import React, { Suspense, useContext, useEffect } from 'react';
-import { useCurrentChallenge } from '../../hooks/useCurrentChallenge';
+import { useCurrentChallenge } from 'src/hooks/useCurrentChallenge';
 
-function ChallengesDetails() {
+function Challenges() {
   const { setLoading } = useContext(LoaderContext);
   const { id: challengeId } = useCurrentChallenge();
 
@@ -13,31 +13,31 @@ function ChallengesDetails() {
     }, 400);
   }, [setLoading]);
 
-  const LogoQuizChallengeDetails = React.lazy(() => import('./details/LogoQuizChallengeDetails'));
-  const LogicGatesChallenge = React.lazy(() => import('./LogicGatesChallenge'));
-  const VideoChallengeDetails = React.lazy(() => import('./details/VideoChallengeDetails'));
+  const LogoQuizChallenge = React.lazy(() => import('../1/LogoQuizChallenge'));
+  const LogicGatesChallenge = React.lazy(() => import('../2/LogicGatesChallenge'));
+  const VideoChallenge = React.lazy(() => import('../3/VideoChallenge'));
 
   const Challenges: Record<ChallengeIdentifier, { component: JSX.Element }> = {
     [ChallengeIdentifier.One_LogoQuiz]: {
-      component: <LogoQuizChallengeDetails />,
+      component: <LogoQuizChallenge />,
     },
     [ChallengeIdentifier.Two_LogicGates]: {
       component: <LogicGatesChallenge />,
     },
     [ChallengeIdentifier.Three_Video]: {
-      component: <VideoChallengeDetails />,
+      component: <VideoChallenge />,
     },
     [ChallengeIdentifier.Four_DogCuisine]: {
-      component: <VideoChallengeDetails />,
+      component: <VideoChallenge />,
     },
     [ChallengeIdentifier.Five_Labyrinth]: {
-      component: <VideoChallengeDetails />,
+      component: <VideoChallenge />,
     },
     [ChallengeIdentifier.Six_ApartmentTinder]: {
-      component: <VideoChallengeDetails />,
+      component: <VideoChallenge />,
     },
     [ChallengeIdentifier.Seven_SimonSays]: {
-      component: <VideoChallengeDetails />,
+      component: <VideoChallenge />,
     },
   };
 
@@ -48,4 +48,4 @@ function ChallengesDetails() {
   );
 }
 
-export default ChallengesDetails;
+export default Challenges;

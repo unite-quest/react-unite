@@ -3,7 +3,7 @@ import { ChallengeScreen } from '@/components/shell/ChallengeScreen';
 import { LoaderContext } from '@/shared/loader/LoaderProvider';
 import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useCurrentChallenge } from '../../hooks/useCurrentChallenge';
+import { useCurrentChallenge } from '../../../hooks/useCurrentChallenge';
 
 function Challenges() {
   const { setLoading } = useContext(LoaderContext);

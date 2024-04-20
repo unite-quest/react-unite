@@ -4,9 +4,9 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App.tsx';
 import ErrorPage from './ErrorPage.tsx';
 import './index.css';
-import Challenges from './screens/challenges/Challenges.tsx';
-import ChallengesDetails from './screens/challenges/ChallengesDetails.tsx';
-import ChallengeLanding from './screens/challenges/ChallengesLanding.tsx';
+import Challenges from './screens/challenges/core/Challenges.tsx';
+import ChallengesDetails from './screens/challenges/core/ChallengesDetails.tsx';
+import ChallengeLanding from './screens/challenges/core/ChallengesLanding.tsx';
 import Home from './screens/home/Home.tsx';
 import Story from './screens/story/Story.tsx';
 
