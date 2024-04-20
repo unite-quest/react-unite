@@ -12,7 +12,7 @@ async function persistAnswerKey(key: string): Promise<void> {
   let updatedArray = [];
   if (answers) {
     const tentativeArray = JSON.parse(answers);
-    if (Array.isArray(tentativeArray)) {
+    if (Array.isArray(tentativeArray) && !tentativeArray.includes(key)) {
       tentativeArray.push(key);
       updatedArray = tentativeArray;
     }

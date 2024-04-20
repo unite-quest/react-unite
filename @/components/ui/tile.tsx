@@ -7,7 +7,7 @@ const LogoQuizTile: React.FC<{
 }> = ({ image, onClick, variant }) => {
   return (
     <div className="w-full aspect-square rounded-md place-center min-h-full">
-      <button className="relative" onClick={onClick}>
+      <button className="relative" onClick={onClick} disabled={variant === 'done'}>
         <img className="rounded-md" src={image} />
         {variant === 'done' ? (
           <>

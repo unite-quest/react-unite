@@ -4,8 +4,8 @@ import { logoMap } from '@/shared/utils/logoMap';
 import { validateAndPersistAnswer } from '@/shared/utils/validateAnswer';
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import useAllAnswers from 'src/hooks/useAllAnswers';
 import { useCurrentChallenge } from 'src/hooks/useCurrentChallenge';
-import useLoadAnswerForCurrentChallenge from 'src/hooks/useLoadAnswerForCurrentChallenge';
 
 function LogoQuizChallenge() {
   const [answer, setAnswer] = useState<string>('');
@@ -14,7 +14,7 @@ function LogoQuizChallenge() {
   const logo = logoMap[questionId];
   const { id: challengeId } = useCurrentChallenge();
 
-  const dbAnswers = useLoadAnswerForCurrentChallenge();
+  const dbAnswers = useAllAnswers();
 
   const submit = async () => {
     if (!dbAnswers) {

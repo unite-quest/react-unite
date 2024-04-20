@@ -5,13 +5,15 @@ import { LoaderContext } from '@/shared/loader/LoaderProvider';
 import { logoMap } from '@/shared/utils/logoMap';
 import { useContext, useEffect, useState } from 'react';
 import { createSearchParams, useNavigate } from 'react-router-dom';
-import useLoadAnswerForCurrentChallenge from 'src/hooks/useLoadAnswerForCurrentChallenge';
+import { useAnswerState } from 'src/hooks/useAnswerState';
+import { useCurrentChallenge } from 'src/hooks/useCurrentChallenge';
 
 function LogoQuizChallenge() {
   const { setLoading } = useContext(LoaderContext);
-  const [answers] = useState<Array<'todo' | 'done'>>(Array(15).fill('todo'));
+  const [answers, setAnswers] = useState<boolean[]>(Array(logoMap.length).fill(false));
   const navigate = useNavigate();
-  const answer = useLoadAnswerForCurrentChallenge();
+  const { id } = useCurrentChallenge();
+  const { answeredQuestionIds } = useAnswerState(id);
 
   const goToLogoDetailedScreen = (index: number) => {
     navigate({
@@ -23,21 +25,29 @@ function LogoQuizChallenge() {
   };
 
   useEffect(() => {
-    if (answer === undefined) {
+    if (answeredQuestionIds === undefined) {
       return;
     }
 
+    const updatedAnswers: boolean[] = logoMap.reduce<boolean[]>((acc, cur) => {
+      if (answeredQuestionIds.includes(cur.questionId)) {
+        return [...acc, true];
+      }
+      return [...acc, false];
+    }, []);
+    setAnswers(updatedAnswers);
+
     setLoading(false);
-  }, [setLoading, answer]);
+  }, [setLoading, answeredQuestionIds]);
 
   return (
     <>
       <ChallengeScreen
         Footer={
           <ChallengeFooter
-            title={`Finalizar ${answers.filter(value => value === 'done')}/${logoMap.length}`}
+            title={`Finalizar ${answers.filter(value => !!value)}/${logoMap.length}`}
             onClick={console.log}
-            disabled={answers.filter(value => value === 'done').length !== logoMap.length}
+            disabled={answers.filter(value => !value).length !== logoMap.length}
           />
         }
       >
@@ -54,7 +64,7 @@ function LogoQuizChallenge() {
                     goToLogoDetailedScreen(index);
                   }}
                   image={logo.image}
-                  variant={answers[index]}
+                  variant={answers[index] ? 'done' : 'todo'}
                 />
               );
             })}
