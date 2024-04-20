@@ -48,7 +48,7 @@ export const challengeMetadataMap: Record<ChallengeIdentifier, ChallengeMetadata
     title: 'Video Quiz',
     period: '2017-2019',
     description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum id euismod odio. Donec varius iaculis est, nec varius justo fringilla vitae. Nam elementum, tellus a luctus pulvinar, risus erat sodales eros, non euismod augue metus vel quam.',
+      'Agora que nos formamos na faculdade, estamos focados em juntar dinheiro para nossa futura vida juntos e para organizar nosso casamento. Você poderia nos ajudar a ganhar dinheiro assistindo a um de nossos vídeos no YouTube? Para otimizar o algoritmo, assista-o até o final.',
     background: 'bg-beige',
     image: VideoQuizIntroImage,
     footer: {

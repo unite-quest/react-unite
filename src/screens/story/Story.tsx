@@ -41,9 +41,10 @@ function Story() {
           A nossa história
         </div>
         <div className="text-black font-roboto text-lg font-medium p-10 text-left">
-          Decidimos contar um pouco de nossa trajetória até aqui de uma maneira diferente!
-          Convidamos cada um de vocês para participar de uma sequência de desafios preparados
-          exclusivamente para o nosso casamento. Clique no botão abaixo e comece agora mesmo!
+          Prepare-se para embarcar em nossa jornada de união (unite quest). Ao longo do caminho,
+          você enfrentará uma série de desafios, cada um projetado para fortalecer a união de nossa
+          família até o dia do casamento. Cada desafio simboliza uma etapa importante de nossas
+          vidas; sua resolução nos levará ao próximo estágio dessa emocionante jornada.
         </div>
       </div>
       <div className="absolute inset-x-0 bottom-0">
