@@ -19,14 +19,16 @@ function Home() {
   return (
     <>
       <div className="bg-blue items-center justify-center p-10">
-        <div className="text-beige font-sacramento text-5xl font-normal pb-10">Mimi & Gabriel</div>
+        <div className="text-beige font-sacramento text-5xl font-normal pb-10 min-h-10">
+          Mimi & Gabriel
+        </div>
         <div className="text-black font-roboto text-lg font-medium">25 de agosto de 2024 | 16h</div>
-        <div className="text-black font-roboto text-xl font-light">
+        <div className="text-black font-roboto text-xl font-light min-h-20">
           Botânico Quintal - Av. Imperatriz Leopoldina, 681 - Vila Leopoldina, São Paulo - SP
         </div>
       </div>
       <div className="flex bg-gradient-to-b from-blue via-[#8ce1fb] to-30% to-light-beige">
-        <img className="p-5" src={logo} alt="Logo" />
+        <img height={1080} width={940} className="p-5" src={logo} alt="Logo" />
       </div>
       <div className="bg-light-blue">
         <div className="p-10">
