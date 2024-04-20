@@ -11,6 +11,7 @@ import { useCurrentChallenge } from 'src/hooks/useCurrentChallenge';
 function LogoQuizChallenge() {
   const { setLoading } = useContext(LoaderContext);
   const [answers, setAnswers] = useState<boolean[]>(Array(logoMap.length).fill(false));
+  const correctAnswers = answers.filter(value => !!value).length;
   const navigate = useNavigate();
   const { id } = useCurrentChallenge();
   const { answeredQuestionIds } = useAnswerState(id);
@@ -45,9 +46,9 @@ function LogoQuizChallenge() {
       <ChallengeScreen
         Footer={
           <ChallengeFooter
-            title={`Finalizar ${answers.filter(value => !!value)}/${logoMap.length}`}
+            title={`Finalizar ${correctAnswers}/${answers.length}`}
+            disabled={correctAnswers !== answers.length}
             onClick={console.log}
-            disabled={answers.filter(value => !value).length !== logoMap.length}
           />
         }
       >
