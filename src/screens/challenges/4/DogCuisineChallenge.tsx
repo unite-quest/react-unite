@@ -1,53 +1,38 @@
 import { ChallengeFooter } from '@/components/shell/ChallengeFooter';
 import { ChallengeScreen } from '@/components/shell/ChallengeScreen';
-import { ListItem } from '@/components/ui/list-item';
-import { useEffect, useState } from 'react';
+import { UniteToggle } from '@/components/ui/toggle';
+import { ChallengeRouteIdentifier } from '@/shared/utils/ChallengeIdentifiers';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const questions: { question: string }[] = [
+const todaysMenu: { image: string; itemName: string }[] = [
   {
-    question: 'Qual o nome do gabriel?',
+    image: 'https://gabrieltnishimura.github.io/unite/Chocolate_Cake.png',
+    itemName: 'Chocolate',
   },
   {
-    question: 'test11',
+    image: 'https://gabrieltnishimura.github.io/unite/Egg.png',
+    itemName: 'Maça',
   },
   {
-    question: 'test12',
-  },
-  {
-    question: 'test13',
-  },
-  {
-    question: 'test14',
-  },
-  {
-    question: 'test15',
+    image: 'https://gabrieltnishimura.github.io/unite/Mango.png',
+    itemName: 'Teste',
   },
 ];
 
 function DogCuisineChallenge() {
   const navigate = useNavigate();
+  const [menuSelection, setMenuSelection] = useState<Record<number, boolean>>({});
 
-  // [0] means the first question has a correct answer
-  const [correctAnswers, setCorrectAnswers] = useState<Array<number>>([]);
-
-  useEffect(() => {
-    const fn = async () => {
-      // get api data
-      console.log('add refetch logic to prefill answers');
-      setCorrectAnswers([1]);
-    };
-    fn();
-    // anytime navigating?
-  }, []);
-
-  const onOpenQuestion = (index: number) => {
-    console.log('TODO video question', index);
-    navigate('./details', {
-      state: {
-        questionId: index,
-      },
+  const changeMenuSelection = (index: number, state: boolean) => {
+    setMenuSelection({
+      ...menuSelection,
+      [index]: state,
     });
+  };
+
+  const goToNextChallenge = () => {
+    navigate(`/challenge/${ChallengeRouteIdentifier.Five_Labyrinth}/landing`);
   };
 
   return (
@@ -55,32 +40,29 @@ function DogCuisineChallenge() {
       <ChallengeScreen
         Footer={
           <ChallengeFooter
-            title={`Finalizar (${correctAnswers.length}/${questions.length})`}
-            onClick={console.log}
-            disabled={correctAnswers.length !== questions.length}
+            title={`Submeter Palpite`}
+            onClick={goToNextChallenge}
+            disabled={false}
           />
         }
       >
         <div>
-          <div className="pt-6 pb-6 text-left">
-            <span>Você deve selecionar cada um dos itens abaixo e acertar a respectiva marca.</span>
+          <div className="pt-6 pb-12 text-left">
+            <span>
+              Para que os dogs permaneçam saudáveis, você precisa indicar quais comidas eles estão
+              permitidos a comer. Cuidado para não errar! Caso inverta algum item, você deverá
+              começar tudo de novo.
+            </span>
           </div>
-          <iframe
-            className="w-full h-48 rounded-md"
-            src="https://www.youtube.com/embed/XJMzbCjA0aI?si=1_yRhPM96YowHpFJ"
-            title="YouTube video player"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerPolicy="strict-origin-when-cross-origin"
-            allowFullScreen
-          ></iframe>
-          <div className="w-full divide-y">
-            {questions.map(({ question }, index) => {
+          <div className="w-full">
+            {todaysMenu.map(({ image, itemName }, index) => {
               return (
-                <ListItem
-                  key={question}
-                  title={question}
-                  onClick={() => onOpenQuestion(index)}
-                  checked={correctAnswers.includes(index)}
+                <UniteToggle
+                  image={image}
+                  key={itemName}
+                  label={itemName}
+                  onChange={state => changeMenuSelection(index, state)}
+                  state={menuSelection[index]}
                 />
               );
             })}

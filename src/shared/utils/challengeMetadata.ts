@@ -6,6 +6,7 @@ const LogicGatesIntroImage =
   'https://gabrieltnishimura.github.io/unite/challenges-intro/intro-logic-gates.webp';
 const VideoQuizIntroImage =
   'https://gabrieltnishimura.github.io/unite/challenges-intro/intro-video.png';
+const DogCuisineIntroImage = 'https://gabrieltnishimura.github.io/unite/mochi/mochi-1.webp';
 
 export type ChallengeMetadata = {
   title: string;
@@ -62,7 +63,7 @@ export const challengeMetadataMap: Record<ChallengeIdentifier, ChallengeMetadata
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum id euismod odio. Donec varius iaculis est, nec varius justo fringilla vitae. Nam elementum, tellus a luctus pulvinar, risus erat sodales eros, non euismod augue metus vel quam.',
     background: 'bg-cool-green',
-    image: 'https://placehold.co/250x250',
+    image: DogCuisineIntroImage,
     footer: {
       background: '',
       buttonColor: 'cool-green',

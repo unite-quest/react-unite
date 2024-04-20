@@ -2,6 +2,7 @@ import { ChallengeFooter } from '@/components/shell/ChallengeFooter';
 import { ChallengeScreen } from '@/components/shell/ChallengeScreen';
 import { LogoQuizTile } from '@/components/ui/tile';
 import { LoaderContext } from '@/shared/loader/LoaderProvider';
+import { ChallengeRouteIdentifier } from '@/shared/utils/ChallengeIdentifiers';
 import { logoMap } from '@/shared/utils/logoMap';
 import { useContext, useEffect, useState } from 'react';
 import { createSearchParams, useNavigate } from 'react-router-dom';
@@ -23,6 +24,10 @@ function LogoQuizChallenge() {
         id: String(index),
       }).toString(),
     });
+  };
+
+  const goToNextChallenge = () => {
+    navigate(`/challenge/${ChallengeRouteIdentifier.Two_LogicGates}/landing`);
   };
 
   useEffect(() => {
@@ -48,7 +53,7 @@ function LogoQuizChallenge() {
           <ChallengeFooter
             title={`Finalizar ${correctAnswers}/${answers.length}`}
             disabled={correctAnswers !== answers.length}
-            onClick={console.log}
+            onClick={goToNextChallenge}
           />
         }
       >

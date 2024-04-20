@@ -21,7 +21,12 @@ const ChallengeScreen: React.FC<
   return (
     <>
       <div className={`min-h-svh ${meta.background}`}>
-        <Header title={meta.title} variant="intro" style={meta.background} onFlagClick={goBack} />
+        <Header
+          title={screenType === 'landing' ? meta.period : meta.title}
+          variant="intro"
+          style={meta.background}
+          onFlagClick={goBack}
+        />
         <div className="pl-5 pr-5">{children}</div>
         {Footer}
         {screenType === 'details' ? (

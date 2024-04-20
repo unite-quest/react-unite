@@ -3,7 +3,7 @@ import { ChallengeScreen } from '@/components/shell/ChallengeScreen';
 import { logoMap } from '@/shared/utils/logoMap';
 import { validateAndPersistAnswer } from '@/shared/utils/validateAnswer';
 import { useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import useAllAnswers from 'src/hooks/useAllAnswers';
 import { useCurrentChallenge } from 'src/hooks/useCurrentChallenge';
 
@@ -13,6 +13,7 @@ function LogoQuizChallenge() {
   const questionId = Number(params.get('id') || 0);
   const logo = logoMap[questionId];
   const { id: challengeId } = useCurrentChallenge();
+  const navigate = useNavigate();
 
   const dbAnswers = useAllAnswers();
 
@@ -29,6 +30,7 @@ function LogoQuizChallenge() {
     );
     if (valid) {
       alert('Acertou!');
+      navigate(-1);
     } else {
       alert('Errou!');
     }
@@ -50,6 +52,7 @@ function LogoQuizChallenge() {
             </div>
           </div>
           <input
+            onKeyUp={({ key }) => (key === 'Enter' ? submit() : null)}
             className="relative border-2 border-dark-green w-full h-11 rounded-lg"
             onChange={e => setAnswer(e.target.value)}
           />

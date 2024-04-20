@@ -1,6 +1,7 @@
 import { ChallengeFooter } from '@/components/shell/ChallengeFooter';
 import { ChallengeScreen } from '@/components/shell/ChallengeScreen';
 import { ListItem } from '@/components/ui/list-item';
+import { ChallengeRouteIdentifier } from '@/shared/utils/ChallengeIdentifiers';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -56,13 +57,17 @@ function LogoQuizChallenge() {
     });
   };
 
+  const goToNextChallenge = () => {
+    navigate(`/challenge/${ChallengeRouteIdentifier.Four_DogCuisine}/landing`);
+  };
+
   return (
     <>
       <ChallengeScreen
         Footer={
           <ChallengeFooter
             title={`Finalizar (${correctAnswers.length}/${questions.length})`}
-            onClick={console.log}
+            onClick={goToNextChallenge}
             disabled={correctAnswers.length !== questions.length}
           />
         }
