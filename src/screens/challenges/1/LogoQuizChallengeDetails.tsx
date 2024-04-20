@@ -3,14 +3,14 @@ import { ChallengeScreen } from '@/components/shell/ChallengeScreen';
 import { logoMap } from '@/shared/utils/logoMap';
 import { validateAndPersistAnswer } from '@/shared/utils/validateAnswer';
 import { useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import useAllAnswers from 'src/hooks/useAllAnswers';
 import { useCurrentChallenge } from 'src/hooks/useCurrentChallenge';
+import { useCurrentQuestion } from 'src/hooks/useCurrentQuestion';
 
 function LogoQuizChallenge() {
   const [answer, setAnswer] = useState<string>('');
-  const [params] = useSearchParams();
-  const questionId = Number(params.get('id') || 0);
+  const { id: questionId } = useCurrentQuestion();
   const logo = logoMap[questionId];
   const { id: challengeId } = useCurrentChallenge();
   const navigate = useNavigate();

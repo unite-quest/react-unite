@@ -28,10 +28,11 @@ export async function validateAndPersistAnswer(
   challengeId: ChallengeIdentifier,
   questionId: string,
   appAnswer: string,
+  skipSanitization?: boolean,
 ): Promise<{
   valid: boolean;
 }> {
-  const sanitizedAnswer = sanitizeAnswer(appAnswer);
+  const sanitizedAnswer = skipSanitization ? appAnswer : sanitizeAnswer(appAnswer);
   const dbChallengeId = fromChallengeIdentifierToDBKey(challengeId);
   const hash = `c${dbChallengeId}-q${questionId}-${sanitizedAnswer}`;
   const hashedAnswer = await oneWayHash(hash);

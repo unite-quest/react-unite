@@ -1,8 +1,12 @@
 import { ChallengeFooter } from '@/components/shell/ChallengeFooter';
 import { ChallengeScreen } from '@/components/shell/ChallengeScreen';
 import { UniteRadio } from '@/components/ui/radio';
+import { validateAndPersistAnswer } from '@/shared/utils/validateAnswer';
 import { useState } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import useAllAnswers from 'src/hooks/useAllAnswers';
+import { useCurrentChallenge } from 'src/hooks/useCurrentChallenge';
+import { useCurrentQuestion } from 'src/hooks/useCurrentQuestion';
 
 type VideoAnswerMetadata = {
   title: string;
@@ -74,21 +78,37 @@ const answerMetadataForQuestion: VideoAnswerMetadata[] = [
 
 function VideoChallengeDetails() {
   const navigate = useNavigate();
-  const { challengeId } = useParams();
-  const { state } = useLocation();
+  const { id: challengeId } = useCurrentChallenge();
+  const { id: questionId } = useCurrentQuestion();
   const [answer, setAnswer] = useState<string>('');
+  const dbAnswers = useAllAnswers();
 
-  const submitAnswer = () => {
-    navigate(`../challenge/${challengeId}`, {
-      relative: 'route',
-    });
+  const submitAnswer = async () => {
+    if (!dbAnswers) {
+      return;
+    }
+
+    console.log(answer);
+    const { valid } = await validateAndPersistAnswer(
+      dbAnswers,
+      challengeId,
+      String(questionId + 1),
+      answer,
+      true,
+    );
+    if (valid) {
+      alert('Acertou!');
+      navigate(-1);
+    } else {
+      alert('Errou!');
+    }
   };
 
-  if (state?.questionId === undefined || !answerMetadataForQuestion[state.questionId]) {
+  if (!answerMetadataForQuestion[questionId]) {
     throw new Error('invalid question id');
   }
 
-  const answerMeta = answerMetadataForQuestion[state.questionId];
+  const answerMeta = answerMetadataForQuestion[questionId];
 
   return (
     <>

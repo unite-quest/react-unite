@@ -1,9 +1,12 @@
 import { ChallengeFooter } from '@/components/shell/ChallengeFooter';
 import { ChallengeScreen } from '@/components/shell/ChallengeScreen';
 import { ListItem } from '@/components/ui/list-item';
+import { LoaderContext } from '@/shared/loader/LoaderProvider';
 import { ChallengeRouteIdentifier } from '@/shared/utils/ChallengeIdentifiers';
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useContext, useEffect, useState } from 'react';
+import { createSearchParams, useNavigate } from 'react-router-dom';
+import { useAnswerState } from 'src/hooks/useAnswerState';
+import { useCurrentChallenge } from 'src/hooks/useCurrentChallenge';
 
 const questions: { question: string }[] = [
   {
@@ -34,26 +37,28 @@ const questions: { question: string }[] = [
 
 function LogoQuizChallenge() {
   const navigate = useNavigate();
+  const { setLoading } = useContext(LoaderContext);
+
+  const { id } = useCurrentChallenge();
+  const { answeredQuestionIds } = useAnswerState(id);
 
   // [0] means the first question has a correct answer
   const [correctAnswers, setCorrectAnswers] = useState<Array<number>>([]);
 
   useEffect(() => {
-    const fn = async () => {
-      // get api data
-      console.log('add refetch logic to prefill answers');
-      setCorrectAnswers([1]);
-    };
-    fn();
-    // anytime navigating?
-  }, []);
+    if (answeredQuestionIds === undefined) {
+      return;
+    }
+    setCorrectAnswers(answeredQuestionIds.map(id => Number(id) - 1));
+    setLoading(false);
+  }, [answeredQuestionIds, setLoading]);
 
   const onOpenQuestion = (index: number) => {
-    console.log('TODO video question', index);
-    navigate('./details', {
-      state: {
-        questionId: index,
-      },
+    navigate({
+      pathname: 'details',
+      search: createSearchParams({
+        id: String(index),
+      }).toString(),
     });
   };
 
