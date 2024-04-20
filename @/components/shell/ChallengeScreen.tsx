@@ -25,7 +25,7 @@ const ChallengeScreen: React.FC<
         <div className="pl-5 pr-5">{children}</div>
         {Footer}
         {screenType === 'details' ? (
-          <div className="absolute bottom-36 right-4">
+          <div className="fixed bottom-36 right-4">
             <Lamp onClick={() => alert(tip)} />
           </div>
         ) : null}

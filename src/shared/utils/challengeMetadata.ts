@@ -1,8 +1,11 @@
 import { UniteButtonVariants } from '@/components/ui/button';
-import LogoQuizIntroImage from '../../assets/challenges-intro/IMG_3706_square.webp';
-import LogicGatesIntroImage from '../../assets/challenges-intro/intro-logic-gates.webp';
-import VideoQuizIntroImage from '../../assets/challenges-intro/work.png';
 import { ChallengeIdentifier } from './ChallengeIdentifiers';
+const LogoQuizIntroImage =
+  'https://gabrieltnishimura.github.io/unite/challenges-intro/intro-logo-quiz.webp';
+const LogicGatesIntroImage =
+  'https://gabrieltnishimura.github.io/unite/challenges-intro/intro-logic-gates.webp';
+const VideoQuizIntroImage =
+  'https://gabrieltnishimura.github.io/unite/challenges-intro/intro-video.png';
 
 export type ChallengeMetadata = {
   title: string;
