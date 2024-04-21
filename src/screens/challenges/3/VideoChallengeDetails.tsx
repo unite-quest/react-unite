@@ -117,11 +117,11 @@ function VideoChallengeDetails() {
           <ChallengeFooter title="Submeter palpite" onClick={submitAnswer} disabled={!answer} />
         }
       >
-        <div>
-          <div className="pt-6 text-left">
+        <div className="text-left">
+          <div className="font-bold pb-5">
             <span>{answerMeta.title}</span>
           </div>
-          <div className="pt-6 pb-6 text-left">
+          <div className="pb-8">
             <span>{answerMeta.description}</span>
           </div>
           <div className="w-full divide-y">

@@ -4,29 +4,44 @@ const UniteRadio: React.FC<{
   onSelect: (option: string) => void;
 }> = ({ options, selectedValue, onSelect }) => {
   const alternative: string[] = ['a', 'b', 'c', 'd'];
+
   return (
     <>
-      {/* wrapper */}
-      <div className="">
-        {options.map((option, index) => {
-          return (
-            <div className="p-1">
-              <button
-                className="w-full flex bg-medium-green rounded-md  h-15"
-                key={option}
-                onClick={() => onSelect(option)}
+      {options.map((option, index) => {
+        const style =
+          option === selectedValue
+            ? {
+                backgroundContainer: 'bg-dark-green',
+                valueContainer: 'bg-beige',
+                valueText: 'text-black',
+                labelText: 'text-white',
+              }
+            : {
+                backgroundContainer: 'bg-medium-green',
+                valueContainer: 'bg-dark-green',
+                valueText: 'text-white',
+                labelText: 'text-black',
+              };
+        return (
+          <div key={option} className="pb-2">
+            <button
+              className={`w-full flex rounded-xl items-center p-2 text-left ${style.backgroundContainer}`}
+              onClick={() => onSelect(option)}
+            >
+              <div
+                className={`rounded-full h-9 w-9 ${style.valueContainer} flex items-center justify-center mr-2`}
               >
-                <div className=" bg-dark-green rounded-full h-full text-white">
+                <span className={`font-roboto font-bold text-base ${style.valueText}`}>
                   {alternative[index]}
-                </div>
-                <div>
-                  {option} {option === selectedValue ? 'selected' : ''}
-                </div>
-              </button>
-            </div>
-          );
-        })}
-      </div>
+                </span>
+              </div>
+              <div>
+                <span className={`font-roboto font-medium ${style.labelText}`}>{option}</span>
+              </div>
+            </button>
+          </div>
+        );
+      })}
     </>
   );
 };
