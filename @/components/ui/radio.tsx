@@ -25,17 +25,17 @@ const UniteRadio: React.FC<{
         return (
           <div key={option} className="pb-2">
             <button
-              className={`w-full flex rounded-xl items-center p-2 text-left ${style.backgroundContainer}`}
+              className={`w-full flex rounded-xl items-center p-2 min-h-14 text-left relative ${style.backgroundContainer}`}
               onClick={() => onSelect(option)}
             >
               <div
-                className={`rounded-full h-9 w-9 ${style.valueContainer} flex items-center justify-center mr-2`}
+                className={`absolute rounded-full h-9 w-9 ${style.valueContainer} flex items-center justify-center`}
               >
                 <span className={`font-roboto font-bold text-base ${style.valueText}`}>
                   {alternative[index]}
                 </span>
               </div>
-              <div>
+              <div className="pl-11">
                 <span className={`font-roboto font-medium ${style.labelText}`}>{option}</span>
               </div>
             </button>
