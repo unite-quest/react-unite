@@ -1,14 +1,16 @@
 import { ChallengeFooter } from '@/components/shell/ChallengeFooter';
 import { ChallengeScreen } from '@/components/shell/ChallengeScreen';
+import { BottomDrawerContext } from '@/shared/bottom-drawer/BottomDrawerProvider';
 import { logoMap } from '@/shared/utils/logoMap';
 import { validateAndPersistAnswer } from '@/shared/utils/validateAnswer';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useAllAnswers from 'src/hooks/useAllAnswers';
 import { useCurrentChallenge } from 'src/hooks/useCurrentChallenge';
 import { useCurrentQuestion } from 'src/hooks/useCurrentQuestion';
 
 function LogoQuizChallenge() {
+  const { openDrawer } = useContext(BottomDrawerContext);
   const [answer, setAnswer] = useState<string>('');
   const { id: questionId } = useCurrentQuestion();
   const logo = logoMap[questionId];
@@ -16,6 +18,13 @@ function LogoQuizChallenge() {
   const navigate = useNavigate();
 
   const dbAnswers = useAllAnswers();
+
+  const askForTip = () => {
+    openDrawer({
+      title: 'Dica',
+      message: logo.tip,
+    });
+  };
 
   const submit = async () => {
     if (!dbAnswers) {
@@ -40,7 +49,7 @@ function LogoQuizChallenge() {
     <>
       <ChallengeScreen
         Footer={<ChallengeFooter title="Submeter palpite" onClick={submit} disabled={!answer} />}
-        tip={logo.tip}
+        onTipClick={askForTip}
       >
         <div>
           <div className="pt-6 pb-6 text-left">

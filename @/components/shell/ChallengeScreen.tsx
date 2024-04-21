@@ -8,9 +8,9 @@ import { Lamp } from '../ui/lamp';
 const ChallengeScreen: React.FC<
   PropsWithChildren<{
     Footer: JSX.Element;
-    tip?: string;
+    onTipClick?: () => void;
   }>
-> = ({ Footer, children, tip }) => {
+> = ({ Footer, children, onTipClick }) => {
   const navigate = useNavigate();
   const { meta, screenType } = useCurrentChallenge();
 
@@ -31,7 +31,7 @@ const ChallengeScreen: React.FC<
         {Footer}
         {screenType === 'details' ? (
           <div className="fixed bottom-36 right-4">
-            <Lamp onClick={() => alert(tip)} />
+            <Lamp onClick={onTipClick} />
           </div>
         ) : null}
       </div>
