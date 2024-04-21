@@ -65,8 +65,8 @@ export const challengeMetadataMap: Record<ChallengeIdentifier, ChallengeMetadata
     background: 'bg-cool-green',
     image: DogCuisineIntroImage,
     footer: {
-      background: '',
-      buttonColor: 'cool-green',
+      background: 'bg-black',
+      buttonColor: 'black',
     },
   },
   [ChallengeIdentifier.Five_Labyrinth]: {

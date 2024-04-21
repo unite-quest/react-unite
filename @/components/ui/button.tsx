@@ -12,7 +12,7 @@ const UniteButton: React.FC<{
 
   const buttonColorMap: Record<typeof buttonVariant, string> = {
     'cool-green': 'bg-dark-green border-white text-white', // pending designs
-    'black': 'bg-black border-white text-white',
+    'black': 'bg-black border-[#B1B1FF] text-white',
     'adventure': 'bg-[#B1B1FF] border-black text-black',
   };
   const disabledButton = 'border-[#9A9A9A] text-[#9A9A9A] bg-[#E0E0E0]';
