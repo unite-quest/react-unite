@@ -5,24 +5,157 @@ import { ChallengeRouteIdentifier } from '@/shared/utils/ChallengeIdentifiers';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const todaysMenu: { image: string; itemName: string }[] = [
+const todaysMenu: { image: string; itemName: string; answer: boolean; tipWhenWrong: string }[] = [
   {
     image: 'https://gabrieltnishimura.github.io/unite/Chocolate_Cake.png',
     itemName: 'Chocolate',
+    answer: false,
+    tipWhenWrong: 'Chocolate é veneno',
   },
   {
     image: 'https://gabrieltnishimura.github.io/unite/Egg.png',
     itemName: 'Maça',
+    answer: false,
+    tipWhenWrong: 'Maça é veneno',
   },
   {
     image: 'https://gabrieltnishimura.github.io/unite/Mango.png',
-    itemName: 'Teste',
+    itemName: 'Manga',
+    answer: true,
+    tipWhenWrong: 'Manga é boa',
+  },
+  {
+    image: 'https://gabrieltnishimura.github.io/unite/Mango.png',
+    itemName: 'Manga 4',
+    answer: true,
+    tipWhenWrong: 'Manga é boa',
+  },
+  {
+    image: 'https://gabrieltnishimura.github.io/unite/Mango.png',
+    itemName: 'Manga 5',
+    answer: true,
+    tipWhenWrong: 'Manga é boa',
+  },
+  {
+    image: 'https://gabrieltnishimura.github.io/unite/Mango.png',
+    itemName: 'Manga 6',
+    answer: true,
+    tipWhenWrong: 'Manga é boa',
+  },
+  {
+    image: 'https://gabrieltnishimura.github.io/unite/Mango.png',
+    itemName: 'Manga 7',
+    answer: true,
+    tipWhenWrong: 'Manga é boa',
+  },
+  {
+    image: 'https://gabrieltnishimura.github.io/unite/Mango.png',
+    itemName: 'Manga 8',
+    answer: true,
+    tipWhenWrong: 'Manga é boa',
+  },
+  {
+    image: 'https://gabrieltnishimura.github.io/unite/Mango.png',
+    itemName: 'Manga 9',
+    answer: true,
+    tipWhenWrong: 'Manga é boa',
+  },
+  {
+    image: 'https://gabrieltnishimura.github.io/unite/Mango.png',
+    itemName: 'Manga 10',
+    answer: true,
+    tipWhenWrong: 'Manga é boa',
+  },
+  {
+    image: 'https://gabrieltnishimura.github.io/unite/Mango.png',
+    itemName: 'Manga 11',
+    answer: true,
+    tipWhenWrong: 'Manga é boa',
+  },
+  {
+    image: 'https://gabrieltnishimura.github.io/unite/Mango.png',
+    itemName: 'Manga 12',
+    answer: true,
+    tipWhenWrong: 'Manga é boa',
+  },
+  {
+    image: 'https://gabrieltnishimura.github.io/unite/Mango.png',
+    itemName: 'Manga 13',
+    answer: true,
+    tipWhenWrong: 'Manga é boa',
+  },
+  {
+    image: 'https://gabrieltnishimura.github.io/unite/Mango.png',
+    itemName: 'Manga 14',
+    answer: true,
+    tipWhenWrong: 'Manga é boa',
+  },
+  {
+    image: 'https://gabrieltnishimura.github.io/unite/Mango.png',
+    itemName: 'Manga 15',
+    answer: true,
+    tipWhenWrong: 'Manga é boa',
   },
 ];
+
+const mochiGrowthFeedback: Record<number, { message: string; image: string }> = {
+  1: {
+    message: 'Mochi está pequeno e não gostou de quase nada!',
+    image: 'https://gabrieltnishimura.github.io/unite/mochi/mochi-1.webp',
+  },
+  2: {
+    message: 'Mochi está mediano',
+    image: 'https://gabrieltnishimura.github.io/unite/mochi/mochi-2.webp',
+  },
+  3: {
+    message: 'Mochi está ficando maior, mas ainda precisa de mais nutrientes.',
+    image: 'https://gabrieltnishimura.github.io/unite/mochi/mochi-3.webp',
+  },
+  4: {
+    message: 'Mochi está quase lá!',
+    image: 'https://gabrieltnishimura.github.io/unite/mochi/mochi-4.webp',
+  },
+};
+
+function validateMenuChoices(menu: Record<number, boolean>): {
+  correctChoices: number[];
+  incorrectChoices: number[];
+} {
+  return todaysMenu.reduce<{
+    correctChoices: number[];
+    incorrectChoices: number[];
+  }>(
+    (acc, cur, index) => {
+      if (menu[index] === undefined) {
+        return {
+          correctChoices: [...acc.correctChoices],
+          incorrectChoices: [...acc.incorrectChoices, index],
+        };
+      }
+
+      if (menu[index] === cur.answer) {
+        return {
+          correctChoices: [...acc.correctChoices, index],
+          incorrectChoices: [...acc.incorrectChoices],
+        };
+      }
+
+      return {
+        correctChoices: [...acc.correctChoices],
+        incorrectChoices: [...acc.incorrectChoices, index],
+      };
+    },
+    {
+      correctChoices: [],
+      incorrectChoices: [],
+    },
+  );
+}
 
 function DogCuisineChallenge() {
   const navigate = useNavigate();
   const [menuSelection, setMenuSelection] = useState<Record<number, boolean>>({});
+  const selectedItems = Object.keys(menuSelection).length;
 
   const changeMenuSelection = (index: number, state: boolean) => {
     setMenuSelection({
@@ -31,8 +164,25 @@ function DogCuisineChallenge() {
     });
   };
 
-  const goToNextChallenge = () => {
-    navigate(`/challenge/${ChallengeRouteIdentifier.Five_Labyrinth}/landing`);
+  const submit = () => {
+    const { correctChoices, incorrectChoices } = validateMenuChoices(menuSelection);
+    if (incorrectChoices.length === 0) {
+      alert('Acertou!');
+      navigate(`/challenge/${ChallengeRouteIdentifier.Five_Labyrinth}/landing`);
+      return;
+    }
+    // at least one incorrect choice
+    // show mochi feedback
+    // mochi growth algorithm is based off of incorrect choices (1<x<3 = 1; 4<x<7 = 2; 8<x<11 = 3; 11<x<15 = 4;)
+    const mochiGrowthLevel = Math.floor(correctChoices.length / 4 + 1);
+    const feedback = mochiGrowthFeedback[mochiGrowthLevel];
+    // randomize item feedback
+    const randomIndex = Math.floor(Math.random() * incorrectChoices.length);
+    const feedbackForMenuIndex = incorrectChoices[randomIndex];
+
+    alert(
+      `${feedback.image} \n Feedback: ${feedback.message} + "${todaysMenu[feedbackForMenuIndex].tipWhenWrong}"`,
+    );
   };
 
   return (
@@ -40,9 +190,9 @@ function DogCuisineChallenge() {
       <ChallengeScreen
         Footer={
           <ChallengeFooter
-            title={`Submeter Palpite`}
-            onClick={goToNextChallenge}
-            disabled={false}
+            title={`Preparar comida (${selectedItems}/${todaysMenu.length})`}
+            onClick={submit}
+            disabled={selectedItems !== todaysMenu.length}
           />
         }
       >
