@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+      REACT_APP_SECRET: ${{ secrets.REACT_APP_SECRET }}
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v1
