@@ -159,6 +159,9 @@ function DogCuisineChallenge() {
     openModal({
       message: `Feedback: ${feedback.message} + "${todaysMenu[feedbackForMenuIndex].tipWhenWrong}"`,
       image: feedback.image,
+      onPrimaryPress: () => {
+        setMenuSelection({});
+      },
     });
   };
 
