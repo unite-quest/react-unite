@@ -21,4 +21,18 @@ const LogoQuizTile: React.FC<{
     </div>
   );
 };
-export { LogoQuizTile };
+
+const SimonSaysTile: React.FC<{
+  image: string;
+  onClick: () => void;
+  bg: string;
+}> = ({ image, onClick, bg }) => {
+  return (
+    <div className={'w-full rounded-lg place-center min-h-full ' + bg}>
+      <button className="relative" onClick={onClick}>
+        <img className="rounded-md" src={image} />
+      </button>
+    </div>
+  );
+};
+export { LogoQuizTile, SimonSaysTile };

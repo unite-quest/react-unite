@@ -7,6 +7,8 @@ const LogicGatesIntroImage =
 const VideoQuizIntroImage =
   'https://gabrieltnishimura.github.io/unite/challenges-intro/intro-video.png';
 const DogCuisineIntroImage = 'https://gabrieltnishimura.github.io/unite/mochi/mochi-1.webp';
+const SimonSaysIntroImage =
+  'https://gabrieltnishimura.github.io/unite/challenges-intro/intro-simon-says.webp';
 
 export type ChallengeMetadata = {
   title: string;
@@ -94,12 +96,12 @@ export const challengeMetadataMap: Record<ChallengeIdentifier, ChallengeMetadata
     },
   },
   [ChallengeIdentifier.Seven_SimonSays]: {
-    title: 'A new challenger',
+    title: 'Quarto membro da família',
     period: '2022',
     description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum id euismod odio. Donec varius iaculis est, nec varius justo fringilla vitae. Nam elementum, tellus a luctus pulvinar, risus erat sodales eros, non euismod augue metus vel quam.',
+      'O Mochi tem se sentido solitário por ser o único cachorro da casa. Antes que a nova e atrevida Corgi, Flan, possa se tornar um membro da família, ela precisa aprender boas maneiras! Ajude Flan a lembrar nossos comandos clicando nos botões na ordem correta.',
     background: 'bg-cool-green',
-    image: 'https://placehold.co/250x250',
+    image: SimonSaysIntroImage,
     footer: {
       background: '',
       buttonColor: 'cool-green',
