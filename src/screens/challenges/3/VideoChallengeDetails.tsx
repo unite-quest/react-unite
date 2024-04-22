@@ -1,8 +1,9 @@
 import { ChallengeFooter } from '@/components/shell/ChallengeFooter';
 import { ChallengeScreen } from '@/components/shell/ChallengeScreen';
 import { UniteRadio } from '@/components/ui/radio';
+import { ModalContext } from '@/shared/modal/ModalProvider';
 import { validateAndPersistAnswer } from '@/shared/utils/validateAnswer';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useAllAnswers from 'src/hooks/useAllAnswers';
 import { useCurrentChallenge } from 'src/hooks/useCurrentChallenge';
@@ -77,6 +78,7 @@ const answerMetadataForQuestion: VideoAnswerMetadata[] = [
 ];
 
 function VideoChallengeDetails() {
+  const { openModal } = useContext(ModalContext);
   const navigate = useNavigate();
   const { id: challengeId } = useCurrentChallenge();
   const { id: questionId } = useCurrentQuestion();
@@ -97,10 +99,16 @@ function VideoChallengeDetails() {
       true,
     );
     if (valid) {
-      alert('Acertou!');
-      navigate(-1);
+      openModal({
+        message: 'Acertou!',
+        onPrimaryPress: () => {
+          navigate(-1);
+        },
+      });
     } else {
-      alert('Errou!');
+      openModal({
+        message: 'Errou',
+      });
     }
   };
 

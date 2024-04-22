@@ -9,7 +9,7 @@ import useAllAnswers from './useAllAnswers';
 
 function getUserAnswers(): string[] {
   const answers = localStorage.getItem('answers');
-  const tentativeArray = JSON.parse(answers || '');
+  const tentativeArray = JSON.parse(answers || '[]');
   // invalid array - should not happen unless someone hacked the game
   if (!Array.isArray(tentativeArray)) {
     // forced cleanup

@@ -1,8 +1,9 @@
 import { ChallengeFooter } from '@/components/shell/ChallengeFooter';
 import { ChallengeScreen } from '@/components/shell/ChallengeScreen';
 import { UniteToggle } from '@/components/ui/toggle';
+import { ModalContext } from '@/shared/modal/ModalProvider';
 import { ChallengeRouteIdentifier } from '@/shared/utils/ChallengeIdentifiers';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const todaysMenu: { image: string; itemName: string; answer: boolean; tipWhenWrong: string }[] = [
@@ -25,22 +26,28 @@ const todaysMenu: { image: string; itemName: string; answer: boolean; tipWhenWro
     tipWhenWrong: 'Manga é boa',
   },
   {
+    image: 'https://gabrieltnishimura.github.io/unite/Beef.png',
+    itemName: 'Carne',
+    answer: true,
+    tipWhenWrong: 'Carne é cheio de proteínas e faz bem para a flora de cachorros.',
+  },
+  {
     image: 'https://gabrieltnishimura.github.io/unite/Mango.png',
-    itemName: 'Manga 4',
+    itemName: 'Manga 3',
     answer: true,
     tipWhenWrong: 'Manga é boa',
   },
   {
-    image: 'https://gabrieltnishimura.github.io/unite/Mango.png',
-    itemName: 'Manga 5',
+    image: 'https://gabrieltnishimura.github.io/unite/Cooked Pork.png',
+    itemName: 'Porco',
     answer: true,
-    tipWhenWrong: 'Manga é boa',
+    tipWhenWrong: 'Porco bomzão',
   },
   {
-    image: 'https://gabrieltnishimura.github.io/unite/Mango.png',
-    itemName: 'Manga 6',
-    answer: true,
-    tipWhenWrong: 'Manga é boa',
+    image: 'https://gabrieltnishimura.github.io/unite/Garlic.png',
+    itemName: 'Alho',
+    answer: false,
+    tipWhenWrong: 'Alho faz mal!',
   },
   {
     image: 'https://gabrieltnishimura.github.io/unite/Mango.png',
@@ -49,52 +56,16 @@ const todaysMenu: { image: string; itemName: string; answer: boolean; tipWhenWro
     tipWhenWrong: 'Manga é boa',
   },
   {
-    image: 'https://gabrieltnishimura.github.io/unite/Mango.png',
-    itemName: 'Manga 8',
-    answer: true,
-    tipWhenWrong: 'Manga é boa',
+    image: 'https://gabrieltnishimura.github.io/unite/Grape.png',
+    itemName: 'Uva',
+    answer: false,
+    tipWhenWrong: 'Uva faz mal',
   },
   {
-    image: 'https://gabrieltnishimura.github.io/unite/Mango.png',
-    itemName: 'Manga 9',
-    answer: true,
-    tipWhenWrong: 'Manga é boa',
-  },
-  {
-    image: 'https://gabrieltnishimura.github.io/unite/Mango.png',
-    itemName: 'Manga 10',
-    answer: true,
-    tipWhenWrong: 'Manga é boa',
-  },
-  {
-    image: 'https://gabrieltnishimura.github.io/unite/Mango.png',
-    itemName: 'Manga 11',
-    answer: true,
-    tipWhenWrong: 'Manga é boa',
-  },
-  {
-    image: 'https://gabrieltnishimura.github.io/unite/Mango.png',
-    itemName: 'Manga 12',
-    answer: true,
-    tipWhenWrong: 'Manga é boa',
-  },
-  {
-    image: 'https://gabrieltnishimura.github.io/unite/Mango.png',
-    itemName: 'Manga 13',
-    answer: true,
-    tipWhenWrong: 'Manga é boa',
-  },
-  {
-    image: 'https://gabrieltnishimura.github.io/unite/Mango.png',
-    itemName: 'Manga 14',
-    answer: true,
-    tipWhenWrong: 'Manga é boa',
-  },
-  {
-    image: 'https://gabrieltnishimura.github.io/unite/Mango.png',
-    itemName: 'Manga 15',
-    answer: true,
-    tipWhenWrong: 'Manga é boa',
+    image: 'https://gabrieltnishimura.github.io/unite/Leek.png',
+    itemName: 'Alho poró',
+    answer: false,
+    tipWhenWrong: 'Alho poró do mal',
   },
 ];
 
@@ -153,6 +124,7 @@ function validateMenuChoices(menu: Record<number, boolean>): {
 }
 
 function DogCuisineChallenge() {
+  const { openModal } = useContext(ModalContext);
   const navigate = useNavigate();
   const [menuSelection, setMenuSelection] = useState<Record<number, boolean>>({});
   const selectedItems = Object.keys(menuSelection).length;
@@ -167,22 +139,27 @@ function DogCuisineChallenge() {
   const submit = () => {
     const { correctChoices, incorrectChoices } = validateMenuChoices(menuSelection);
     if (incorrectChoices.length === 0) {
-      alert('Acertou!');
-      navigate(`/challenge/${ChallengeRouteIdentifier.Five_Labyrinth}/landing`);
+      openModal({
+        message: 'Acertou!',
+        onPrimaryPress: () => {
+          navigate(`/challenge/${ChallengeRouteIdentifier.Five_Labyrinth}/landing`);
+        },
+      });
       return;
     }
     // at least one incorrect choice
     // show mochi feedback
     // mochi growth algorithm is based off of incorrect choices (1<x<3 = 1; 4<x<7 = 2; 8<x<11 = 3; 11<x<15 = 4;)
     const mochiGrowthLevel = Math.floor(correctChoices.length / 4 + 1);
+    console.log('Mochi growth level based on', mochiGrowthLevel, correctChoices.length);
     const feedback = mochiGrowthFeedback[mochiGrowthLevel];
     // randomize item feedback
     const randomIndex = Math.floor(Math.random() * incorrectChoices.length);
     const feedbackForMenuIndex = incorrectChoices[randomIndex];
-
-    alert(
-      `${feedback.image} \n Feedback: ${feedback.message} + "${todaysMenu[feedbackForMenuIndex].tipWhenWrong}"`,
-    );
+    openModal({
+      message: `Feedback: ${feedback.message} + "${todaysMenu[feedbackForMenuIndex].tipWhenWrong}"`,
+      image: feedback.image,
+    });
   };
 
   return (

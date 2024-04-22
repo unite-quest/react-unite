@@ -5,15 +5,18 @@ import { AuthenticationProvider } from './shared/authentication/AuthenticationPr
 import { BottomDrawerProvider } from './shared/bottom-drawer/BottomDrawerProvider';
 import { AnswerManagerProvider } from './shared/database/AnswerManagerProvider';
 import { LoaderProvider } from './shared/loader/LoaderProvider';
+import { ModalProvider } from './shared/modal/ModalProvider';
 
 function App() {
   return (
     <AuthenticationProvider>
       <LoaderProvider>
         <BottomDrawerProvider>
-          <AnswerManagerProvider>
-            <Outlet />
-          </AnswerManagerProvider>
+          <ModalProvider>
+            <AnswerManagerProvider>
+              <Outlet />
+            </AnswerManagerProvider>
+          </ModalProvider>
         </BottomDrawerProvider>
       </LoaderProvider>
     </AuthenticationProvider>

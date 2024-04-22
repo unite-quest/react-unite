@@ -1,6 +1,7 @@
 import { ChallengeFooter } from '@/components/shell/ChallengeFooter';
 import { ChallengeScreen } from '@/components/shell/ChallengeScreen';
 import { BottomDrawerContext } from '@/shared/bottom-drawer/BottomDrawerProvider';
+import { ModalContext } from '@/shared/modal/ModalProvider';
 import { logoMap } from '@/shared/utils/logoMap';
 import { validateAndPersistAnswer } from '@/shared/utils/validateAnswer';
 import { useContext, useState } from 'react';
@@ -10,6 +11,7 @@ import { useCurrentChallenge } from 'src/hooks/useCurrentChallenge';
 import { useCurrentQuestion } from 'src/hooks/useCurrentQuestion';
 
 function LogoQuizChallenge() {
+  const { openModal } = useContext(ModalContext);
   const { openDrawer } = useContext(BottomDrawerContext);
   const [answer, setAnswer] = useState<string>('');
   const { id: questionId } = useCurrentQuestion();
@@ -38,10 +40,16 @@ function LogoQuizChallenge() {
       answer,
     );
     if (valid) {
-      alert('Acertou!');
-      navigate(-1);
+      openModal({
+        message: 'Acertou!',
+        onPrimaryPress: () => {
+          navigate(-1);
+        },
+      });
     } else {
-      alert('Errou!');
+      openModal({
+        message: 'Errou',
+      });
     }
   };
 
