@@ -9,119 +9,102 @@ import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useAllAnswers from 'src/hooks/useAllAnswers';
 
-const todaysMenu: { image: string; itemName: string; answer: boolean; tipWhenWrong: string }[] = [
+const todaysMenu: { image: string; itemName: string; tipWhenWrong: string }[] = [
   {
     image: 'https://gabrieltnishimura.github.io/unite/Beef.png',
     itemName: 'Carne',
-    answer: true,
     tipWhenWrong:
       'Carne é facilmente digerível e fornece proteínas essenciais para a saúde e desenvolvimento muscular do animal.',
   },
   {
     image: 'https://gabrieltnishimura.github.io/unite/Garlic.png',
     itemName: 'Alho',
-    answer: false,
     tipWhenWrong:
       'Alho contém compostos que podem causar toxicidade, levando a danos nos glóbulos vermelhos e outros problemas de saúde graves.',
   },
   {
     image: 'https://gabrieltnishimura.github.io/unite/Chocolate_Cake.png',
     itemName: 'Chocolate',
-    answer: false,
     tipWhenWrong:
       'Chocolate contém teobromina, uma substância que cachorros não conseguem metabolizar eficientemente e que pode ser tóxica ou até fatal!',
   },
   {
     image: 'https://gabrieltnishimura.github.io/unite/Coconut.png',
     itemName: 'Coco',
-    answer: true,
     tipWhenWrong:
       'Coco é uma fonte de ácidos graxos que podem contribuir para uma pele saudável e pelo brilhante.',
   },
   {
     image: 'https://gabrieltnishimura.github.io/unite/Wine.png',
     itemName: 'Vinho',
-    answer: false,
     tipWhenWrong:
       'Alcool é tóxico para cachorros porque eles o metabolizam lentamente, levando a altos níveis no corpo que afetam gravemente o sistema nervoso central e podem causar sintomas sérios, como depressão respiratória e acidose metabólica, mesmo em pequenas doses.',
   },
   {
     image: 'https://gabrieltnishimura.github.io/unite/Rhubarb.png',
     itemName: 'Ruibarbo',
-    answer: false,
     tipWhenWrong: 'Ruibarbo tem folhas que contêm ácido oxálico, que pode ser tóxico para eles.',
   },
   {
     image: 'https://gabrieltnishimura.github.io/unite/Cooked Pork.png',
     itemName: 'Porco',
-    answer: true,
     tipWhenWrong: 'Porco fornece proteínas de alta qualidade para o cachorro!',
   },
   {
     image: 'https://gabrieltnishimura.github.io/unite/Cranberries.png',
     itemName: 'Cranberries',
-    answer: true,
     tipWhenWrong:
       'Cranberries contêm nutrientes que ajudam a prevenir infecções do trato urinário do cachorro.',
   },
   {
     image: 'https://gabrieltnishimura.github.io/unite/Egg.png',
     itemName: 'Ovo',
-    answer: true,
     tipWhenWrong: 'Ovos são uma excelente fonte de proteína, vitaminas e ácidos graxos essenciais.',
   },
   {
     image: 'https://gabrieltnishimura.github.io/unite/Blueberry.png',
     itemName: 'Mirtilo',
-    answer: true,
     tipWhenWrong:
       'Mirtilo é rico em antioxidantes, que ajudam a proteger as células e promover uma saúde geral melhor.',
   },
   {
     image: 'https://gabrieltnishimura.github.io/unite/Grape.png',
     itemName: 'Uvas',
-    answer: false,
     tipWhenWrong:
       'Uvas contêm substâncias que podem causar insuficiência renal aguda e outros problemas de saúde graves em cães!',
   },
   {
     image: 'https://gabrieltnishimura.github.io/unite/Mango.png',
     itemName: 'Manga',
-    answer: true,
     tipWhenWrong:
       'Manga sem caroço é rica em vitaminas A e C, que ajudam a fortalecer o sistema imunológico e a manter a saúde da pele e dos pelos.',
   },
   {
     image: 'https://gabrieltnishimura.github.io/unite/Strawberry.png',
     itemName: 'Morango',
-    answer: true,
     tipWhenWrong: 'Morangos são ricos em fibras e vitamina C, além de serem baixos em calorias.',
   },
   {
     image: 'https://gabrieltnishimura.github.io/unite/Leek.png',
     itemName: 'Alho poró',
-    answer: false,
     tipWhenWrong:
       'Alho poró contém compostos semelhantes aos encontrados no alho e na cebola, que são tóxicos para eles e podem causar danos aos glóbulos vermelhos e outros problemas de saúde graves.',
   },
   {
     image: 'https://gabrieltnishimura.github.io/unite/Spring_Onion.png',
     itemName: 'Cebolinha',
-    answer: false,
     tipWhenWrong:
       'Cebolhinha causa sérias irritações no estômago e no intestino pois possuem uma substância chamada dissulfeto de n-propil, que provoca uma alteração nas hemoglobinas levando a destruição de glóbulos vermelhos.',
   },
   {
     image: 'https://gabrieltnishimura.github.io/unite/Ginger.png',
     itemName: 'Gengibre',
-    answer: true,
     tipWhenWrong:
       'Gengibre pode ajudar a aliviar náuseas e melhorar a digestão, além de possuir propriedades anti-inflamatórias naturais.',
   },
   {
     image: 'https://gabrieltnishimura.github.io/unite/Macadamia.png',
     itemName: 'Macadamia',
-    answer: false,
     tipWhenWrong: 'Macadamia',
   },
 ];
@@ -238,9 +221,8 @@ function DogCuisineChallenge() {
     }
     // at least one incorrect choice
     // show mochi feedback
-    // mochi growth algorithm is based off of incorrect choices (1<x<3 = 1; 4<x<7 = 2; 8<x<11 = 3; 11<x<15 = 4;)
-    // TODO CHANGE MOCHI ALGORITHM TO SUPPORT BIGGER
-    const mochiGrowthLevel = Math.floor(correctChoices.length / 4 + 1);
+    // mochi growth algorithm is based off of incorrect choices (1<x<5 = 1; 5<x<8 = 2; 9<x<12 = 3; 12<x<16 = 4;)
+    const mochiGrowthLevel = Math.floor(correctChoices.length / 4.1 + 1);
     console.log('Mochi growth level based on', mochiGrowthLevel, correctChoices.length);
     const feedback = mochiGrowthFeedback[mochiGrowthLevel];
     // randomize item feedback
