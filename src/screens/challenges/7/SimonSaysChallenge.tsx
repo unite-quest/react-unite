@@ -1,37 +1,35 @@
 import { ChallengeScreen } from '@/components/shell/ChallengeScreen';
-import { SimonSaysTile } from '@/components/ui/tile';
 import { ChallengeRouteIdentifier } from '@/shared/utils/ChallengeIdentifiers';
 import { corgiPosesMap } from '@/shared/utils/corgiPosesMap';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function SimonSaysChallenge() {
-  const [answers, setAnswers] = useState<number[]>([]);
+  const [index, setIndex] = useState<number>(0);
   const correctAnswers = [0, 1, 2, 3];
+  const [timeLeft, setTimeLeft] = useState(1);
   const navigate = useNavigate();
-  const goToNextChallenge = () => {
-    navigate(`/challenge/${ChallengeRouteIdentifier.Two_LogicGates}/landing`);
-  };
+
+  useEffect(() => {
+    if (!timeLeft && index + 1 !== correctAnswers.length) {
+      setIndex(index => index + 1);
+      setTimeLeft(1);
+    } else if (timeLeft === 0) {
+      navigate(`/challenge/${ChallengeRouteIdentifier.Seven_SimonSays}/details`);
+    }
+
+    const intervalId = setInterval(() => {
+      setTimeLeft(timeLeft - 1);
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, [timeLeft]);
+
   return (
     <>
       <ChallengeScreen Footer={<div></div>}>
-        <div>
-          <div className="pt-6 pb-6 text-left">
-            Repita a ordem apresentada na tela anterior. No rodapé, apresentamos a barra de
-            progresso para concluir esse desafio.
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            {corgiPosesMap.map(corgi => {
-              return (
-                <SimonSaysTile
-                  key={corgi.poseId}
-                  onClick={() => setAnswers(prevArray => [...prevArray, corgi.poseId])}
-                  image={corgi.image}
-                  bg={corgi.bg}
-                />
-              );
-            })}
-          </div>
+        <div className={(corgiPosesMap[correctAnswers[index]] || {}).bg + ' h-full'}>
+          <img src={(corgiPosesMap[correctAnswers[index]] || {}).image} />
         </div>
       </ChallengeScreen>
     </>

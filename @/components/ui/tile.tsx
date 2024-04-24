@@ -28,7 +28,12 @@ const SimonSaysTile: React.FC<{
   bg: string;
 }> = ({ image, onClick, bg }) => {
   return (
-    <div className={'w-full rounded-lg place-center min-h-full ' + bg}>
+    <div
+      className={
+        'focus:ring-4 shadow-lg transform active:scale-y-75 transition-transform flex p-5 w-full rounded-lg place-center min-h-full ' +
+        bg
+      }
+    >
       <button className="relative" onClick={onClick}>
         <img className="rounded-md" src={image} />
       </button>

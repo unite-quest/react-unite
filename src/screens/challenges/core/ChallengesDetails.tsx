@@ -15,6 +15,7 @@ function ChallengesDetails() {
 
   const LogoQuizChallengeDetails = React.lazy(() => import('../1/LogoQuizChallengeDetails'));
   const VideoChallengeDetails = React.lazy(() => import('../3/VideoChallengeDetails'));
+  const SimonSaysChallengeDetails = React.lazy(() => import('../7/SimonSaysChallengeDetails'));
 
   const Challenges: Record<ChallengeIdentifier, { component: JSX.Element }> = {
     [ChallengeIdentifier.One_LogoQuiz]: {
@@ -36,7 +37,7 @@ function ChallengesDetails() {
       component: <VideoChallengeDetails />,
     },
     [ChallengeIdentifier.Seven_SimonSays]: {
-      component: <VideoChallengeDetails />,
+      component: <SimonSaysChallengeDetails />,
     },
   };
 
