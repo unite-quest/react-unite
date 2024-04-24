@@ -1,10 +1,13 @@
 import { ChallengeFooter } from '@/components/shell/ChallengeFooter';
 import { ChallengeScreen } from '@/components/shell/ChallengeScreen';
 import { UniteToggle } from '@/components/ui/toggle';
+import { AnswersModel } from '@/models/AnswersModel';
 import { ModalContext } from '@/shared/modal/ModalProvider';
-import { ChallengeRouteIdentifier } from '@/shared/utils/ChallengeIdentifiers';
+import { ChallengeIdentifier, ChallengeRouteIdentifier } from '@/shared/utils/ChallengeIdentifiers';
+import { getAnswerKey, persistAnswerKeyArray, validateAnswer } from '@/shared/utils/validateAnswer';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import useAllAnswers from 'src/hooks/useAllAnswers';
 
 const todaysMenu: { image: string; itemName: string; answer: boolean; tipWhenWrong: string }[] = [
   {
@@ -115,6 +118,12 @@ const todaysMenu: { image: string; itemName: string; answer: boolean; tipWhenWro
     tipWhenWrong:
       'Gengibre pode ajudar a aliviar náuseas e melhorar a digestão, além de possuir propriedades anti-inflamatórias naturais.',
   },
+  {
+    image: 'https://gabrieltnishimura.github.io/unite/Macadamia.png',
+    itemName: 'Macadamia',
+    answer: false,
+    tipWhenWrong: 'Macadamia',
+  },
 ];
 
 const mochiGrowthFeedback: Record<number, { message: string; image: string }> = {
@@ -136,38 +145,60 @@ const mochiGrowthFeedback: Record<number, { message: string; image: string }> = 
   },
 };
 
-function validateMenuChoices(menu: Record<number, boolean>): {
+type SplitChoices = {
   correctChoices: number[];
   incorrectChoices: number[];
-} {
-  return todaysMenu.reduce<{
-    correctChoices: number[];
-    incorrectChoices: number[];
-  }>(
-    (acc, cur, index) => {
-      if (menu[index] === undefined) {
-        return {
-          correctChoices: [...acc.correctChoices],
-          incorrectChoices: [...acc.incorrectChoices, index],
-        };
-      }
+};
 
-      if (menu[index] === cur.answer) {
-        return {
-          correctChoices: [...acc.correctChoices, index],
-          incorrectChoices: [...acc.incorrectChoices],
-        };
-      }
+async function fromMenuToSplitChoices(
+  asyncAcc: Promise<SplitChoices>,
+  [key, value]: [key: string, value: boolean],
+  index: number,
+  answers: AnswersModel,
+): Promise<SplitChoices> {
+  const acc = await asyncAcc;
+  const valid = await validateAnswer(
+    answers,
+    ChallengeIdentifier.Four_DogCuisine,
+    String(Number(key) + 1),
+    String(value),
+    true,
+  );
 
-      return {
-        correctChoices: [...acc.correctChoices],
-        incorrectChoices: [...acc.incorrectChoices, index],
-      };
-    },
-    {
+  if (valid) {
+    return {
+      correctChoices: [...acc.correctChoices, index],
+      incorrectChoices: [...acc.incorrectChoices],
+    };
+  }
+
+  return {
+    correctChoices: [...acc.correctChoices],
+    incorrectChoices: [...acc.incorrectChoices, index],
+  };
+}
+
+async function persistMenu(menu: Record<number, boolean>): Promise<void> {
+  const keys = Object.entries(menu).map(([key, value]) => {
+    return getAnswerKey(
+      ChallengeIdentifier.Four_DogCuisine,
+      String(Number(key) + 1),
+      String(value),
+    );
+  });
+  await persistAnswerKeyArray(keys);
+}
+
+async function validateMenuChoices(
+  menu: Record<number, boolean>,
+  answers: AnswersModel,
+): Promise<SplitChoices> {
+  return await Object.entries(menu).reduce<Promise<SplitChoices>>(
+    (acc, entries, index) => fromMenuToSplitChoices(acc, entries, index, answers),
+    Promise.resolve({
       correctChoices: [],
       incorrectChoices: [],
-    },
+    }),
   );
 }
 
@@ -176,6 +207,7 @@ function DogCuisineChallenge() {
   const navigate = useNavigate();
   const [menuSelection, setMenuSelection] = useState<Record<number, boolean>>({});
   const selectedItems = Object.keys(menuSelection).length;
+  const dbAnswers = useAllAnswers();
 
   const changeMenuSelection = (index: number, state: boolean) => {
     setMenuSelection({
@@ -184,9 +216,17 @@ function DogCuisineChallenge() {
     });
   };
 
-  const submit = () => {
-    const { correctChoices, incorrectChoices } = validateMenuChoices(menuSelection);
+  const submit = async () => {
+    if (!dbAnswers) {
+      return;
+    }
+
+    const { correctChoices, incorrectChoices } = await validateMenuChoices(
+      menuSelection,
+      dbAnswers,
+    );
     if (incorrectChoices.length === 0) {
+      persistMenu(menuSelection);
       openModal({
         message: 'Acertou!',
         image: 'https://gabrieltnishimura.github.io/unite/mochi/mochi-5.webp',
@@ -199,6 +239,7 @@ function DogCuisineChallenge() {
     // at least one incorrect choice
     // show mochi feedback
     // mochi growth algorithm is based off of incorrect choices (1<x<3 = 1; 4<x<7 = 2; 8<x<11 = 3; 11<x<15 = 4;)
+    // TODO CHANGE MOCHI ALGORITHM TO SUPPORT BIGGER
     const mochiGrowthLevel = Math.floor(correctChoices.length / 4 + 1);
     console.log('Mochi growth level based on', mochiGrowthLevel, correctChoices.length);
     const feedback = mochiGrowthFeedback[mochiGrowthLevel];
