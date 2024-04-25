@@ -17,6 +17,7 @@ function Challenges() {
   const LogicGatesChallenge = React.lazy(() => import('../2/LogicGatesChallenge'));
   const VideoChallenge = React.lazy(() => import('../3/VideoChallenge'));
   const DogCuisineChallenge = React.lazy(() => import('../4/DogCuisineChallenge'));
+  const RentalRumble = React.lazy(() => import('../6/RentalRumble'));
   const SimonSaysChallenge = React.lazy(() => import('../7/SimonSaysChallenge'));
 
   const Challenges: Record<ChallengeIdentifier, { component: JSX.Element }> = {
@@ -36,7 +37,7 @@ function Challenges() {
       component: <VideoChallenge />,
     },
     [ChallengeIdentifier.Six_ApartmentTinder]: {
-      component: <VideoChallenge />,
+      component: <RentalRumble />,
     },
     [ChallengeIdentifier.Seven_SimonSays]: {
       component: <SimonSaysChallenge />,

@@ -63,7 +63,7 @@ export const challengeMetadataMap: Record<ChallengeIdentifier, ChallengeMetadata
     title: 'Mochi Cuisine',
     period: '2020',
     description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum id euismod odio. Donec varius iaculis est, nec varius justo fringilla vitae. Nam elementum, tellus a luctus pulvinar, risus erat sodales eros, non euismod augue metus vel quam.',
+      'Logo antes da pandemia começar, um filhote de Golden Retriever se juntou a nós. O nome dele é MonitorCheckIcon, e ele vai trazer muita felicidade para a nossa família. Ajude-nos a cuidar dele achando os ingredientes corretos para uma refeição nutritiva (e não venenosa) para ele!',
     background: 'bg-cool-green',
     image: DogCuisineIntroImage,
     footer: {
@@ -84,15 +84,15 @@ export const challengeMetadataMap: Record<ChallengeIdentifier, ChallengeMetadata
     },
   },
   [ChallengeIdentifier.Six_ApartmentTinder]: {
-    title: 'Life together',
+    title: 'Lar doce lar?',
     period: '2022',
     description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum id euismod odio. Donec varius iaculis est, nec varius justo fringilla vitae. Nam elementum, tellus a luctus pulvinar, risus erat sodales eros, non euismod augue metus vel quam.',
+      'Em 2022 nós finalmente decidimos morar juntos... Mas claro que achar uma casa não seria simples! Ajude nós três a encontrar sugestões de lugares para morar que sejam boas para todos os integrantes.',
     background: 'bg-cool-green',
     image: 'https://placehold.co/250x250',
     footer: {
-      background: '',
-      buttonColor: 'cool-green',
+      background: 'bg-black',
+      buttonColor: 'black',
     },
   },
   [ChallengeIdentifier.Seven_SimonSays]: {

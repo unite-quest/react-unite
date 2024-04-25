@@ -7,10 +7,11 @@ import { Lamp } from '../ui/lamp';
 
 const ChallengeScreen: React.FC<
   PropsWithChildren<{
+    description?: string;
     Footer: JSX.Element;
     onTipClick?: () => void;
   }>
-> = ({ Footer, children, onTipClick }) => {
+> = ({ Footer, description, children, onTipClick }) => {
   const navigate = useNavigate();
   const { meta, screenType } = useCurrentChallenge();
 
@@ -27,7 +28,14 @@ const ChallengeScreen: React.FC<
           style={meta.background}
           onFlagClick={goBack}
         />
-        <div className="pl-5 pr-5">{children}</div>
+        <div className="pl-5 pr-5">
+          {description ? (
+            <div className="pt-6 pb-12 text-left">
+              <span>{description}</span>
+            </div>
+          ) : null}
+          {children}
+        </div>
         {Footer}
         {screenType === 'details' ? (
           <div className="fixed bottom-36 right-4">
