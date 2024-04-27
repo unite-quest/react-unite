@@ -107,4 +107,15 @@ export const challengeMetadataMap: Record<ChallengeIdentifier, ChallengeMetadata
       buttonColor: 'black',
     },
   },
+  [ChallengeIdentifier.Eight_TornInvite]: {
+    title: 'Convites rasgados',
+    period: '2024',
+    description: 'LOREM IPSUM',
+    background: 'bg-cool-green',
+    image: '',
+    footer: {
+      background: 'bg-black',
+      buttonColor: 'black',
+    },
+  },
 };

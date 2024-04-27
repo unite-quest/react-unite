@@ -2,6 +2,7 @@ import { LoaderContext } from '@/shared/loader/LoaderProvider';
 import { ChallengeIdentifier } from '@/shared/utils/ChallengeIdentifiers';
 import React, { Suspense, useContext, useEffect } from 'react';
 import { useCurrentChallenge } from 'src/hooks/useCurrentChallenge';
+import TornInvite from '../8/TornInvite';
 
 function Challenges() {
   const { setLoading } = useContext(LoaderContext);
@@ -41,6 +42,9 @@ function Challenges() {
     },
     [ChallengeIdentifier.Seven_SimonSays]: {
       component: <SimonSaysChallenge />,
+    },
+    [ChallengeIdentifier.Eight_TornInvite]: {
+      component: <TornInvite />,
     },
   };
 

@@ -6,6 +6,7 @@ export enum ChallengeIdentifier {
   Five_Labyrinth,
   Six_ApartmentTinder,
   Seven_SimonSays,
+  Eight_TornInvite,
 }
 
 export enum ChallengeRouteIdentifier {
@@ -16,6 +17,7 @@ export enum ChallengeRouteIdentifier {
   Five_Labyrinth = '5',
   Six_ApartmentTinder = '6',
   Seven_SimonSays = '7',
+  Eight_TornInvite = '8',
 }
 
 export function fromRouteToChallengeIdentifier(value?: string): ChallengeIdentifier {
@@ -34,6 +36,8 @@ export function fromRouteToChallengeIdentifier(value?: string): ChallengeIdentif
       return ChallengeIdentifier.Six_ApartmentTinder;
     case ChallengeRouteIdentifier.Seven_SimonSays:
       return ChallengeIdentifier.Seven_SimonSays;
+    case ChallengeRouteIdentifier.Eight_TornInvite:
+      return ChallengeIdentifier.Eight_TornInvite;
     default:
       return ChallengeIdentifier.One_LogoQuiz;
   }
@@ -55,6 +59,8 @@ export function fromChallengeIdentifierToDBKey(id: ChallengeIdentifier): string 
       return ChallengeRouteIdentifier.Six_ApartmentTinder;
     case ChallengeIdentifier.Seven_SimonSays:
       return ChallengeRouteIdentifier.Seven_SimonSays;
+    case ChallengeIdentifier.Eight_TornInvite:
+      return ChallengeRouteIdentifier.Eight_TornInvite;
     default:
       return ChallengeRouteIdentifier.One_LogoQuiz;
   }

@@ -31,13 +31,16 @@ function ChallengesDetails() {
       component: <></>,
     },
     [ChallengeIdentifier.Five_Labyrinth]: {
-      component: <VideoChallengeDetails />,
+      component: <></>,
     },
     [ChallengeIdentifier.Six_ApartmentTinder]: {
-      component: <VideoChallengeDetails />,
+      component: <></>,
     },
     [ChallengeIdentifier.Seven_SimonSays]: {
       component: <SimonSaysChallengeDetails />,
+    },
+    [ChallengeIdentifier.Eight_TornInvite]: {
+      component: <></>,
     },
   };
 
