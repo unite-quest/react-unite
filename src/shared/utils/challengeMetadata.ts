@@ -27,7 +27,7 @@ export const challengeMetadataMap: Record<ChallengeIdentifier, ChallengeMetadata
     title: 'Como tudo começou',
     period: '2012-2014',
     description:
-      'Desde o começo do nosso relacionamento jogos sempre fizeram uma parte bem grande de nossas vidas. Ajude a nos aproximar descobrindo o nome dos jogos que vamos gostar!',
+      'Acabamos de nos conhecer no segundo ano da faculdade, voltando no mesmo ônibus de uma recuperação em Álgebra Linear. O que temos em comum é que ambos adoramos jogar. Ajude-nos a fortalecer nossa conexão descobrindo os jogos que gostaremos!',
     background: 'bg-cool-green',
     image: LogoQuizIntroImage,
     footer: {
@@ -36,7 +36,7 @@ export const challengeMetadataMap: Record<ChallengeIdentifier, ChallengeMetadata
     },
   },
   [ChallengeIdentifier.Two_LogicGates]: {
-    title: 'Portas Lógicas',
+    title: 'Forme-se quem puder',
     period: '2015-2016',
     description:
       'Depois de 6 anos duros estudando Engenharia da Computação, estamos quase formados! Nos ajude a passar na última prova passando cola (resolvendo o exercício e enviando a resposta correta).',
@@ -48,7 +48,7 @@ export const challengeMetadataMap: Record<ChallengeIdentifier, ChallengeMetadata
     },
   },
   [ChallengeIdentifier.Three_Video]: {
-    title: 'Video Quiz',
+    title: 'União de dinheiro',
     period: '2017-2019',
     description:
       'Agora que nos formamos na faculdade, estamos focados em juntar dinheiro para nossa futura vida juntos e para organizar nosso casamento. Você poderia nos ajudar a ganhar dinheiro assistindo a um de nossos vídeos no YouTube? Para otimizar o algoritmo, assista-o até o final.',
@@ -60,10 +60,10 @@ export const challengeMetadataMap: Record<ChallengeIdentifier, ChallengeMetadata
     },
   },
   [ChallengeIdentifier.Four_DogCuisine]: {
-    title: 'Mochi Cuisine',
+    title: 'Cozinha do Mochi',
     period: '2020',
     description:
-      'Logo antes da pandemia começar, um filhote de Golden Retriever se juntou a nós. O nome dele é MonitorCheckIcon, e ele vai trazer muita felicidade para a nossa família. Ajude-nos a cuidar dele achando os ingredientes corretos para uma refeição nutritiva (e não venenosa) para ele!',
+      'Logo antes da pandemia começar, um filhote de Golden Retriever está se juntando a nós. O nome dele é Mochi, e ele vai trazer muita felicidade para a nossa família. Ajude-nos a cuidar dele achando os ingredientes corretos para uma refeição nutritiva (e não venenosa) para ele!',
     background: 'bg-cool-green',
     image: DogCuisineIntroImage,
     footer: {
@@ -72,15 +72,15 @@ export const challengeMetadataMap: Record<ChallengeIdentifier, ChallengeMetadata
     },
   },
   [ChallengeIdentifier.Five_Labyrinth]: {
-    title: 'Sneak that Snack',
+    title: 'Contrabando de coxinha',
     period: '2021',
     description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum id euismod odio. Donec varius iaculis est, nec varius justo fringilla vitae. Nam elementum, tellus a luctus pulvinar, risus erat sodales eros, non euismod augue metus vel quam.',
+      'Como nem tudo na vida é como a gente quer, estamos passando pelo ano mais difícil de nossas vidas. A Mimi está muito doente e está internada há alguns meses. No hospital não é permitido trazer comida de fora aos pacientes, mas ela está com uma vontade louca de comer coxinha. Me ajude a entrar furtivamente no quarto dela com algumas coxinhas!',
     background: 'bg-cool-green',
     image: 'https://placehold.co/250x250',
     footer: {
-      background: '',
-      buttonColor: 'cool-green',
+      background: 'bg-black',
+      buttonColor: 'black',
     },
   },
   [ChallengeIdentifier.Six_ApartmentTinder]: {
@@ -103,8 +103,8 @@ export const challengeMetadataMap: Record<ChallengeIdentifier, ChallengeMetadata
     background: 'bg-cool-green',
     image: SimonSaysIntroImage,
     footer: {
-      background: '',
-      buttonColor: 'cool-green',
+      background: 'bg-black',
+      buttonColor: 'black',
     },
   },
 };

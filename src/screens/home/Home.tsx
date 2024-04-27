@@ -2,8 +2,8 @@ import { UniteButton } from '@/components/ui/button';
 import { LoaderContext } from '@/shared/loader/LoaderProvider';
 import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import gift from '../../assets/gift.svg';
-import landscape from '../../assets/pixelArt_landscape.svg';
+import landscape from '../../assets/adventure-landscape.png';
+import gift from '../../assets/presents-landscape.png';
 import sword from '../../assets/sword.png';
 import logo from '../../assets/wedding-main.png';
 
