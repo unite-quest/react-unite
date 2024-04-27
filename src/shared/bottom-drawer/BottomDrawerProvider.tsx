@@ -60,14 +60,14 @@ export const BottomDrawerProvider: React.FC<PropsWithChildren> = ({ children }) 
               ) : null}
               <div className="pb-5">
                 <h1
-                  className={`font-bold ${drawerInfo.variant === 'rental' ? 'font-roboto text-3xl' : 'font-pt-serif text-xl'}`}
+                  className={`font-bold ${drawerInfo.variant === 'rental' ? 'font-roboto text-3xl' : 'font-pt-serif text-3xl'}`}
                 >
                   {drawerInfo.title}
                 </h1>
               </div>
               {drawerInfo.message ? (
                 <div className="">
-                  <span className="font-roboto text-sm">{drawerInfo.message}</span>
+                  <span className="font-roboto text-lg">{drawerInfo.message}</span>
                 </div>
               ) : null}
               {drawerInfo.content || null}
