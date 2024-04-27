@@ -111,7 +111,7 @@ function RentalRumble() {
           <ChallengeFooter
             title={`Submeter palpite (${currentAnswers}/${rentalRumbleApartments.length})`}
             onClick={submit}
-            // disabled={currentAnswers !== rentalRumbleApartments.length}
+            disabled={currentAnswers !== rentalRumbleApartments.length}
           />
         }
       >
@@ -119,6 +119,7 @@ function RentalRumble() {
           return (
             <StatefulCard
               key={detail.title}
+              image={detail.image}
               onClick={() => moreDetails(detail, index)}
               title={detail.title}
               checked={answers[index]}
