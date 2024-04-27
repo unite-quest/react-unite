@@ -38,7 +38,7 @@ export const BottomDrawerProvider: React.FC<PropsWithChildren> = ({ children }) 
       {drawerInfo ? (
         <div className="w-full h-full fixed top-0 left-0 z-50">
           <div className="w-full h-full absolute top-0 left-0 bg-black opacity-50 z-60"></div>
-          <div className="w-full h-full absolute top-[10%] left-0 bg-white z-70 rounded-t-3xl text-left p-9">
+          <div className="w-full h-full absolute top-[10%] left-0 bg-white z-70 rounded-t-3xl text-left pt-5 pb-5 pl-9 pr-9 overflow-auto">
             <div className="flex justify-end pb-5">
               <button
                 className="h-10 w-10 rounded-full border-black border-2 items-center justify-center"
@@ -50,7 +50,12 @@ export const BottomDrawerProvider: React.FC<PropsWithChildren> = ({ children }) 
             <div>
               {drawerInfo.image ? (
                 <div className="pb-5">
-                  <img className="w-full rounded-2xl shadow-md" src={drawerInfo.image} />
+                  <img
+                    className="w-full rounded-2xl shadow-md"
+                    src={drawerInfo.image}
+                    height={300}
+                    width={300}
+                  />
                 </div>
               ) : null}
               <div className="pb-5">

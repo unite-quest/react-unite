@@ -4,22 +4,8 @@ import { StatefulCard } from '@/components/ui/stateful-card';
 import { BottomDrawerContext } from '@/shared/bottom-drawer/BottomDrawerProvider';
 import { useContext, useState } from 'react';
 
+import { LivingConditions, rentalRumbleApartments } from '@/shared/utils/rentalRumbleApartments';
 import { RentalRumbleDrawerContent } from './RentalRumbleDrawerContent';
-
-type LivingConditions = {
-  title: string;
-  image: string;
-  checked?: boolean;
-};
-
-const list: LivingConditions[] = [
-  { title: 'Apê no espaço sideral', image: 'https://placehold.co/250x250', checked: undefined },
-  { title: 'Kitnet no mar', image: 'https://placehold.co/250x250', checked: true },
-  { title: 'Casa na árvore', image: 'https://placehold.co/250x250', checked: false },
-  { title: 'Flat Caverna', image: 'https://placehold.co/250x250', checked: undefined },
-  { title: 'Condomínio no zoológico', image: 'https://placehold.co/250x250', checked: false },
-  { title: 'Chalé Caverna', image: 'https://placehold.co/250x250', checked: false },
-];
 
 function RentalRumble() {
   const [answers, setAnswers] = useState<Record<number, boolean>>({});
@@ -33,6 +19,7 @@ function RentalRumble() {
       content: (
         <>
           <RentalRumbleDrawerContent
+            place={place}
             onApprove={() => {
               setAnswers({ ...answers, [index]: true });
               closeDrawer();
@@ -55,7 +42,7 @@ function RentalRumble() {
           <ChallengeFooter title={`Submeter palpite (3/4)`} onClick={console.log} disabled={true} />
         }
       >
-        {list.map((detail, index) => {
+        {rentalRumbleApartments.map((detail, index) => {
           return (
             <StatefulCard
               key={detail.title}
