@@ -45,7 +45,7 @@ export const rentalRumbleApartments: LivingConditions[] = [
       },
       {
         user: 'Gabriel',
-        review: 'Pelo menos a internet é rápida',
+        review: 'Aposto que não tem pernilongo no espaço!',
       },
     ],
   },
@@ -71,32 +71,70 @@ export const rentalRumbleApartments: LivingConditions[] = [
     ],
   },
   {
-    title: 'Casa na árvore',
-    image: 'https://placehold.co/250x250',
+    title: 'Condomínio no deserto',
+    image: 'https://gabrieltnishimura.github.io/unite/rental-rumble/desert-condo.webp',
     checked: false,
     ratings: {
-      location: Rating.TwoStars,
+      location: Rating.OneStar,
       view: Rating.FourStars,
       interior: Rating.ThreeStars,
-      facilities: Rating.OneStar,
+      facilities: Rating.ThreeStars,
     },
-    reviews: [],
+    reviews: [
+      {
+        user: 'Mochi',
+        review: 'Socorro, minhas patas estão queimando =(',
+      },
+      {
+        user: 'Mimi',
+        review: 'Mochiiiiii',
+      },
+      {
+        user: 'Gabriel',
+        review: 'LISAM AL GAIB',
+      },
+    ],
   },
   {
     title: 'Flat Caverna',
     image: 'https://placehold.co/250x250',
     checked: undefined,
     ratings: {
-      location: Rating.TwoStars,
-      view: Rating.FourStars,
+      location: Rating.OneStar,
+      view: Rating.OneStar,
       interior: Rating.ThreeStars,
       facilities: Rating.OneStar,
     },
     reviews: [],
   },
   {
-    title: 'Condomínio no zoológico',
-    image: 'https://placehold.co/250x250',
+    title: 'Chalé no zoológico',
+    image: 'https://gabrieltnishimura.github.io/unite/rental-rumble/zoo-apartment.webp',
+    checked: false,
+    ratings: {
+      location: Rating.OneStar,
+      view: Rating.TwoStars,
+      interior: Rating.ThreeStars,
+      facilities: Rating.TwoStars,
+    },
+    reviews: [
+      {
+        user: 'Mochi',
+        review: 'Se vocês me derem chinchila de café dá manhã estou topando',
+      },
+      {
+        user: 'Mimi',
+        review: 'O cheiro disso não deve ser nada agradável...',
+      },
+      {
+        user: 'Gabriel',
+        review: 'Pelo menos dá pra ir pro supermercado daqui ¯\\_(ツ)_/¯ ',
+      },
+    ],
+  },
+  {
+    title: 'Casa no fundo do mar',
+    image: 'https://gabrieltnishimura.github.io/unite/rental-rumble/underthesea-house.webp',
     checked: false,
     ratings: {
       location: Rating.TwoStars,
@@ -104,18 +142,44 @@ export const rentalRumbleApartments: LivingConditions[] = [
       interior: Rating.ThreeStars,
       facilities: Rating.OneStar,
     },
-    reviews: [],
+    reviews: [
+      {
+        user: 'Mochi',
+        review: 'Se eu for passear, preciso ir com tanque de oxigênio?',
+      },
+      {
+        user: 'Mimi',
+        review: 'Aquilo é uma vela sozinha no tapete? Que bizarro',
+      },
+      {
+        user: 'Gabriel',
+        review: 'Pelo menos eu nunca vou estar atrasado olhando para aquele relógio',
+      },
+    ],
   },
   {
-    title: 'Chalé Caverna',
-    image: 'https://placehold.co/250x250',
+    title: 'Sobrado no metrô',
+    image: 'https://gabrieltnishimura.github.io/unite/rental-rumble/subway-apartment.webp',
     checked: false,
     ratings: {
-      location: Rating.TwoStars,
-      view: Rating.FourStars,
-      interior: Rating.ThreeStars,
-      facilities: Rating.OneStar,
+      location: Rating.ZeroStars,
+      view: Rating.ZeroStars,
+      interior: Rating.ZeroStars,
+      facilities: Rating.FiveStars,
     },
-    reviews: [],
+    reviews: [
+      {
+        user: 'Mochi',
+        review: 'Não?',
+      },
+      {
+        user: 'Mimi',
+        review: 'Não.',
+      },
+      {
+        user: 'Gabriel',
+        review: 'Ok???',
+      },
+    ],
   },
 ];

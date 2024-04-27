@@ -4,6 +4,7 @@ import check from '../../../assets/check.png';
 import cross from '../../../assets/cross.png';
 import gabriel from '../../../assets/gabriel-profile.png';
 import mimi from '../../../assets/mimi-profile.png';
+import mochi from '../../../assets/mochi-profile.webp';
 
 function fromKeyToLabel(key: string): string {
   switch (key) {
@@ -43,10 +44,10 @@ export const RentalRumbleDrawerContent: React.FC<{
         );
       })}
       <div className="pt-3 pb-3">
-        <span className="font-roboto font-bold">Anotações do casal</span>
+        <span className="font-roboto font-bold">Anotações da família</span>
       </div>
       {place.reviews.map(({ user, review }) => {
-        const profile = user === 'Gabriel' ? gabriel : user === 'Mimi' ? mimi : gabriel;
+        const profile = user === 'Gabriel' ? gabriel : user === 'Mimi' ? mimi : mochi;
         return (
           <div key={`${user}-${review}`} className="flex pb-3 items-center">
             <div className="h-12 w-12 border-2 border-purple-400 bg-cool-green rounded-full mr-2 flex items-center justify-center">
