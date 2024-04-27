@@ -9,6 +9,8 @@ const VideoQuizIntroImage =
 const DogCuisineIntroImage = 'https://gabrieltnishimura.github.io/unite/mochi/mochi-1.webp';
 const SimonSaysIntroImage =
   'https://gabrieltnishimura.github.io/unite/challenges-intro/intro-simon-says.webp';
+  const LifeTogetherIntroImage =
+  'https://gabrieltnishimura.github.io/unite/challenges-intro/intro-life-together.webp';
 
 export type ChallengeMetadata = {
   title: string;
@@ -87,9 +89,9 @@ export const challengeMetadataMap: Record<ChallengeIdentifier, ChallengeMetadata
     title: 'Lar doce lar?',
     period: '2022',
     description:
-      'Em 2022 nós finalmente decidimos morar juntos... Mas claro que achar uma casa não seria simples! Ajude nós três a encontrar sugestões de lugares para morar que sejam boas para todos os integrantes.',
+      'Nós finalmente decidimos morar juntos depois de uma década namorando, já estava na hora né... Mas claro que achar uma casa não seria simples! Ajude nós três a encontrar sugestões de lugares para morar que sejam boas para todos os integrantes.',
     background: 'bg-cool-green',
-    image: 'https://placehold.co/250x250',
+    image: LifeTogetherIntroImage,
     footer: {
       background: 'bg-black',
       buttonColor: 'black',
@@ -99,7 +101,7 @@ export const challengeMetadataMap: Record<ChallengeIdentifier, ChallengeMetadata
     title: 'Quarto membro da família',
     period: '2022',
     description:
-      'O Mochi tem se sentido solitário por ser o único cachorro da casa. Antes que a nova e atrevida Corgi, Flan, possa se tornar um membro da família, ela precisa aprender boas maneiras! Ajude Flan a lembrar nossos comandos clicando nos botões na ordem correta.',
+      'O Mochi tem se sentido solitário por ser o único cachorro da casa. Antes que a nova e maloqueira Corgi, Flan, possa se tornar um membro da família, ela precisa aprender boas maneiras! Ajude Flan a lembrar nossos comandos clicando nos botões na ordem correta.',
     background: 'bg-cool-green',
     image: SimonSaysIntroImage,
     footer: {
