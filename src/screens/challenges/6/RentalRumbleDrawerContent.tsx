@@ -2,7 +2,8 @@ import { Rating } from '@/components/ui/rating';
 import { LivingConditions } from '@/shared/utils/rentalRumbleApartments';
 import check from '../../../assets/check.png';
 import cross from '../../../assets/cross.png';
-import gabriel from '../../../assets/gabriel.png';
+import gabriel from '../../../assets/gabriel-profile.png';
+import mimi from '../../../assets/mimi-profile.png';
 
 function fromKeyToLabel(key: string): string {
   switch (key) {
@@ -30,7 +31,7 @@ export const RentalRumbleDrawerContent: React.FC<{
     <>
       {Object.entries(place.ratings).map(([key, rating]) => {
         return (
-          <div className="flex justify-between pb-2">
+          <div key={key} className="flex justify-between pb-2">
             <div>
               <span className="font-roboto">{fromKeyToLabel(key)}</span>
             </div>
@@ -45,9 +46,9 @@ export const RentalRumbleDrawerContent: React.FC<{
         <span className="font-roboto font-bold">Anotações do casal</span>
       </div>
       {place.reviews.map(({ user, review }) => {
-        const profile = user === 'Gabriel' ? gabriel : user === 'Mimi' ? gabriel : gabriel;
+        const profile = user === 'Gabriel' ? gabriel : user === 'Mimi' ? mimi : gabriel;
         return (
-          <div className="flex pb-3 items-center">
+          <div key={`${user}-${review}`} className="flex pb-3 items-center">
             <div className="h-12 w-12 border-2 border-purple-400 bg-cool-green rounded-full mr-2 flex items-center justify-center">
               <img src={profile} height={40} width={40} alt={user} />
             </div>
