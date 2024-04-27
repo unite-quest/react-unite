@@ -85,3 +85,61 @@ export async function validateAndPersistAnswer(
     valid,
   };
 }
+
+export type SplitChoices = {
+  correctChoices: number[];
+  incorrectChoices: number[];
+};
+
+export async function validateRecordAsAnswer(
+  challengeId: ChallengeIdentifier,
+  userSelection: Record<number, boolean>,
+  answers: AnswersModel,
+): Promise<SplitChoices> {
+  return await Object.entries(userSelection).reduce<Promise<SplitChoices>>(
+    (acc, entries, index) => toSplitChoices(acc, entries, index, answers, challengeId),
+    Promise.resolve({
+      correctChoices: [],
+      incorrectChoices: [],
+    }),
+  );
+}
+
+async function toSplitChoices(
+  asyncAcc: Promise<SplitChoices>,
+  [key, value]: [key: string, value: boolean],
+  index: number,
+  answers: AnswersModel,
+  challengeId: ChallengeIdentifier,
+): Promise<SplitChoices> {
+  const acc = await asyncAcc;
+  const valid = await validateAnswer(
+    answers,
+    challengeId,
+    String(Number(key) + 1),
+    String(value),
+    true,
+  );
+
+  if (valid) {
+    return {
+      correctChoices: [...acc.correctChoices, index],
+      incorrectChoices: [...acc.incorrectChoices],
+    };
+  }
+
+  return {
+    correctChoices: [...acc.correctChoices],
+    incorrectChoices: [...acc.incorrectChoices, index],
+  };
+}
+
+export async function persistRecordAsCorrectAnswer(
+  challengeId: ChallengeIdentifier,
+  userSelection: Record<number, boolean>,
+): Promise<void> {
+  const keys = Object.entries(userSelection).map(([key, value]) => {
+    return getAnswerKey(challengeId, String(Number(key) + 1), String(value));
+  });
+  await persistAnswerKeyArray(keys);
+}

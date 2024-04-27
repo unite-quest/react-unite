@@ -41,14 +41,16 @@ function LogoQuizChallenge() {
     );
     if (valid) {
       openModal({
-        message: 'Acertou!',
+        type: 'success',
+        message: 'Continue assim!',
         onPrimaryPress: () => {
           navigate(-1);
         },
       });
     } else {
       openModal({
-        message: 'Errou',
+        type: 'failure',
+        message: 'Hmmm, não exatamente. Revise sua resposta',
       });
     }
   };

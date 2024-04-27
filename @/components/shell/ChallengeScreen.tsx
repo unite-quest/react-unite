@@ -1,6 +1,7 @@
 import { PropsWithChildren } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { ChallengeIdentifier } from '@/shared/utils/ChallengeIdentifiers';
 import { useCurrentChallenge } from 'src/hooks/useCurrentChallenge';
 import { Header } from '../ui/header';
 import { Lamp } from '../ui/lamp';
@@ -13,11 +14,16 @@ const ChallengeScreen: React.FC<
   }>
 > = ({ Footer, description, children, onTipClick }) => {
   const navigate = useNavigate();
-  const { meta, screenType } = useCurrentChallenge();
+  const { meta, screenType, id } = useCurrentChallenge();
 
   const goBack = () => {
     navigate(-1);
   };
+
+  const showTip =
+    onTipClick &&
+    (screenType === 'details' ||
+      (screenType === 'challenge' && id === ChallengeIdentifier.Six_ApartmentTinder));
 
   return (
     <>
@@ -37,7 +43,7 @@ const ChallengeScreen: React.FC<
           {children}
         </div>
         {Footer}
-        {screenType === 'details' ? (
+        {showTip ? (
           <div className="fixed bottom-36 right-4">
             <Lamp onClick={onTipClick} />
           </div>

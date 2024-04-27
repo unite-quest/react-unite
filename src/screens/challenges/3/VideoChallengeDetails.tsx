@@ -100,14 +100,16 @@ function VideoChallengeDetails() {
     );
     if (valid) {
       openModal({
-        message: 'Acertou!',
+        type: 'success',
+        message: 'Ótima resposta, continue assim!',
         onPrimaryPress: () => {
           navigate(-1);
         },
       });
     } else {
       openModal({
-        message: 'Errou',
+        type: 'failure',
+        message: 'Hmmm, não exatamente. Revise sua resposta',
       });
     }
   };

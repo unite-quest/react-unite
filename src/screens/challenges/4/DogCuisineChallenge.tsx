@@ -1,10 +1,12 @@
 import { ChallengeFooter } from '@/components/shell/ChallengeFooter';
 import { ChallengeScreen } from '@/components/shell/ChallengeScreen';
 import { UniteToggle } from '@/components/ui/toggle';
-import { AnswersModel } from '@/models/AnswersModel';
 import { ModalContext } from '@/shared/modal/ModalProvider';
 import { ChallengeIdentifier, ChallengeRouteIdentifier } from '@/shared/utils/ChallengeIdentifiers';
-import { getAnswerKey, persistAnswerKeyArray, validateAnswer } from '@/shared/utils/validateAnswer';
+import {
+  persistRecordAsCorrectAnswer,
+  validateRecordAsAnswer,
+} from '@/shared/utils/validateAnswer';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useAllAnswers from 'src/hooks/useAllAnswers';
@@ -128,63 +130,6 @@ const mochiGrowthFeedback: Record<number, { message: string; image: string }> = 
   },
 };
 
-type SplitChoices = {
-  correctChoices: number[];
-  incorrectChoices: number[];
-};
-
-async function fromMenuToSplitChoices(
-  asyncAcc: Promise<SplitChoices>,
-  [key, value]: [key: string, value: boolean],
-  index: number,
-  answers: AnswersModel,
-): Promise<SplitChoices> {
-  const acc = await asyncAcc;
-  const valid = await validateAnswer(
-    answers,
-    ChallengeIdentifier.Four_DogCuisine,
-    String(Number(key) + 1),
-    String(value),
-    true,
-  );
-
-  if (valid) {
-    return {
-      correctChoices: [...acc.correctChoices, index],
-      incorrectChoices: [...acc.incorrectChoices],
-    };
-  }
-
-  return {
-    correctChoices: [...acc.correctChoices],
-    incorrectChoices: [...acc.incorrectChoices, index],
-  };
-}
-
-async function persistMenu(menu: Record<number, boolean>): Promise<void> {
-  const keys = Object.entries(menu).map(([key, value]) => {
-    return getAnswerKey(
-      ChallengeIdentifier.Four_DogCuisine,
-      String(Number(key) + 1),
-      String(value),
-    );
-  });
-  await persistAnswerKeyArray(keys);
-}
-
-async function validateMenuChoices(
-  menu: Record<number, boolean>,
-  answers: AnswersModel,
-): Promise<SplitChoices> {
-  return await Object.entries(menu).reduce<Promise<SplitChoices>>(
-    (acc, entries, index) => fromMenuToSplitChoices(acc, entries, index, answers),
-    Promise.resolve({
-      correctChoices: [],
-      incorrectChoices: [],
-    }),
-  );
-}
-
 function DogCuisineChallenge() {
   const { openModal } = useContext(ModalContext);
   const navigate = useNavigate();
@@ -204,13 +149,15 @@ function DogCuisineChallenge() {
       return;
     }
 
-    const { correctChoices, incorrectChoices } = await validateMenuChoices(
+    const { correctChoices, incorrectChoices } = await validateRecordAsAnswer(
+      ChallengeIdentifier.Four_DogCuisine,
       menuSelection,
       dbAnswers,
     );
     if (incorrectChoices.length === 0) {
-      persistMenu(menuSelection);
+      await persistRecordAsCorrectAnswer(ChallengeIdentifier.Four_DogCuisine, menuSelection);
       openModal({
+        type: 'image',
         message: 'Acertou!',
         image: 'https://gabrieltnishimura.github.io/unite/mochi/mochi-5.webp',
         onPrimaryPress: () => {
@@ -229,6 +176,7 @@ function DogCuisineChallenge() {
     const randomIndex = Math.floor(Math.random() * incorrectChoices.length);
     const feedbackForMenuIndex = incorrectChoices[randomIndex];
     openModal({
+      type: 'image',
       message: `Feedback: ${feedback.message} + "${todaysMenu[feedbackForMenuIndex].tipWhenWrong}"`,
       image: feedback.image,
       onPrimaryPress: () => {

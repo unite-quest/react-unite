@@ -10,7 +10,6 @@ enum Rating {
 export type LivingConditions = {
   title: string;
   image: string;
-  checked?: boolean;
   ratings: {
     location: Rating;
     view: Rating;
@@ -27,7 +26,6 @@ export const rentalRumbleApartments: LivingConditions[] = [
   {
     title: 'Apê no espaço sideral',
     image: 'https://gabrieltnishimura.github.io/unite/rental-rumble/space-apartment.webp',
-    checked: undefined,
     ratings: {
       location: Rating.TwoStars,
       view: Rating.FourStars,
@@ -50,9 +48,8 @@ export const rentalRumbleApartments: LivingConditions[] = [
     ],
   },
   {
-    title: 'Kitnet no mar',
+    title: 'Kitnet no meio do mar',
     image: 'https://gabrieltnishimura.github.io/unite/rental-rumble/sea-kitchen.webp',
-    checked: true,
     ratings: {
       location: Rating.ThreeStars,
       view: Rating.FourStars,
@@ -68,12 +65,15 @@ export const rentalRumbleApartments: LivingConditions[] = [
         user: 'Mochi',
         review: 'EU AMO A PRAIA',
       },
+      {
+        user: 'Gabriel',
+        review: 'Isso é mais mar do que praia, mas beleza',
+      },
     ],
   },
   {
     title: 'Condomínio no deserto',
     image: 'https://gabrieltnishimura.github.io/unite/rental-rumble/desert-condo.webp',
-    checked: false,
     ratings: {
       location: Rating.OneStar,
       view: Rating.FourStars,
@@ -97,20 +97,32 @@ export const rentalRumbleApartments: LivingConditions[] = [
   },
   {
     title: 'Flat Caverna',
-    image: 'https://placehold.co/250x250',
-    checked: undefined,
+    image: 'https://gabrieltnishimura.github.io/unite/rental-rumble/stalagmite-flat.webp',
     ratings: {
       location: Rating.OneStar,
       view: Rating.OneStar,
       interior: Rating.ThreeStars,
       facilities: Rating.OneStar,
     },
-    reviews: [],
+    reviews: [
+      {
+        user: 'Mochi',
+        review: 'Eu posso comer esse osso aqui em baixo?',
+      },
+      {
+        user: 'Mimi',
+        review:
+          'Essa caverna tem controle de temperatura natural! Vamos economizar com energia elétrica',
+      },
+      {
+        user: 'Gabriel',
+        review: 'Certeza absoluta que eu vou tropeçar nesse musgo maldito e cair no rio',
+      },
+    ],
   },
   {
     title: 'Chalé no zoológico',
     image: 'https://gabrieltnishimura.github.io/unite/rental-rumble/zoo-apartment.webp',
-    checked: false,
     ratings: {
       location: Rating.OneStar,
       view: Rating.TwoStars,
@@ -120,7 +132,7 @@ export const rentalRumbleApartments: LivingConditions[] = [
     reviews: [
       {
         user: 'Mochi',
-        review: 'Se vocês me derem chinchila de café dá manhã estou topando',
+        review: 'Se vocês me derem chinchila de café dá manhã eu topo',
       },
       {
         user: 'Mimi',
@@ -135,7 +147,6 @@ export const rentalRumbleApartments: LivingConditions[] = [
   {
     title: 'Casa no fundo do mar',
     image: 'https://gabrieltnishimura.github.io/unite/rental-rumble/underthesea-house.webp',
-    checked: false,
     ratings: {
       location: Rating.TwoStars,
       view: Rating.FourStars,
@@ -149,18 +160,17 @@ export const rentalRumbleApartments: LivingConditions[] = [
       },
       {
         user: 'Mimi',
-        review: 'Aquilo é uma vela sozinha no tapete? Que bizarro',
+        review: 'Aposto que não vamos conseguir ouvir nossas vizinhas brigando daqui',
       },
       {
         user: 'Gabriel',
-        review: 'Pelo menos eu nunca vou estar atrasado olhando para aquele relógio',
+        review: 'As pessoas vivem aqui!?',
       },
     ],
   },
   {
     title: 'Sobrado no metrô',
     image: 'https://gabrieltnishimura.github.io/unite/rental-rumble/subway-apartment.webp',
-    checked: false,
     ratings: {
       location: Rating.ZeroStars,
       view: Rating.ZeroStars,

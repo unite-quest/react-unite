@@ -2,14 +2,30 @@ import { ChallengeFooter } from '@/components/shell/ChallengeFooter';
 import { ChallengeScreen } from '@/components/shell/ChallengeScreen';
 import { StatefulCard } from '@/components/ui/stateful-card';
 import { BottomDrawerContext } from '@/shared/bottom-drawer/BottomDrawerProvider';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
+import { LoaderContext } from '@/shared/loader/LoaderProvider';
+import { ModalContext } from '@/shared/modal/ModalProvider';
+import { ChallengeIdentifier } from '@/shared/utils/ChallengeIdentifiers';
 import { LivingConditions, rentalRumbleApartments } from '@/shared/utils/rentalRumbleApartments';
+import {
+  persistRecordAsCorrectAnswer,
+  validateRecordAsAnswer,
+} from '@/shared/utils/validateAnswer';
+import { useNavigate } from 'react-router-dom';
+import useAllAnswers from 'src/hooks/useAllAnswers';
+import { useAnswerState } from 'src/hooks/useAnswerState';
 import { RentalRumbleDrawerContent } from './RentalRumbleDrawerContent';
 
 function RentalRumble() {
+  const { setLoading } = useContext(LoaderContext);
   const [answers, setAnswers] = useState<Record<number, boolean>>({});
+  const currentAnswers: number = Object.keys(answers).length;
   const { openDrawer, closeDrawer } = useContext(BottomDrawerContext);
+  const { openModal } = useContext(ModalContext);
+  const dbAnswers = useAllAnswers();
+  const navigate = useNavigate();
+  const { answeredQuestionIds } = useAnswerState(ChallengeIdentifier.Six_ApartmentTinder);
 
   const moreDetails = (place: LivingConditions, index: number) => {
     openDrawer({
@@ -34,12 +50,69 @@ function RentalRumble() {
     });
   };
 
+  const submit = async () => {
+    if (!dbAnswers) {
+      return;
+    }
+
+    const { correctChoices, incorrectChoices } = await validateRecordAsAnswer(
+      ChallengeIdentifier.Six_ApartmentTinder,
+      answers,
+      dbAnswers,
+    );
+
+    if (incorrectChoices.length === 0) {
+      await persistRecordAsCorrectAnswer(ChallengeIdentifier.Six_ApartmentTinder, answers);
+
+      openModal({
+        type: 'success',
+        message: 'Parabens! Clique no x para continuar para o próximo desafio.',
+        onPrimaryPress: () => {
+          navigate(`/challenge/${ChallengeIdentifier.Seven_SimonSays}/landing`);
+        },
+      });
+    } else {
+      openModal({
+        type: 'failure',
+        message: `Verifique suas respostas e submita novamente. Existem ${correctChoices.length} respostas corretas.`,
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (answeredQuestionIds === undefined) {
+      return;
+    }
+    setLoading(false);
+
+    if (answeredQuestionIds.length === rentalRumbleApartments.length) {
+      openModal({
+        type: 'success',
+        message: 'Parabens! Clique no x para continuar para o próximo desafio.',
+        dismiss: () => {
+          navigate(`/challenge/${ChallengeIdentifier.Seven_SimonSays}/landing`);
+        },
+      });
+    }
+  }, [setLoading, answeredQuestionIds, openModal, navigate]);
+
   return (
     <>
       <ChallengeScreen
         description="Analise casa um dos imóveis abaixo e dê o seu veredito. Todas as casas deverão ser avaliadas para continuar."
+        onTipClick={() => {
+          openDrawer({
+            title: 'Não entendeu?',
+            message:
+              'Foque na análise dos três integrantes da família! As mensagens tem tom positivo ou negativo sobre o imóvel; você pode user isso de referência para avaliar.',
+          });
+        }}
         Footer={
-          <ChallengeFooter title={`Submeter palpite (3/4)`} onClick={console.log} disabled={true} />
+          <ChallengeFooter
+            title={`Submeter palpite (${currentAnswers}/${rentalRumbleApartments.length})`}
+            onClick={submit}
+            // disabled={currentAnswers !== rentalRumbleApartments.length}
+          />
         }
       >
         {rentalRumbleApartments.map((detail, index) => {
