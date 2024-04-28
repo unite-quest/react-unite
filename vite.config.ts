@@ -10,6 +10,7 @@ export default defineConfig(({ mode }) => {
   return {
     define: {
       'process.env.REACT_APP_SECRET': JSON.stringify(env.REACT_APP_SECRET),
+      'process.env.REACT_APP_SCRAMBLE_SECRET': JSON.stringify(env.REACT_APP_SCRAMBLE_SECRET),
     },
     plugins: [
       react(),
@@ -27,6 +28,8 @@ export default defineConfig(({ mode }) => {
     assetsInclude: ['**/*.JPG'],
     esbuild: {
       legalComments: 'none',
+      // no console logging in production!
+      drop: ['console', 'debugger'],
     },
   };
 });

@@ -23,7 +23,8 @@ const ChallengeScreen: React.FC<
   const showTip =
     onTipClick &&
     (screenType === 'details' ||
-      (screenType === 'challenge' && id === ChallengeIdentifier.Six_ApartmentTinder));
+      (screenType === 'challenge' && id === ChallengeIdentifier.Six_ApartmentTinder) ||
+      (screenType === 'challenge' && id === ChallengeIdentifier.Eight_TornInvite));
 
   return (
     <>

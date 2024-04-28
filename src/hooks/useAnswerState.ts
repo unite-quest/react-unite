@@ -4,19 +4,23 @@ import {
   fromChallengeIdentifierToDBKey,
 } from '@/shared/utils/ChallengeIdentifiers';
 import { oneWayHash } from '@/shared/utils/oneWayHash';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import useAllAnswers from './useAllAnswers';
 
 function getUserAnswers(): string[] {
-  const answers = localStorage.getItem('answers');
-  const tentativeArray = JSON.parse(answers || '[]');
-  // invalid array - should not happen unless someone hacked the game
-  if (!Array.isArray(tentativeArray)) {
-    // forced cleanup
-    localStorage.removeItem('answers');
-    return [];
+  try {
+    const answers = localStorage.getItem('answers');
+    const tentativeArray = JSON.parse(answers || '[]');
+    if (Array.isArray(tentativeArray)) {
+      return tentativeArray.map(item => String(item));
+    }
+  } catch (err) {
+    console.log(err);
   }
-  return tentativeArray.map(item => String(item));
+  // forced cleanup
+  // invalid array or error while trying to open local storage - should not happen unless someone hacked the game
+  localStorage.removeItem('answers');
+  return [];
 }
 
 async function getCompletedQuestionsForChallenge(
@@ -52,24 +56,31 @@ async function getCompletedQuestionsForChallenge(
       }),
   );
 
+  console.log('Successfully completed questions hashes for challenge', hashesForChallenge.length);
   return hashesForChallenge.map(i => i.questionId);
 }
 
-export function useAnswerState(challengeId: ChallengeIdentifier): {
+export function useAnswerState(
+  challengeId: ChallengeIdentifier,
+  config: { scrambledInviteList: boolean } = { scrambledInviteList: false },
+): {
   answeredQuestionIds: string[] | undefined; // questionId
+  refetchAnsweredQuestions: () => Promise<void>;
 } {
-  const answers = useAllAnswers();
+  const answers = useAllAnswers(config);
   const [answeredQuestionIds, setAnsweredQuestions] = useState<string[] | undefined>(undefined);
 
-  useEffect(() => {
-    const fn = async () => {
-      const ids = await getCompletedQuestionsForChallenge(challengeId, answers);
-      setAnsweredQuestions(ids);
-    };
-    fn();
+  const refetchAnsweredQuestions = useCallback(async () => {
+    const ids = await getCompletedQuestionsForChallenge(challengeId, answers);
+    setAnsweredQuestions(ids);
   }, [answers, challengeId]);
+
+  useEffect(() => {
+    refetchAnsweredQuestions();
+  }, [refetchAnsweredQuestions]);
 
   return {
     answeredQuestionIds,
+    refetchAnsweredQuestions,
   };
 }
