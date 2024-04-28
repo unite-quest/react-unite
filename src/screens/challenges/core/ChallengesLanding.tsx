@@ -1,14 +1,17 @@
 import { ChallengeFooter } from '@/components/shell/ChallengeFooter';
 import { ChallengeScreen } from '@/components/shell/ChallengeScreen';
 import { LoaderContext } from '@/shared/loader/LoaderProvider';
+import { ChallengeIdentifier, ChallengeRouteIdentifier } from '@/shared/utils/ChallengeIdentifiers';
 import { useContext, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { createSearchParams, useNavigate } from 'react-router-dom';
+import useTornInviteMetadata from 'src/hooks/useTornInviteMetadata';
 import { useCurrentChallenge } from '../../../hooks/useCurrentChallenge';
 
-function Challenges() {
+function ChallengeLanding() {
   const { setLoading } = useContext(LoaderContext);
   const navigate = useNavigate();
-  const { meta: challenge } = useCurrentChallenge();
+  const { meta: challenge, id } = useCurrentChallenge();
+  const { nextQuestionId } = useTornInviteMetadata();
 
   useEffect(() => {
     setTimeout(() => {
@@ -17,6 +20,15 @@ function Challenges() {
   }, [setLoading]);
 
   const submit = () => {
+    if (id === ChallengeIdentifier.Eight_TornInvite) {
+      navigate({
+        pathname: `/challenge/${ChallengeRouteIdentifier.Eight_TornInvite}`,
+        search: createSearchParams({
+          id: String(nextQuestionId),
+        }).toString(),
+      });
+      return;
+    }
     navigate('..', {
       relative: 'path',
     });
@@ -39,4 +51,4 @@ function Challenges() {
   );
 }
 
-export default Challenges;
+export default ChallengeLanding;

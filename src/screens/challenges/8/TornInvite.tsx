@@ -8,13 +8,14 @@ import { useCurrentQuestion } from 'src/hooks/useCurrentQuestion';
 import useTornInviteMetadata from 'src/hooks/useTornInviteMetadata';
 
 function TornInvite() {
+  const { id: questionId } = useCurrentQuestion();
   const navigate = useNavigate();
   const [answer, setAnswer] = useState('');
   const { openModal } = useContext(ModalContext);
   const { openDrawer } = useContext(BottomDrawerContext);
-  // technically should start with 0
-  const { id: questionId } = useCurrentQuestion();
+
   const {
+    currentQuestionId,
     alreadyAnswered,
     totalGuestsSubmitted,
     totalGuests,
@@ -22,12 +23,14 @@ function TornInvite() {
     tipForGuestName,
     nextQuestionId,
     validateAnswer,
-  } = useTornInviteMetadata(questionId);
+  } = useTornInviteMetadata();
 
   const submit = () => {
     const validate = async () => {
       // add validation
       const valid = await validateAnswer(answer);
+      setAnswer('');
+
       if (!valid) {
         openModal({
           type: 'failure',
@@ -35,33 +38,23 @@ function TornInvite() {
         });
         return;
       }
-
-      // verify step after validated
-      if (totalGuests === totalGuestsSubmitted) {
-        console.log('last success');
-        return;
-      }
-
-      // display success for all but the last answer
-      setAnswer('');
-      openModal({
-        type: 'success',
-        message: 'Parabens! Clique no x para continuar para o próximo nome.',
-        dismiss: () => {
-          navigate({
-            pathname: '.',
-            search: createSearchParams({
-              id: String(nextQuestionId),
-            }).toString(),
-          });
-        },
-      });
     };
     validate();
   };
 
   useEffect(() => {
-    if (!alreadyAnswered) {
+    if (!alreadyAnswered || nextQuestionId === undefined) {
+      return;
+    }
+
+    if (nextQuestionId === null) {
+      openModal({
+        type: 'success',
+        message: 'Você já completou todos os nomes! Clique no X para finalizar a jornada.',
+        dismiss: () => {
+          navigate('/credits');
+        },
+      });
       return;
     }
 
@@ -77,7 +70,7 @@ function TornInvite() {
         });
       },
     });
-  }, [alreadyAnswered, navigate, nextQuestionId, openModal]);
+  }, [alreadyAnswered, currentQuestionId, navigate, nextQuestionId, openModal, questionId]);
 
   return (
     <>

@@ -29,7 +29,6 @@ async function getCompletedQuestionsForChallenge(
 ): Promise<string[]> {
   const userAnswers = getUserAnswers();
   if (!answers?.answers.length || !userAnswers.length) {
-    console.log('empty list of answers or user state');
     return [];
   }
 
@@ -56,7 +55,6 @@ async function getCompletedQuestionsForChallenge(
       }),
   );
 
-  console.log('Successfully completed questions hashes for challenge', hashesForChallenge.length);
   return hashesForChallenge.map(i => i.questionId);
 }
 

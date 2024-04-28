@@ -12,7 +12,7 @@ function SimonSaysChallenge() {
 
   useEffect(() => {
     if (JSON.stringify(answers) === JSON.stringify(correctAnswers)) {
-      navigate(`/challenge/${ChallengeRouteIdentifier.Two_LogicGates}/landing`);
+      navigate(`/challenge/${ChallengeRouteIdentifier.Eight_TornInvite}/landing`);
     }
   });
 
