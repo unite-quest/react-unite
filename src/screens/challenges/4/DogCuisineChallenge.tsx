@@ -177,9 +177,9 @@ function DogCuisineChallenge() {
     const feedbackForMenuIndex = incorrectChoices[randomIndex];
     openModal({
       type: 'image',
-      message: `Feedback: ${feedback.message} + "${todaysMenu[feedbackForMenuIndex].tipWhenWrong}"`,
+      message: `${feedback.message} Aqui vai a dica de um do(s) item(s) que está incorreto: "${todaysMenu[feedbackForMenuIndex].tipWhenWrong}"`,
       image: feedback.image,
-      onPrimaryPress: () => {
+      dismiss: () => {
         setMenuSelection({});
       },
     });
@@ -199,9 +199,10 @@ function DogCuisineChallenge() {
         <div>
           <div className="pt-6 pb-12 text-left">
             <span>
-              Para que os dogs permaneçam saudáveis, você precisa indicar quais comidas eles estão
-              permitidos a comer. Cuidado para não errar! Caso inverta algum item, você deverá
-              começar tudo de novo.
+              Para que o Mochi cresça saudável, você precisa indicar quais comidas ele pode ou não
+              comer. Aperte uma vez para permitir o alimento e duas para não permitir. Cuidado para
+              não preparar o menu errado! Caso algum alimento esteja incorreto, você deverá começar
+              tudo de novo.
             </span>
           </div>
           <div className="w-full">
