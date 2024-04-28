@@ -21,6 +21,11 @@ function ChallengeLanding() {
 
   const submit = () => {
     if (id === ChallengeIdentifier.Eight_TornInvite) {
+      if (nextQuestionId === null) {
+        navigate('/credits');
+        return;
+      }
+
       navigate({
         pathname: `/challenge/${ChallengeRouteIdentifier.Eight_TornInvite}`,
         search: createSearchParams({
