@@ -42,11 +42,11 @@ export const challengeMetadataMap: Record<ChallengeIdentifier, ChallengeMetadata
     period: '2015-2016',
     description:
       'Depois de 6 anos duros estudando Engenharia da Computação, estamos quase formados! Nos ajude a passar na última prova passando cola (resolvendo o exercício e enviando a resposta correta).',
-    background: '',
+    background: 'bg-beige',
     image: LogicGatesIntroImage,
     footer: {
-      background: '',
-      buttonColor: 'cool-green',
+      background: 'bg-black',
+      buttonColor: 'black',
     },
   },
   [ChallengeIdentifier.Three_Video]: {

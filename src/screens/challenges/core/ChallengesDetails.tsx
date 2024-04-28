@@ -16,13 +16,14 @@ function ChallengesDetails() {
   const LogoQuizChallengeDetails = React.lazy(() => import('../1/LogoQuizChallengeDetails'));
   const VideoChallengeDetails = React.lazy(() => import('../3/VideoChallengeDetails'));
   const SimonSaysChallengeDetails = React.lazy(() => import('../7/SimonSaysChallengeDetails'));
+  const LogicGatesChallengeDetails = React.lazy(() => import('../2/LogicGatesChallengeDetails'));
 
   const Challenges: Record<ChallengeIdentifier, { component: JSX.Element }> = {
     [ChallengeIdentifier.One_LogoQuiz]: {
       component: <LogoQuizChallengeDetails />,
     },
     [ChallengeIdentifier.Two_LogicGates]: {
-      component: <></>,
+      component: <LogicGatesChallengeDetails />,
     },
     [ChallengeIdentifier.Three_Video]: {
       component: <VideoChallengeDetails />,

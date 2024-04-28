@@ -24,8 +24,7 @@ const ChallengeScreen: React.FC<
     onTipClick &&
     (screenType === 'details' ||
       (screenType === 'challenge' && id === ChallengeIdentifier.Six_ApartmentTinder) ||
-      (screenType === 'challenge' && id === ChallengeIdentifier.Eight_TornInvite) ||
-      (screenType === 'challenge' && id === ChallengeIdentifier.Two_LogicGates));
+      (screenType === 'challenge' && id === ChallengeIdentifier.Eight_TornInvite));
 
   return (
     <>
