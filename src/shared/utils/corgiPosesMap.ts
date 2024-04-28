@@ -1,27 +1,55 @@
-const CorgiImagePose1 = 'https://gabrieltnishimura.github.io/unite/pixil-frame-0.png';
-const CorgiImagePose2 = 'https://gabrieltnishimura.github.io/unite/pixil-frame-1.png';
-const CorgiImagePose3 = 'https://gabrieltnishimura.github.io/unite/pixil-frame-2.png';
-const CorgiImagePose4 = 'https://gabrieltnishimura.github.io/unite/pixil-frame-3.png';
+enum CorgiTrick {
+  Standing,
+  Backwards,
+  LayingDown,
+  Sitting,
+}
 
-export const corgiPosesMap: { poseId: number; image: string; bg: string }[] = [
+export const corgiPosesMap: Array<{
+  poseId: CorgiTrick;
+  image: string;
+  background: string;
+}> = [
   {
-    poseId: 0,
-    image: CorgiImagePose1,
-    bg: 'bg-red-500',
+    poseId: CorgiTrick.Standing,
+    image: 'https://gabrieltnishimura.github.io/unite/pixil-frame-0.png',
+    background: 'bg-red-500',
   },
   {
-    poseId: 1,
-    image: CorgiImagePose2,
-    bg: 'bg-emerald-500',
+    poseId: CorgiTrick.Backwards,
+    image: 'https://gabrieltnishimura.github.io/unite/pixil-frame-1.png',
+    background: 'bg-emerald-500',
   },
   {
-    poseId: 2,
-    image: CorgiImagePose3,
-    bg: 'bg-yellow-500',
+    poseId: CorgiTrick.LayingDown,
+    image: 'https://gabrieltnishimura.github.io/unite/pixil-frame-2.png',
+    background: 'bg-yellow-500',
   },
   {
-    poseId: 3,
-    image: CorgiImagePose4,
-    bg: 'bg-indigo-500',
+    poseId: CorgiTrick.Sitting,
+    image: 'https://gabrieltnishimura.github.io/unite/pixil-frame-3.png',
+    background: 'bg-indigo-500',
+  },
+];
+
+type TrickList = {
+  tricks: CorgiTrick[];
+};
+
+export const corgiChallengeLevels: TrickList[] = [
+  {
+    tricks: [CorgiTrick.Standing, CorgiTrick.LayingDown],
+  },
+  {
+    tricks: [
+      CorgiTrick.Backwards,
+      CorgiTrick.LayingDown,
+      CorgiTrick.Backwards,
+      CorgiTrick.Sitting,
+      CorgiTrick.LayingDown,
+      CorgiTrick.Standing,
+      CorgiTrick.Backwards,
+      CorgiTrick.Sitting,
+    ],
   },
 ];

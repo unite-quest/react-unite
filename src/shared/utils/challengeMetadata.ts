@@ -102,7 +102,7 @@ export const challengeMetadataMap: Record<ChallengeIdentifier, ChallengeMetadata
     period: '2022',
     description:
       'O Mochi tem se sentido solitário por ser o único cachorro da casa. Antes que a nova e maloqueira Corgi, Flan, possa se tornar um membro da família, ela precisa aprender boas maneiras! Ajude Flan a lembrar nossos comandos clicando nos botões na ordem correta.',
-    background: 'bg-cool-green',
+    background: 'bg-[#E5DFF7]',
     image: SimonSaysIntroImage,
     footer: {
       background: 'bg-black',

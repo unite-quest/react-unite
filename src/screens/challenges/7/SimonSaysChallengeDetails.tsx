@@ -18,20 +18,29 @@ function SimonSaysChallenge() {
 
   return (
     <>
-      <ChallengeScreen Footer={<div></div>}>
+      <ChallengeScreen
+        Footer={
+          <>
+            <div className="pt-36"></div>
+            <div className="fixed bottom-0 w-full">
+              <div className={`bg-black p-6`}></div>
+            </div>
+          </>
+        }
+      >
         <div>
           <div className="pt-6 pb-6 text-left">
             Repita a ordem apresentada na tela anterior. No rodapé, apresentamos a barra de
             progresso para concluir esse desafio.
           </div>
           <div className="grid grid-cols-2 gap-4">
-            {corgiPosesMap.map(corgi => {
+            {corgiPosesMap.map(({ poseId, background, image }) => {
               return (
                 <SimonSaysTile
-                  key={corgi.poseId}
-                  onClick={() => setAnswers(prevArray => [...prevArray, corgi.poseId])}
-                  image={corgi.image}
-                  bg={corgi.bg}
+                  key={poseId}
+                  onClick={() => setAnswers(prevArray => [...prevArray, poseId])}
+                  image={image}
+                  bg={background}
                 />
               );
             })}

@@ -33,6 +33,14 @@ function ChallengeLanding() {
         }).toString(),
       });
       return;
+    } else if (id === ChallengeIdentifier.Seven_SimonSays) {
+      navigate({
+        pathname: `/challenge/${ChallengeRouteIdentifier.Seven_SimonSays}`,
+        search: createSearchParams({
+          id: '0',
+        }).toString(),
+      });
+      return;
     }
     navigate('..', {
       relative: 'path',

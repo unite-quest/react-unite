@@ -1,35 +1,66 @@
 import { ChallengeScreen } from '@/components/shell/ChallengeScreen';
-import { ChallengeRouteIdentifier } from '@/shared/utils/ChallengeIdentifiers';
+import { LoaderContext } from '@/shared/loader/LoaderProvider';
 import { corgiPosesMap } from '@/shared/utils/corgiPosesMap';
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useContext, useEffect, useState } from 'react';
+import { createSearchParams, useNavigate } from 'react-router-dom';
+import { useCurrentQuestion } from 'src/hooks/useCurrentQuestion';
+import useImagePreloader from 'src/hooks/useImagePreloader';
+import useSimonSaysAnimationState from 'src/hooks/useSimonSaysAnimationState';
 
 function SimonSaysChallenge() {
-  const [index, setIndex] = useState<number>(0);
-  const correctAnswers = [0, 1, 2, 3];
-  const [timeLeft, setTimeLeft] = useState(1);
   const navigate = useNavigate();
 
+  const { setLoading } = useContext(LoaderContext);
+  // pre-load images
+  const [challengeEnabled, setChallengeEnabled] = useState(false);
+  const { id: questionId } = useCurrentQuestion();
+  const { showCounter, counter, trickIndex, animationFinished } = useSimonSaysAnimationState(
+    questionId,
+    {
+      enabled: challengeEnabled,
+    },
+  );
+  const currentTrick = corgiPosesMap[trickIndex];
+  const background = showCounter ? 'bg-black' : currentTrick.background;
+  const { imagesPreloaded } = useImagePreloader(corgiPosesMap.map(pose => pose.image));
+
   useEffect(() => {
-    if (!timeLeft && index + 1 !== correctAnswers.length) {
-      setIndex(index => index + 1);
-      setTimeLeft(1);
-    } else if (timeLeft === 0) {
-      navigate(`/challenge/${ChallengeRouteIdentifier.Seven_SimonSays}/details`);
+    if (!imagesPreloaded) {
+      return;
+    }
+    setTimeout(() => {
+      setLoading(false);
+      setChallengeEnabled(true);
+    }, 200);
+  }, [imagesPreloaded, setLoading]);
+
+  useEffect(() => {
+    if (!animationFinished || questionId === null) {
+      return;
     }
 
-    const intervalId = setInterval(() => {
-      setTimeLeft(timeLeft - 1);
-    }, 1000);
-
-    return () => clearInterval(intervalId);
-  }, [timeLeft]);
+    navigate({
+      pathname: 'details',
+      search: createSearchParams({
+        id: String(questionId),
+      }).toString(),
+    });
+  }, [animationFinished, navigate, questionId]);
 
   return (
     <>
-      <ChallengeScreen Footer={<div></div>}>
-        <div className={(corgiPosesMap[correctAnswers[index]] || {}).bg + ' h-full'}>
-          <img src={(corgiPosesMap[correctAnswers[index]] || {}).image} />
+      <ChallengeScreen noPadding Footer={<div></div>}>
+        <div
+          className={`w-full ${background} flex items-center justify-center`}
+          style={{ height: 'calc(100svh - 5rem)' }}
+        >
+          {showCounter ? (
+            <div>
+              <span className="font-roboto text-beige text-9xl">{counter}</span>
+            </div>
+          ) : (
+            <img className="flex" height={200} width={200} src={currentTrick.image} />
+          )}
         </div>
       </ChallengeScreen>
     </>

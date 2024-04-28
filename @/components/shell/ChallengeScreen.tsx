@@ -8,11 +8,12 @@ import { Lamp } from '../ui/lamp';
 
 const ChallengeScreen: React.FC<
   PropsWithChildren<{
+    noPadding?: boolean;
     description?: string;
     Footer: JSX.Element;
     onTipClick?: () => void;
   }>
-> = ({ Footer, description, children, onTipClick }) => {
+> = ({ noPadding, Footer, description, children, onTipClick }) => {
   const navigate = useNavigate();
   const { meta, screenType, id } = useCurrentChallenge();
 
@@ -35,7 +36,7 @@ const ChallengeScreen: React.FC<
           style={meta.background}
           onFlagClick={goBack}
         />
-        <div className="pl-5 pr-5">
+        <div className={noPadding ? '' : 'pl-5 pr-5'}>
           {description ? (
             <div className="pt-6 pb-12 text-left">
               <span>{description}</span>
