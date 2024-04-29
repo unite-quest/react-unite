@@ -11,18 +11,22 @@ import { UniteText } from '../ui/unite-text';
 
 const ChallengeScreen: React.FC<
   PropsWithChildren<{
+    noBottomPadding?: boolean;
+    noBackButton?: boolean;
     noPadding?: boolean;
     description?: string;
     Footer: JSX.Element;
     onTipClick?: () => void;
   }>
-> = ({ noPadding, Footer, description, children, onTipClick }) => {
+> = ({ noPadding, noBottomPadding, noBackButton, Footer, description, children, onTipClick }) => {
   const navigate = useNavigate();
   const { meta, screenType, id } = useCurrentChallenge();
 
-  const goBack = () => {
-    navigate(-1);
-  };
+  const goBack = noBackButton
+    ? undefined
+    : () => {
+        navigate(-1);
+      };
 
   const showTip =
     onTipClick &&
@@ -37,7 +41,7 @@ const ChallengeScreen: React.FC<
           title={screenType === 'landing' ? meta.period : meta.title}
           variant="intro"
           style={meta.background}
-          onFlagClick={goBack}
+          onBackClick={goBack}
         />
         {noPadding ? (
           <>
@@ -60,7 +64,7 @@ const ChallengeScreen: React.FC<
             {children}
           </InsetSpacing>
         )}
-        <StackSpacing size="xl" />
+        {noBottomPadding ? null : <StackSpacing size="xl" />}
         {Footer}
         {showTip ? (
           <div className="fixed bottom-36 right-4">

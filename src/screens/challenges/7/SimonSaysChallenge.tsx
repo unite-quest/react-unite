@@ -49,10 +49,10 @@ function SimonSaysChallenge() {
 
   return (
     <>
-      <ChallengeScreen noPadding Footer={<div></div>}>
+      <ChallengeScreen noBottomPadding noBackButton noPadding Footer={<div></div>}>
         <div
           className={`w-full ${background} flex items-center justify-center`}
-          style={{ height: 'calc(100svh - 5rem)' }}
+          style={{ height: 'calc(100svh - 4.5rem)' }}
         >
           {showCounter ? (
             <div>
