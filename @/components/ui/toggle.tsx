@@ -1,4 +1,5 @@
 import { StackSpacing } from './stack-spacing';
+import { UniteText } from './unite-text';
 
 const UniteToggle: React.FC<{
   label: string;
@@ -44,25 +45,29 @@ const UniteToggle: React.FC<{
   return (
     <>
       <div
-        className={`p-5 pl-32 relative w-full flex justify-between items-center ${styles.backgroundColor} rounded-e-3xl rounded-bl-3xl`}
+        className={`p-5 pl-[7.2rem] relative w-full flex justify-between items-center ${styles.backgroundColor} rounded-e-3xl rounded-bl-3xl`}
       >
         <div className="absolute left-5 top-[-1rem]">
           <img height={80} width={80} src={image} />
         </div>
         <div className="block text-left">
           <div>
-            <span className="font-roboto font-bold text-md">{label}</span>
+            <UniteText weight="bold" size="md">
+              {label}
+            </UniteText>
           </div>
           <div>
-            <span className="font-roboto font-light text-sm">{calculateState()}</span>
+            <UniteText weight="light" size="xs">
+              {calculateState()}
+            </UniteText>
           </div>
         </div>
         <div>
-          <button className="h-8 w-[3.5rem]" onClick={() => onChange(!state)}>
+          <button className="h-10 w-[4.5rem]" onClick={() => onChange(!state)}>
             <div
               className={`bg-black w-full h-full rounded-full flex items-center p-1 ${styles.toggleColor} ${styles.togglePositioning}`}
             >
-              <div className="h-6 w-6 bg-white rounded-full"></div>
+              <div className="h-8 w-8 bg-white rounded-full"></div>
             </div>
           </button>
         </div>

@@ -3,12 +3,19 @@ import { PropsWithChildren } from 'react';
 const UniteText: React.FC<
   PropsWithChildren<{
     align?: 'center' | 'left';
-    size?: 'sm' | 'md' | 'lg';
+    size?: 'xs' | 'sm' | 'md' | 'lg';
     weight?: 'light' | 'bold';
   }>
 > = ({ children, size = 'sm', align = 'left', weight = 'light' }) => {
   const alignStyle = align === 'center' ? '' : 'text-left';
-  const textSize = size === 'sm' ? 'leading-3 text-lg' : size === 'md' ? 'text-xl' : 'text-2xl';
+  const textSize =
+    size === 'xs'
+      ? 'text-md'
+      : size === 'sm'
+        ? 'leading-3 text-lg'
+        : size === 'md'
+          ? 'text-xl'
+          : 'text-2xl';
   const fontWeight = weight === 'light' ? 'font-light' : 'font-medium';
   return (
     <>
