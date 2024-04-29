@@ -27,6 +27,7 @@ function SimonSaysChallenge() {
     });
     const valid = correctAnswers.length === currentLevel.tricks.length;
     if (!valid) {
+      setAnswers([]);
       openModal({
         type: 'failure',
         message:
