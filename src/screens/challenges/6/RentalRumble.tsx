@@ -1,9 +1,10 @@
 import { ChallengeFooter } from '@/components/shell/ChallengeFooter';
 import { ChallengeScreen } from '@/components/shell/ChallengeScreen';
 import { StatefulCard } from '@/components/ui/stateful-card';
-import { BottomDrawerContext } from '@/shared/bottom-drawer/BottomDrawerProvider';
 import { useContext, useEffect, useState } from 'react';
 
+import { BottomDrawerContext } from '@/shared/bottom-drawer/BottomDrawerProvider';
+import { RentalDrawerContext } from '@/shared/bottom-drawer/RentalDrawerProvider';
 import { LoaderContext } from '@/shared/loader/LoaderProvider';
 import { ModalContext } from '@/shared/modal/ModalProvider';
 import { ChallengeIdentifier } from '@/shared/utils/ChallengeIdentifiers';
@@ -21,16 +22,16 @@ function RentalRumble() {
   const { setLoading } = useContext(LoaderContext);
   const [answers, setAnswers] = useState<Record<number, boolean>>({});
   const currentAnswers: number = Object.keys(answers).length;
-  const { openDrawer, closeDrawer } = useContext(BottomDrawerContext);
+  const { openDrawer } = useContext(BottomDrawerContext);
+  const { openRentalDrawer, closeRentalDrawer } = useContext(RentalDrawerContext);
   const { openModal } = useContext(ModalContext);
   const dbAnswers = useAllAnswers();
   const navigate = useNavigate();
   const { answeredQuestionIds } = useAnswerState(ChallengeIdentifier.Six_ApartmentTinder);
 
   const moreDetails = (place: LivingConditions, index: number) => {
-    openDrawer({
+    openRentalDrawer({
       title: place.title,
-      variant: 'rental',
       image: place.image,
       content: (
         <>
@@ -38,11 +39,11 @@ function RentalRumble() {
             place={place}
             onApprove={() => {
               setAnswers({ ...answers, [index]: true });
-              closeDrawer();
+              closeRentalDrawer();
             }}
             onReject={() => {
               setAnswers({ ...answers, [index]: false });
-              closeDrawer();
+              closeRentalDrawer();
             }}
           />
         </>

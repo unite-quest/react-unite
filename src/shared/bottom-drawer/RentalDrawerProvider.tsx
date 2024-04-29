@@ -1,24 +1,23 @@
-import { UniteText } from '@/components/ui/unite-text';
 import React, { PropsWithChildren, useEffect } from 'react';
 
 interface DrawerData {
   title: string;
-  message: string;
-  image?: string;
+  image: string;
+  content: JSX.Element;
 }
 
-export interface BottomDrawerInterface {
-  openDrawer: (data: DrawerData | undefined) => void;
-  closeDrawer: () => void;
+export interface RentalDrawerInterface {
+  openRentalDrawer: (data: DrawerData | undefined) => void;
+  closeRentalDrawer: () => void;
 }
 
-export const BottomDrawerContext = React.createContext<BottomDrawerInterface>({
-  openDrawer: () => undefined,
-  closeDrawer: () => undefined,
+export const RentalDrawerContext = React.createContext<RentalDrawerInterface>({
+  openRentalDrawer: () => undefined,
+  closeRentalDrawer: () => undefined,
 });
 
-export const BottomDrawerProvider: React.FC<PropsWithChildren> = ({ children }) => {
-  const [drawerInfo, openDrawer] = React.useState<DrawerData | undefined>(undefined);
+export const RentalDrawerProvider: React.FC<PropsWithChildren> = ({ children }) => {
+  const [drawerInfo, openRentalDrawer] = React.useState<DrawerData | undefined>();
 
   useEffect(() => {
     if (drawerInfo) {
@@ -28,20 +27,20 @@ export const BottomDrawerProvider: React.FC<PropsWithChildren> = ({ children }) 
     }
   }, [drawerInfo]);
 
-  const closeDrawer = () => {
-    openDrawer(undefined);
+  const closeRentalDrawer = () => {
+    openRentalDrawer(undefined);
   };
 
   return (
-    <BottomDrawerContext.Provider value={{ openDrawer, closeDrawer }}>
+    <RentalDrawerContext.Provider value={{ openRentalDrawer, closeRentalDrawer }}>
       {drawerInfo ? (
         <div className="w-full h-full fixed top-0 left-0 z-50">
           <div className="w-full h-full absolute top-0 left-0 bg-black opacity-50 z-60"></div>
-          <div className="w-full absolute bottom-0 left-0 bg-white z-70 rounded-t-3xl text-left p-8 overflow-auto">
-            <div className="flex justify-end">
+          <div className="w-full h-full absolute top-[10%] left-0 bg-white z-70 rounded-t-3xl text-left p-8 overflow-auto animate-out">
+            <div className="flex justify-end pb-5">
               <button
                 className="h-10 w-10 rounded-full border-black border-2 items-center justify-center"
-                onClick={closeDrawer}
+                onClick={closeRentalDrawer}
               >
                 <span className="text-2xl leading-none">×</span>
               </button>
@@ -58,14 +57,14 @@ export const BottomDrawerProvider: React.FC<PropsWithChildren> = ({ children }) 
                 </div>
               ) : null}
               <div className="pb-5">
-                <h1 className="font-bold font-pt-serif text-3xl">{drawerInfo.title}</h1>
+                <h1 className="font-bold font-roboto text-3xl">{drawerInfo.title}</h1>
               </div>
-              <UniteText>{drawerInfo.message}</UniteText>
+              {drawerInfo.content || null}
             </div>
           </div>
         </div>
       ) : null}
       {children}
-    </BottomDrawerContext.Provider>
+    </RentalDrawerContext.Provider>
   );
 };

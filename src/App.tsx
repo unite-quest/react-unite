@@ -3,6 +3,7 @@ import './App.css';
 
 import { AuthenticationProvider } from './shared/authentication/AuthenticationProvider';
 import { BottomDrawerProvider } from './shared/bottom-drawer/BottomDrawerProvider';
+import { RentalDrawerProvider } from './shared/bottom-drawer/RentalDrawerProvider';
 import { AnswerManagerProvider } from './shared/database/AnswerManagerProvider';
 import { LoaderProvider } from './shared/loader/LoaderProvider';
 import { ModalProvider } from './shared/modal/ModalProvider';
@@ -14,7 +15,9 @@ function App() {
         <BottomDrawerProvider>
           <ModalProvider>
             <AnswerManagerProvider>
-              <Outlet />
+              <RentalDrawerProvider>
+                <Outlet />
+              </RentalDrawerProvider>
             </AnswerManagerProvider>
           </ModalProvider>
         </BottomDrawerProvider>
