@@ -1,14 +1,17 @@
 import { ChallengeFooter } from '@/components/shell/ChallengeFooter';
 import { ChallengeScreen } from '@/components/shell/ChallengeScreen';
+import { StackSpacing } from '@/components/ui/stack-spacing';
 import { BottomDrawerContext } from '@/shared/bottom-drawer/BottomDrawerProvider';
 import { ModalContext } from '@/shared/modal/ModalProvider';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { createSearchParams, useNavigate } from 'react-router-dom';
 import { useCurrentQuestion } from 'src/hooks/useCurrentQuestion';
 import useTornInviteMetadata from 'src/hooks/useTornInviteMetadata';
+import { ScrambledGuestName } from './ScrambledGuestName';
 
 function TornInvite() {
   const { id: questionId } = useCurrentQuestion();
+  const answerInput = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
   const [answer, setAnswer] = useState('');
   const { openModal } = useContext(ModalContext);
@@ -27,6 +30,7 @@ function TornInvite() {
 
   const submit = () => {
     const validate = async () => {
+      answerInput.current?.blur();
       // add validation
       const valid = await validateAnswer(answer);
       setAnswer('');
@@ -60,7 +64,7 @@ function TornInvite() {
 
     openModal({
       type: 'success',
-      message: 'Você já completou esse nome! Clique no x para continuar para o próximo.',
+      message: 'Você completou esse nome! Clique no x para continuar para o próximo.',
       dismiss: () => {
         navigate({
           pathname: '.',
@@ -75,6 +79,7 @@ function TornInvite() {
   return (
     <>
       <ChallengeScreen
+        description="Nos ajude a descobrir qual o nome do convidado abaixo a partir das letras soltas que encontramos do convite despedaçado."
         onTipClick={() => {
           openDrawer({ title: 'Dica', message: tipForGuestName });
         }}
@@ -86,23 +91,16 @@ function TornInvite() {
           />
         }
       >
-        <div className="pt-6 pb-12 text-left">
-          <span>
-            Nos ajude a descobrir qual o nome do convidado abaixo a partir das letras soltas que
-            encontramos do convite despedaçado.
-          </span>
-        </div>
-        <div className="pb-10">
-          <span>{guestName}</span>
-        </div>
-        <div>
-          <input
-            onKeyUp={({ key }) => (key === 'Enter' ? submit() : null)}
-            value={answer}
-            className="relative border-2 border-dark-green w-full h-11 rounded-lg font-roboto"
-            onChange={e => setAnswer(e.target.value)}
-          />
-        </div>
+        <ScrambledGuestName name={guestName} />
+        <StackSpacing size="md" />
+        <input
+          ref={answerInput}
+          onKeyUp={({ key }) => (key === 'Enter' ? submit() : null)}
+          value={answer}
+          className="border-2 border-dark-green w-full p-3 rounded-2xl font-roboto text-lg font-medium"
+          onChange={e => setAnswer(e.target.value)}
+        />
+        <StackSpacing size="md" />
       </ChallengeScreen>
     </>
   );

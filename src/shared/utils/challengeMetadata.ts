@@ -114,7 +114,7 @@ export const challengeMetadataMap: Record<ChallengeIdentifier, ChallengeMetadata
     period: '2024',
     description:
       'Vamos nos casar esse ano! Montamos a lista de convidados porém o Mochi achou e decidiu "ler" (encontramos alguns nomes amassados e babados). Ajude a reordenar esses nomes garantindo que todo mundo poderá entrar na festa.',
-    background: 'bg-cool-green',
+    background: 'bg-[#F7DFF2]',
     image: 'https://gabrieltnishimura.github.io/unite/challenges-intro/intro-torn-invite.webp',
     footer: {
       background: 'bg-black',

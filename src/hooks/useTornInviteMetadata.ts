@@ -17,7 +17,7 @@ type ChallengeMetadata = {
   validateAnswer: (userAttempt: string) => Promise<boolean>;
 };
 
-const MAX_GUESSES = 10;
+const MAX_GUESSES = 12;
 
 export default function useTornInviteMetadata(): ChallengeMetadata {
   const { id: challengeId } = useCurrentChallenge();
