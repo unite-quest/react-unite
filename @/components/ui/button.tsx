@@ -8,7 +8,7 @@ const UniteButton: React.FC<{
   icon?: JSX.Element;
 }> = ({ title, buttonVariant = 'cool-green', disabled, onClick, icon }) => {
   const baseButton =
-    'w-full border-2 rounded-2xl p-3 pl-4 pr-4 text-left flex justify-between font-roboto font-medium items-center';
+    'w-full border-[3px] rounded-2xl pt-4 pb-4 pl-4 pr-4 text-left flex justify-between font-roboto text-xl items-center';
 
   const buttonColorMap: Record<typeof buttonVariant, string> = {
     'cool-green': 'bg-dark-green border-white text-white', // pending designs

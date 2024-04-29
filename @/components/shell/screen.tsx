@@ -1,4 +1,5 @@
 import { PropsWithChildren } from 'react';
+import { InsetSpacing } from '../ui/inset-spacing';
 
 const UniteScreen: React.FC<
   PropsWithChildren<{
@@ -12,10 +13,18 @@ const UniteScreen: React.FC<
     <>
       <div className={`min-h-svh ${background}`}>
         {Header}
-        <div className="pl-5 pr-5">{children}</div>
+        <InsetSpacing size="sm">{children}</InsetSpacing>
         {Footer}
       </div>
     </>
   );
 };
-export { UniteScreen };
+
+const HomeScreen: React.FC<PropsWithChildren> = ({ children }) => {
+  return (
+    <>
+      <InsetSpacing size="sm">{children}</InsetSpacing>
+    </>
+  );
+};
+export { HomeScreen, UniteScreen };
