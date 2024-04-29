@@ -20,7 +20,6 @@ const FixedBottom: React.FC<
   return (
     <>
       {/* workaround for fixed bottom */}
-      <div className="pt-36"></div>
       <div className="fixed bottom-0 w-full">
         {children}
         <div className={`${disabledBackground}`}>

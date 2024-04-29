@@ -14,7 +14,6 @@ const FixedButton: React.FC<{
   return (
     <>
       {/* workaround for fixed bottom */}
-      <div className="pt-36"></div>
       <div className="fixed bottom-0 w-full">
         <div className={`${disabledBackground} p-6`}>
           <UniteButton
