@@ -40,4 +40,24 @@ const SimonSaysTile: React.FC<{
     </div>
   );
 };
-export { LogoQuizTile, SimonSaysTile };
+const PresentTile: React.FC<{
+  image: string;
+  onClick: () => void;
+  text: string;
+  price: string;
+  parts: number;
+}> = ({ image, onClick, text, price, parts }) => {
+  return (
+    <div>
+      <div className={'w-full aspect-square rounded-md place-center'}>
+        <button className="relative" onClick={onClick}>
+          <img className="rounded-md" src={image} />
+        </button>
+        <span>
+          {text} - {parts} x R$ {price}
+        </span>
+      </div>
+    </div>
+  );
+};
+export { LogoQuizTile, PresentTile, SimonSaysTile };

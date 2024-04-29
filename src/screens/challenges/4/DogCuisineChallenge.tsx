@@ -158,7 +158,7 @@ function DogCuisineChallenge() {
       await persistRecordAsCorrectAnswer(ChallengeIdentifier.Four_DogCuisine, menuSelection);
       openModal({
         type: 'image',
-        message: 'Acertou!',
+        message: 'Acertou! O Mochi cresceu bem e saudável.',
         image: 'https://gabrieltnishimura.github.io/unite/mochi/mochi-5.webp',
         onPrimaryPress: () => {
           navigate(`/challenge/${ChallengeRouteIdentifier.Five_Labyrinth}/landing`);

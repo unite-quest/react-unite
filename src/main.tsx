@@ -9,6 +9,7 @@ import ChallengesDetails from './screens/challenges/core/ChallengesDetails.tsx';
 import ChallengeLanding from './screens/challenges/core/ChallengesLanding.tsx';
 import Credits from './screens/credits/Credits.tsx';
 import Home from './screens/home/Home.tsx';
+import Registry from './screens/registry/Registry.tsx';
 import Story from './screens/story/Story.tsx';
 
 const router = createBrowserRouter([
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: '',
         element: <Home />,
+      },
+      {
+        path: 'registry',
+        element: <Registry />,
       },
       {
         path: 'story',

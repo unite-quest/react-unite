@@ -3,6 +3,7 @@ import { LoaderContext } from '@/shared/loader/LoaderProvider';
 import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import landscape from '../../assets/adventure-landscape.png';
+import present from '../../assets/present.png';
 import gift from '../../assets/presents-landscape.png';
 import sword from '../../assets/sword.png';
 import logo from '../../assets/wedding-main.png';
@@ -43,7 +44,7 @@ function Home() {
             <div className="text-dark-green font-pt-serif text-4xl pb-10 font-bold text-left">
               A nossa história
             </div>
-            <div className="text-black font-roboto text-lg font-medium pb-10 text-left">
+            <div className="text-black font-roboto text-lg font-light text-left pb-10">
               Decidimos contar um pouco de nossa trajetória até aqui de uma maneira diferente!
               Convidamos cada um de vocês para participar de uma sequência de desafios preparados
               exclusivamente para o nosso casamento. Clique no botão abaixo e comece agora mesmo!
@@ -56,21 +57,25 @@ function Home() {
               />
             </Link>
           </div>
-          <img src={landscape} alt="Landscape" />
+          <img className="pt-10" src={landscape} alt="Landscape" />
         </div>
         <div className="bg-light-beige">
           <div className="p-10">
             <div className="text-dark-green font-pt-serif text-4xl font-bold text-left pb-10">
               Lista de presentes
             </div>
-            <div className="text-black font-roboto text-lg font-medium text-left pb-10">
+            <div className="text-black font-roboto text-lg font-light text-left pb-10">
               Como forma de receber auxílio em nossa nova fase, sugerimos algumas opções de
               presentes que serão revertidos em dinheiro para nós. Dessa maneira, receberemos uma
               quantia de cada um que nos gratificar que representará alguma das opções que estão
               listadas no link abaixo:
             </div>
-            <Link to="/story">
-              <UniteButton title="Acessar lista de presentes" />
+            <Link to="/registry">
+              <UniteButton
+                title="Acessar lista de presentes"
+                buttonVariant="adventure"
+                icon={<img width={24} height={24} src={present} alt="present" />}
+              />
             </Link>
           </div>
 

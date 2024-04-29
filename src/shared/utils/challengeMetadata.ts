@@ -65,7 +65,7 @@ export const challengeMetadataMap: Record<ChallengeIdentifier, ChallengeMetadata
     title: 'Cozinha do Mochi',
     period: '2020',
     description:
-      'Logo antes da pandemia começar, um filhote de Golden Retriever está se juntando a nós. O nome dele é Mochi, e ele vai trazer muita felicidade para a nossa família. Ajude-nos a cuidar dele achando os ingredientes corretos para uma refeição nutritiva (e não venenosa) para ele!',
+      'Logo antes da pandemia começar, um filhote de Golden Retriever está se juntando a nós. O nome dele é Mochi, e ele vai trazer muita felicidade para a nossa família. Ajude-nos a fazer com que ele cresça achando os ingredientes corretos para uma refeição nutritiva (e não venenosa) para ele!',
     background: 'bg-cool-green',
     image: DogCuisineIntroImage,
     footer: {
