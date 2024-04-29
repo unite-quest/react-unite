@@ -7,7 +7,7 @@ import { BottomDrawerContext } from '@/shared/bottom-drawer/BottomDrawerProvider
 import { RentalDrawerContext } from '@/shared/bottom-drawer/RentalDrawerProvider';
 import { LoaderContext } from '@/shared/loader/LoaderProvider';
 import { ModalContext } from '@/shared/modal/ModalProvider';
-import { ChallengeIdentifier } from '@/shared/utils/ChallengeIdentifiers';
+import { ChallengeIdentifier, ChallengeRouteIdentifier } from '@/shared/utils/ChallengeIdentifiers';
 import { LivingConditions, rentalRumbleApartments } from '@/shared/utils/rentalRumbleApartments';
 import {
   persistRecordAsCorrectAnswer,
@@ -27,7 +27,9 @@ function RentalRumble() {
   const { openModal } = useContext(ModalContext);
   const dbAnswers = useAllAnswers();
   const navigate = useNavigate();
-  const { answeredQuestionIds } = useAnswerState(ChallengeIdentifier.Six_ApartmentTinder);
+  const { answeredQuestionIds, refetchAnsweredQuestions } = useAnswerState(
+    ChallengeIdentifier.Six_ApartmentTinder,
+  );
 
   const moreDetails = (place: LivingConditions, index: number) => {
     openRentalDrawer({
@@ -56,7 +58,7 @@ function RentalRumble() {
       return;
     }
 
-    const { correctChoices, incorrectChoices } = await validateRecordAsAnswer(
+    const { incorrectChoices } = await validateRecordAsAnswer(
       ChallengeIdentifier.Six_ApartmentTinder,
       answers,
       dbAnswers,
@@ -64,18 +66,12 @@ function RentalRumble() {
 
     if (incorrectChoices.length === 0) {
       await persistRecordAsCorrectAnswer(ChallengeIdentifier.Six_ApartmentTinder, answers);
-
-      openModal({
-        type: 'success',
-        message: 'Parabens! Clique no x para continuar para o próximo desafio.',
-        onPrimaryPress: () => {
-          navigate(`/challenge/${ChallengeIdentifier.Seven_SimonSays}/landing`);
-        },
-      });
+      await refetchAnsweredQuestions(); // triggers side effect to rerender answeredQuestionIds
+      return;
     } else {
       openModal({
         type: 'failure',
-        message: `Verifique suas respostas e submita novamente. Existem ${correctChoices.length} respostas corretas.`,
+        message: `Verifique suas respostas e submita novamente. Existem ${incorrectChoices.length} respostas incorretas.`,
       });
     }
   };
@@ -88,10 +84,9 @@ function RentalRumble() {
 
     if (answeredQuestionIds.length === rentalRumbleApartments.length) {
       openModal({
-        type: 'success',
-        message: 'Parabens! Clique no x para continuar para o próximo desafio.',
+        type: 'challengeCompleted',
         dismiss: () => {
-          navigate(`/challenge/${ChallengeIdentifier.Seven_SimonSays}/landing`);
+          navigate(`/challenge/${ChallengeRouteIdentifier.Seven_SimonSays}/landing`);
         },
       });
     }
@@ -105,7 +100,7 @@ function RentalRumble() {
           openDrawer({
             title: 'Não entendeu?',
             message:
-              'Foque na análise dos três integrantes da família! As mensagens tem tom positivo ou negativo sobre o imóvel; você pode user isso de referência para avaliar.',
+              'Foque na análise dos três integrantes da família! As mensagens tem tom positivo ou negativo sobre o imóvel; você pode usar isso de referência para avaliar.',
           });
         }}
         Footer={

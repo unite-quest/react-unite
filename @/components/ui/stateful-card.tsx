@@ -19,7 +19,7 @@ const StatefulCard: React.FC<{
     ) : null;
   return (
     <>
-      <div className={`w-full border-2 rounded-2xl p-5 ${background} mb-3`}>
+      <div className={`w-full rounded-2xl p-5 ${background} mb-3`}>
         <div className="flex justify-between items-center">
           <div className="flex flex-col text-left">
             <span className="font-roboto font-medium text-xl">{title}</span>
