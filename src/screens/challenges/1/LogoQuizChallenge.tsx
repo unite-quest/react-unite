@@ -1,6 +1,8 @@
 import { ChallengeFooter } from '@/components/shell/ChallengeFooter';
 import { ChallengeScreen } from '@/components/shell/ChallengeScreen';
+import { StackSpacing } from '@/components/ui/stack-spacing';
 import { LogoQuizTile } from '@/components/ui/tile';
+import { UniteText } from '@/components/ui/unite-text';
 import { LoaderContext } from '@/shared/loader/LoaderProvider';
 import { ChallengeRouteIdentifier } from '@/shared/utils/ChallengeIdentifiers';
 import { logoMap } from '@/shared/utils/logoMap';
@@ -57,24 +59,21 @@ function LogoQuizChallenge() {
           />
         }
       >
-        <div>
-          <div className="pt-6 pb-6 text-left">
-            <span>Selecione cada um dos jogos abaixo e descubra o nome.</span>
-          </div>
-          <div className="grid grid-cols-3 gap-4">
-            {logoMap.map((logo, index) => {
-              return (
-                <LogoQuizTile
-                  key={logo.image}
-                  onClick={() => {
-                    goToLogoDetailedScreen(index);
-                  }}
-                  image={logo.image}
-                  variant={answers[index] ? 'done' : 'todo'}
-                />
-              );
-            })}
-          </div>
+        <UniteText>Selecione cada um dos jogos abaixo e descubra o nome.</UniteText>
+        <StackSpacing size="sm" />
+        <div className="grid grid-cols-3 gap-4">
+          {logoMap.map((logo, index) => {
+            return (
+              <LogoQuizTile
+                key={logo.image}
+                onClick={() => {
+                  goToLogoDetailedScreen(index);
+                }}
+                image={logo.image}
+                variant={answers[index] ? 'done' : 'todo'}
+              />
+            );
+          })}
         </div>
       </ChallengeScreen>
     </>

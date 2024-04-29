@@ -1,3 +1,4 @@
+import { UniteText } from '@/components/ui/unite-text';
 import React, { PropsWithChildren, useEffect } from 'react';
 
 interface DrawerData {
@@ -65,11 +66,7 @@ export const BottomDrawerProvider: React.FC<PropsWithChildren> = ({ children }) 
                   {drawerInfo.title}
                 </h1>
               </div>
-              {drawerInfo.message ? (
-                <div className="">
-                  <span className="font-roboto text-lg">{drawerInfo.message}</span>
-                </div>
-              ) : null}
+              {drawerInfo.message ? <UniteText>{drawerInfo.message}</UniteText> : null}
               {drawerInfo.content || null}
             </div>
           </div>

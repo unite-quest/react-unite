@@ -9,12 +9,14 @@ const FixedButton: React.FC<{
   disabled?: boolean;
   withArrow?: boolean;
 }> = ({ title, background, buttonVariant, disabled, onClick, withArrow }) => {
+  const disabledBackground = disabled ? 'bg-light-beige' : background;
+
   return (
     <>
       {/* workaround for fixed bottom */}
       <div className="pt-36"></div>
       <div className="fixed bottom-0 w-full">
-        <div className={`${background} p-6`}>
+        <div className={`${disabledBackground} p-6`}>
           <UniteButton
             title={title}
             buttonVariant={buttonVariant}

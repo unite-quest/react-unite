@@ -1,4 +1,5 @@
 import { UniteButton } from '@/components/ui/button';
+import { UniteText } from '@/components/ui/unite-text';
 import React, { PropsWithChildren, useEffect } from 'react';
 import poppers from '../../assets/poppers.webp';
 import wrench from '../../assets/wrench.webp';
@@ -79,7 +80,7 @@ export const ModalProvider: React.FC<PropsWithChildren> = ({ children }) => {
                     </h1>
                   </div>
                 ) : null}
-                <span className="break-words font-roboto text-base">{modalInfo.message}</span>
+                <UniteText align="center">{modalInfo.message}</UniteText>
               </div>
               {modalInfo?.onPrimaryPress ? (
                 <div className="pt-2">

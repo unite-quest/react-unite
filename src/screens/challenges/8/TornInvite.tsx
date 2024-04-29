@@ -99,7 +99,7 @@ function TornInvite() {
           <input
             onKeyUp={({ key }) => (key === 'Enter' ? submit() : null)}
             value={answer}
-            className="relative border-2 border-dark-green w-full h-11 rounded-lg"
+            className="relative border-2 border-dark-green w-full h-11 rounded-lg font-roboto"
             onChange={e => setAnswer(e.target.value)}
           />
         </div>

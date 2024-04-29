@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { StackSpacing } from './stack-spacing';
 
 export const Header: React.FC<{
   title: string;
@@ -11,7 +12,8 @@ export const Header: React.FC<{
 
   return (
     <header className={`${style}`}>
-      <div className="p-5">
+      <StackSpacing size="sm" />
+      <div className="pl-5 pr-5">
         <div className="flex items-center justify-between">
           <button
             className="rounded-full border-2 border-black h-10 w-10 flex items-center justify-center bg-white"
@@ -38,6 +40,7 @@ export const Header: React.FC<{
           </button>
         </div>
       </div>
+      <StackSpacing size="sm" />
     </header>
   );
 };
