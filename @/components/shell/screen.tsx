@@ -13,18 +13,11 @@ const UniteScreen: React.FC<
     <>
       <div className={`min-h-svh ${background}`}>
         {Header}
-        <InsetSpacing size="sm">{children}</InsetSpacing>
+        <InsetSpacing size="md">{children}</InsetSpacing>
         {Footer}
       </div>
     </>
   );
 };
 
-const HomeScreen: React.FC<PropsWithChildren> = ({ children }) => {
-  return (
-    <>
-      <InsetSpacing size="sm">{children}</InsetSpacing>
-    </>
-  );
-};
-export { HomeScreen, UniteScreen };
+export { UniteScreen };
