@@ -1,6 +1,7 @@
 import { UniteButton } from '@/components/ui/button';
 import { UniteText } from '@/components/ui/unite-text';
 import React, { PropsWithChildren, useEffect } from 'react';
+import useLocationHash from 'src/hooks/useLocationHash';
 import poppers from '../../assets/poppers.webp';
 import wrench from '../../assets/wrench.webp';
 interface ModalData {
@@ -20,9 +21,18 @@ export const ModalContext = React.createContext<ModalInterface>({
 });
 
 export const ModalProvider: React.FC<PropsWithChildren> = ({ children }) => {
+  const locationHash = useLocationHash();
   const [modalInfo, openModal] = React.useState<ModalData | undefined>(undefined);
   const circleStyle = modalInfo?.type === 'success' ? 'bg-[#219262]' : 'bg-[#C92626]';
   const titleStyle = modalInfo?.type === 'success' ? 'text-[#219262]' : 'text-[#C92626]';
+
+  useEffect(() => {
+    if (modalInfo) {
+      openModal(undefined);
+    }
+    // hack to close regardless of state
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [locationHash]);
 
   useEffect(() => {
     if (modalInfo) {

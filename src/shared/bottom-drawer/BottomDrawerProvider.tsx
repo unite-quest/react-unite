@@ -1,5 +1,6 @@
 import { UniteText } from '@/components/ui/unite-text';
 import React, { PropsWithChildren, useEffect } from 'react';
+import useLocationHash from 'src/hooks/useLocationHash';
 
 interface DrawerData {
   title: string;
@@ -19,6 +20,15 @@ export const BottomDrawerContext = React.createContext<BottomDrawerInterface>({
 
 export const BottomDrawerProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [drawerInfo, openDrawer] = React.useState<DrawerData | undefined>(undefined);
+  const locationHash = useLocationHash();
+
+  useEffect(() => {
+    if (drawerInfo) {
+      closeDrawer();
+    }
+    // hack to close regardless of state
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [locationHash]);
 
   useEffect(() => {
     if (drawerInfo) {

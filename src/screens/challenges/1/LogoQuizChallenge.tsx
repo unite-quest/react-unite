@@ -4,20 +4,24 @@ import { StackSpacing } from '@/components/ui/stack-spacing';
 import { LogoQuizTile } from '@/components/ui/tile';
 import { UniteText } from '@/components/ui/unite-text';
 import { LoaderContext } from '@/shared/loader/LoaderProvider';
+import { ModalContext } from '@/shared/modal/ModalProvider';
 import { ChallengeRouteIdentifier } from '@/shared/utils/ChallengeIdentifiers';
 import { logoMap } from '@/shared/utils/logoMap';
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { createSearchParams, useNavigate } from 'react-router-dom';
 import { useAnswerState } from 'src/hooks/useAnswerState';
 import { useCurrentChallenge } from 'src/hooks/useCurrentChallenge';
 
 function LogoQuizChallenge() {
-  const { setLoading } = useContext(LoaderContext);
-  const [answers, setAnswers] = useState<boolean[]>(Array(logoMap.length).fill(false));
-  const correctAnswers = answers.filter(value => !!value).length;
   const navigate = useNavigate();
+  const { setLoading } = useContext(LoaderContext);
+  const { openModal } = useContext(ModalContext);
   const { id } = useCurrentChallenge();
   const { answeredQuestionIds } = useAnswerState(id);
+
+  const [answers, setAnswers] = useState<boolean[]>(Array(logoMap.length).fill(false));
+  const correctAnswers = answers.filter(value => !!value).length;
+  const challengeFinished = correctAnswers === answers.length;
 
   const goToLogoDetailedScreen = (index: number) => {
     navigate({
@@ -28,9 +32,9 @@ function LogoQuizChallenge() {
     });
   };
 
-  const goToNextChallenge = () => {
+  const goToNextChallenge = useCallback(() => {
     navigate(`/challenge/${ChallengeRouteIdentifier.Two_LogicGates}/landing`);
-  };
+  }, [navigate]);
 
   useEffect(() => {
     if (answeredQuestionIds === undefined) {
@@ -48,13 +52,27 @@ function LogoQuizChallenge() {
     setLoading(false);
   }, [setLoading, answeredQuestionIds]);
 
+  useEffect(() => {
+    if (!challengeFinished) {
+      return;
+    }
+
+    openModal({
+      type: 'success',
+      message: 'Você finalizou esse desafio! Aperte no X para ir para o próximo.',
+      dismiss: () => {
+        goToNextChallenge();
+      },
+    });
+  }, [challengeFinished, goToNextChallenge, openModal]);
+
   return (
     <>
       <ChallengeScreen
         Footer={
           <ChallengeFooter
             title={`Finalizar ${correctAnswers}/${answers.length}`}
-            disabled={correctAnswers !== answers.length}
+            disabled={!challengeFinished}
             onClick={goToNextChallenge}
           />
         }
