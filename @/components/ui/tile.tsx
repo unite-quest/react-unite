@@ -1,4 +1,5 @@
 import check from '../../../src/assets/check-mark.svg';
+import { UniteText } from './unite-text';
 
 const LogoQuizTile: React.FC<{
   image: string;
@@ -53,9 +54,9 @@ const PresentTile: React.FC<{
         <button className="relative" onClick={onClick}>
           <img className="rounded-md" src={image} />
         </button>
-        <span>
+        <UniteText>
           {text} - {parts} x R$ {price}
-        </span>
+        </UniteText>
       </div>
     </div>
   );

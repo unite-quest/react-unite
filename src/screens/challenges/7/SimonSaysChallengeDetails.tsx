@@ -1,5 +1,6 @@
 import { ChallengeScreen } from '@/components/shell/ChallengeScreen';
 import { SimonSaysTile } from '@/components/ui/tile';
+import { UniteText } from '@/components/ui/unite-text';
 import { ModalContext } from '@/shared/modal/ModalProvider';
 import { ChallengeRouteIdentifier } from '@/shared/utils/ChallengeIdentifiers';
 import { corgiChallengeLevels, corgiPosesMap } from '@/shared/utils/corgiPosesMap';
@@ -110,9 +111,9 @@ function SimonSaysChallenge() {
                     style={{ width: `${Math.floor((answers.length / totalLength) * 100)}%` }}
                   ></div>
                 </div>
-                <span className="font-roboto font-bold text-white">
+                <UniteText weight="bold" textStyle="text-white">
                   {answers.length} / {totalLength}
-                </span>
+                </UniteText>
               </div>
             </div>
           </>

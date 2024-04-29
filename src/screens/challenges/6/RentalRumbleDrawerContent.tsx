@@ -1,4 +1,6 @@
 import { Rating } from '@/components/ui/rating';
+import { StackSpacing } from '@/components/ui/stack-spacing';
+import { UniteText } from '@/components/ui/unite-text';
 import { LivingConditions } from '@/shared/utils/rentalRumbleApartments';
 import check from '../../../assets/check.png';
 import cross from '../../../assets/cross.png';
@@ -32,20 +34,20 @@ export const RentalRumbleDrawerContent: React.FC<{
     <>
       {Object.entries(place.ratings).map(([key, rating]) => {
         return (
-          <div key={key} className="flex justify-between pb-2">
+          <div key={key} className="flex justify-between">
             <div>
-              <span className="font-roboto">{fromKeyToLabel(key)}</span>
+              <UniteText>{fromKeyToLabel(key)}</UniteText>
             </div>
             <div className="flex items-center">
               <Rating count={rating} />
-              <span className="font-roboto font-bold">{rating}/5</span>
+              <UniteText weight="bold">{rating}/5</UniteText>
             </div>
           </div>
         );
       })}
-      <div className="pt-3 pb-3">
-        <span className="font-roboto font-bold">Anotações da família</span>
-      </div>
+      <StackSpacing size="sm" />
+      <UniteText weight="bold">Anotações da família</UniteText>
+      <StackSpacing size="sm" />
       {place.reviews.map(({ user, review }) => {
         const profile = user === 'Gabriel' ? gabriel : user === 'Mimi' ? mimi : mochi;
         return (
@@ -54,16 +56,18 @@ export const RentalRumbleDrawerContent: React.FC<{
               <img src={profile} height={40} width={40} alt={user} />
             </div>
             <div className="w-60">
-              <span>{review}</span>
+              <UniteText>{review}</UniteText>
             </div>
           </div>
         );
       })}
-      <div className="flex pt-3 pb-20">
+      <div className="flex">
+        <StackSpacing size="sm" />
         <button
           className="rounded-3xl bg-[#C92626] pt-5 pb-5 w-full mr-5 flex items-center justify-center"
           onClick={onReject}
         >
+          <StackSpacing size="sm" />
           <img height={20} width={20} src={cross} />
         </button>
         <button
@@ -73,6 +77,8 @@ export const RentalRumbleDrawerContent: React.FC<{
           <img height={20} width={20} src={check} />
         </button>
       </div>
+      <StackSpacing size="md" />
+      <StackSpacing size="lg" />
     </>
   );
 };

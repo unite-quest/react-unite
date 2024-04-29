@@ -1,3 +1,5 @@
+import { StackSpacing } from '@/components/ui/stack-spacing';
+import { UniteTitle } from '@/components/ui/unite-text';
 import React, { PropsWithChildren, useEffect } from 'react';
 
 interface DrawerData {
@@ -37,7 +39,7 @@ export const RentalDrawerProvider: React.FC<PropsWithChildren> = ({ children }) 
         <div className="w-full h-full fixed top-0 left-0 z-50">
           <div className="w-full h-full absolute top-0 left-0 bg-black opacity-50 z-60"></div>
           <div className="w-full h-full absolute top-[10%] left-0 bg-white z-70 rounded-t-3xl text-left p-8 overflow-auto animate-out">
-            <div className="flex justify-end pb-5">
+            <div className="flex justify-end">
               <button
                 className="h-10 w-10 rounded-full border-black border-2 items-center justify-center"
                 onClick={closeRentalDrawer}
@@ -45,20 +47,22 @@ export const RentalDrawerProvider: React.FC<PropsWithChildren> = ({ children }) 
                 <span className="text-2xl leading-none">×</span>
               </button>
             </div>
+            <StackSpacing size="sm" />
             <div>
               {drawerInfo.image ? (
-                <div className="pb-5">
+                <>
+                  <StackSpacing size="sm" />
                   <img
                     className="w-full rounded-2xl shadow-md"
                     src={drawerInfo.image}
                     height={300}
                     width={300}
                   />
-                </div>
+                </>
               ) : null}
-              <div className="pb-5">
-                <h1 className="font-bold font-roboto text-3xl">{drawerInfo.title}</h1>
-              </div>
+
+              <UniteTitle>{drawerInfo.title}</UniteTitle>
+              <StackSpacing size="sm" />
               {drawerInfo.content || null}
             </div>
           </div>

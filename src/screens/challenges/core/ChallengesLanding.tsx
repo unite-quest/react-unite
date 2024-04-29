@@ -1,5 +1,8 @@
 import { ChallengeFooter } from '@/components/shell/ChallengeFooter';
 import { ChallengeScreen } from '@/components/shell/ChallengeScreen';
+import { InsetSpacing } from '@/components/ui/inset-spacing';
+import { StackSpacing } from '@/components/ui/stack-spacing';
+import { UniteText, UniteTitle } from '@/components/ui/unite-text';
 import { LoaderContext } from '@/shared/loader/LoaderProvider';
 import { ChallengeIdentifier, ChallengeRouteIdentifier } from '@/shared/utils/ChallengeIdentifiers';
 import { useContext, useEffect } from 'react';
@@ -52,13 +55,15 @@ function ChallengeLanding() {
       <ChallengeScreen
         Footer={<ChallengeFooter title="Começar desafio" onClick={submit} withArrow />}
       >
-        <div className="text-left">
-          <span className="font-pt-serif font-bold text-5xl block pb-6">{challenge.title}</span>
-          <span className="font-roboto text-lg block">{challenge.description}</span>
-          <div className="flex justify-center pt-10  p-10">
+        <UniteTitle align="left">{challenge.title}</UniteTitle>
+        <StackSpacing size="sm" />
+        <UniteText>{challenge.description}</UniteText>
+        <StackSpacing size="lg" />
+        <InsetSpacing size="md">
+          <div className="flex justify-center">
             <img className="rotate-[4deg] border-8 border-white" src={challenge.image} />
           </div>
-        </div>
+        </InsetSpacing>
       </ChallengeScreen>
     </>
   );
