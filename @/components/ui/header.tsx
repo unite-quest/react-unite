@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { InsetSpacing } from './inset-spacing';
 import { StackSpacing } from './stack-spacing';
 
 export const Header: React.FC<{
@@ -13,7 +14,7 @@ export const Header: React.FC<{
   return (
     <header className={`${style}`}>
       <StackSpacing size="sm" />
-      <div className="pl-5 pr-5">
+      <InsetSpacing size="md">
         <div className="flex items-center justify-between">
           <button
             className="rounded-full border-2 border-black h-10 w-10 flex items-center justify-center bg-white"
@@ -39,7 +40,7 @@ export const Header: React.FC<{
             </svg>
           </button>
         </div>
-      </div>
+      </InsetSpacing>
       <StackSpacing size="sm" />
     </header>
   );

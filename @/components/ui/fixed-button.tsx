@@ -1,5 +1,7 @@
 import arrow from '../../../src/assets/arrow.svg';
 import { UniteButton, UniteButtonVariants } from './button';
+import { InsetSpacing } from './inset-spacing';
+import { StackSpacing } from './stack-spacing';
 
 const FixedButton: React.FC<{
   title: string;
@@ -15,14 +17,18 @@ const FixedButton: React.FC<{
     <>
       {/* workaround for fixed bottom */}
       <div className="fixed bottom-0 w-full">
-        <div className={`${disabledBackground} p-6`}>
-          <UniteButton
-            title={title}
-            buttonVariant={buttonVariant}
-            onClick={onClick}
-            disabled={disabled}
-            icon={withArrow ? <img className="h-5 w-5" src={arrow} alt="Arrow" /> : undefined}
-          />
+        <div className={`${disabledBackground}`}>
+          <StackSpacing size="sm" />
+          <InsetSpacing size="md">
+            <UniteButton
+              title={title}
+              buttonVariant={buttonVariant}
+              onClick={onClick}
+              disabled={disabled}
+              icon={withArrow ? <img className="h-5 w-5" src={arrow} alt="Arrow" /> : undefined}
+            />
+          </InsetSpacing>
+          <StackSpacing size="sm" />
         </div>
       </div>
     </>

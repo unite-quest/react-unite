@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { ChallengeIdentifier } from '@/shared/utils/ChallengeIdentifiers';
 import { useCurrentChallenge } from 'src/hooks/useCurrentChallenge';
 import { Header } from '../ui/header';
+import { InsetSpacing } from '../ui/inset-spacing';
 import { Lamp } from '../ui/lamp';
 import { StackSpacing } from '../ui/stack-spacing';
 import { UniteText } from '../ui/unite-text';
@@ -38,15 +39,28 @@ const ChallengeScreen: React.FC<
           style={meta.background}
           onFlagClick={goBack}
         />
-        <div className={noPadding ? '' : 'pl-5 pr-5'}>
-          {description ? (
-            <>
-              <UniteText>{description}</UniteText>
-              <StackSpacing size="md" />
-            </>
-          ) : null}
-          {children}
-        </div>
+        {noPadding ? (
+          <>
+            {description ? (
+              <>
+                <UniteText>{description}</UniteText>
+                <StackSpacing size="md" />
+              </>
+            ) : null}
+            {children}
+          </>
+        ) : (
+          <InsetSpacing size="md">
+            {description ? (
+              <>
+                <UniteText>{description}</UniteText>
+                <StackSpacing size="md" />
+              </>
+            ) : null}
+            {children}
+          </InsetSpacing>
+        )}
+        <StackSpacing size="xl" />
         {Footer}
         {showTip ? (
           <div className="fixed bottom-36 right-4">
