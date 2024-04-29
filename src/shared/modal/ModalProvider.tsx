@@ -10,7 +10,7 @@ interface ChallengeCompletedModalData {
   dismiss: () => void;
 }
 interface ImageModalData {
-  type: 'image';
+  type: 'imageSuccess';
   image: string;
   message: string;
   dismiss: () => void;
@@ -19,7 +19,6 @@ interface ImageModalData {
 interface CustomModalData {
   type: 'success' | 'failure';
   message: string;
-  image?: string;
   dismiss?: () => void;
   onPrimaryPress?: () => void;
 }
@@ -37,7 +36,10 @@ export const ModalContext = React.createContext<ModalInterface>({
 export const ModalProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const locationHash = useLocationHash();
   const [modalInfo, openModal] = React.useState<ModalData | undefined>(undefined);
-  const isSuccess = modalInfo?.type === 'success' || modalInfo?.type === 'challengeCompleted';
+  const isSuccess =
+    modalInfo?.type === 'success' ||
+    modalInfo?.type === 'challengeCompleted' ||
+    modalInfo?.type === 'imageSuccess';
   const circleStyle = isSuccess ? 'bg-[#219262]' : 'bg-[#C92626]';
   const titleStyle = isSuccess ? 'text-[#219262]' : 'text-[#C92626]';
 
@@ -59,7 +61,7 @@ export const ModalProvider: React.FC<PropsWithChildren> = ({ children }) => {
 
   const primaryPress =
     modalInfo?.type === 'challengeCompleted' ||
-    modalInfo?.type === 'image' ||
+    modalInfo?.type === 'imageSuccess' ||
     !modalInfo?.onPrimaryPress
       ? null
       : () => {
@@ -67,7 +69,7 @@ export const ModalProvider: React.FC<PropsWithChildren> = ({ children }) => {
           openModal(undefined);
         };
 
-  const image = modalInfo?.type === 'image' ? modalInfo.image : null;
+  const image = modalInfo?.type === 'imageSuccess' ? modalInfo.image : null;
 
   const message =
     modalInfo?.type === 'challengeCompleted'
@@ -96,8 +98,12 @@ export const ModalProvider: React.FC<PropsWithChildren> = ({ children }) => {
                 </button>
               </div>
               <div className="flex justify-center pb-4">
-                {image ? <img height={200} width={200} src={image} /> : null}
-                {successOrFailure ? (
+                {image ? (
+                  <div className="pt-8">
+                    <img className="rounded-full" height={200} width={200} src={image} />
+                  </div>
+                ) : null}
+                {successOrFailure && modalInfo?.type !== 'imageSuccess' ? (
                   <div
                     className={`rounded-full w-28 h-28 flex items-center justify-center ${circleStyle}`}
                   >

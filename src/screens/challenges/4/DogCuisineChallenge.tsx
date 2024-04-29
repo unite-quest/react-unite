@@ -1,15 +1,20 @@
 import { ChallengeFooter } from '@/components/shell/ChallengeFooter';
 import { ChallengeScreen } from '@/components/shell/ChallengeScreen';
+import { StackSpacing } from '@/components/ui/stack-spacing';
 import { UniteToggle } from '@/components/ui/toggle';
+import { UniteText } from '@/components/ui/unite-text';
+import { BottomDrawerContext } from '@/shared/bottom-drawer/BottomDrawerProvider';
 import { ModalContext } from '@/shared/modal/ModalProvider';
 import { ChallengeIdentifier, ChallengeRouteIdentifier } from '@/shared/utils/ChallengeIdentifiers';
 import {
   persistRecordAsCorrectAnswer,
   validateRecordAsAnswer,
 } from '@/shared/utils/validateAnswer';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useAllAnswers from 'src/hooks/useAllAnswers';
+import { useAnswerState } from 'src/hooks/useAnswerState';
+import { useCurrentChallenge } from 'src/hooks/useCurrentChallenge';
 
 const todaysMenu: { image: string; itemName: string; tipWhenWrong: string }[] = [
   {
@@ -117,25 +122,28 @@ const mochiGrowthFeedback: Record<number, { message: string; image: string }> = 
     image: 'https://gabrieltnishimura.github.io/unite/mochi/mochi-1.webp',
   },
   2: {
-    message: 'Mochi está mediano',
+    message: 'Mochi está mediano e conseguiu encontrar pelo menos 5 ingredientes bons.',
     image: 'https://gabrieltnishimura.github.io/unite/mochi/mochi-2.webp',
   },
   3: {
-    message: 'Mochi está ficando maior, mas ainda precisa de mais nutrientes.',
+    message: 'Mochi está ficando maior e gostou de mais ingredientes ainda - continue assim!',
     image: 'https://gabrieltnishimura.github.io/unite/mochi/mochi-3.webp',
   },
   4: {
-    message: 'Mochi está quase lá!',
+    message: 'Mochi gostou de quase todo o prato!',
     image: 'https://gabrieltnishimura.github.io/unite/mochi/mochi-4.webp',
   },
 };
 
 function DogCuisineChallenge() {
   const { openModal } = useContext(ModalContext);
+  const { openDrawer } = useContext(BottomDrawerContext);
   const navigate = useNavigate();
   const [menuSelection, setMenuSelection] = useState<Record<number, boolean>>({});
   const selectedItems = Object.keys(menuSelection).length;
   const dbAnswers = useAllAnswers();
+  const { id: challengeId } = useCurrentChallenge();
+  const { answeredQuestionIds, refetchAnsweredQuestions } = useAnswerState(challengeId);
 
   const changeMenuSelection = (index: number, state: boolean) => {
     setMenuSelection({
@@ -143,6 +151,21 @@ function DogCuisineChallenge() {
       [index]: state,
     });
   };
+
+  useEffect(() => {
+    if (answeredQuestionIds?.length !== todaysMenu.length) {
+      return;
+    }
+    openModal({
+      type: 'imageSuccess',
+      message:
+        'Acertou todos os ingredientes! O Mochi cresceu bem e saudável, aperte X para ir para o próximo desafio.',
+      image: 'https://gabrieltnishimura.github.io/unite/mochi/mochi-5.webp',
+      dismiss: () => {
+        navigate(`/challenge/${ChallengeRouteIdentifier.Five_Labyrinth}/landing`);
+      },
+    });
+  }, [answeredQuestionIds, navigate, openModal]);
 
   const submit = async () => {
     if (!dbAnswers) {
@@ -156,14 +179,7 @@ function DogCuisineChallenge() {
     );
     if (incorrectChoices.length === 0) {
       await persistRecordAsCorrectAnswer(ChallengeIdentifier.Four_DogCuisine, menuSelection);
-      openModal({
-        type: 'image',
-        message: 'Acertou! O Mochi cresceu bem e saudável.',
-        image: 'https://gabrieltnishimura.github.io/unite/mochi/mochi-5.webp',
-        dismiss: () => {
-          navigate(`/challenge/${ChallengeRouteIdentifier.Five_Labyrinth}/landing`);
-        },
-      });
+      await refetchAnsweredQuestions();
       return;
     }
     // at least one incorrect choice
@@ -174,8 +190,8 @@ function DogCuisineChallenge() {
     // randomize item feedback
     const randomIndex = Math.floor(Math.random() * incorrectChoices.length);
     const feedbackForMenuIndex = incorrectChoices[randomIndex];
-    openModal({
-      type: 'image',
+    openDrawer({
+      title: 'Review do Mochi',
       message: `${feedback.message} Aqui vai a dica de um do(s) item(s) que está incorreto: "${todaysMenu[feedbackForMenuIndex].tipWhenWrong}"`,
       image: feedback.image,
       dismiss: () => {
@@ -195,28 +211,25 @@ function DogCuisineChallenge() {
           />
         }
       >
-        <div>
-          <div className="pt-6 pb-12 text-left">
-            <span>
-              Para que o Mochi cresça saudável, você precisa indicar quais comidas ele pode ou não
-              comer. Aperte uma vez para permitir o alimento e duas para não permitir. Cuidado para
-              não preparar o menu errado! Caso algum alimento esteja incorreto, você deverá começar
-              tudo de novo.
-            </span>
-          </div>
-          <div className="w-full">
-            {todaysMenu.map(({ image, itemName }, index) => {
-              return (
-                <UniteToggle
-                  image={image}
-                  key={itemName}
-                  label={itemName}
-                  onChange={state => changeMenuSelection(index, state)}
-                  state={menuSelection[index]}
-                />
-              );
-            })}
-          </div>
+        <UniteText>
+          Para que o Mochi cresça saudável, você precisa indicar quais comidas ele pode ou não
+          comer. Aperte uma vez para permitir o alimento e duas para não permitir. Cuidado para não
+          preparar o menu errado! Caso algum alimento esteja incorreto, você deverá começar tudo de
+          novo.
+        </UniteText>
+        <StackSpacing size="md" />
+        <div className="w-full">
+          {todaysMenu.map(({ image, itemName }, index) => {
+            return (
+              <UniteToggle
+                image={image}
+                key={itemName}
+                label={itemName}
+                onChange={state => changeMenuSelection(index, state)}
+                state={menuSelection[index]}
+              />
+            );
+          })}
         </div>
       </ChallengeScreen>
     </>

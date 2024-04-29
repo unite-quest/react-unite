@@ -6,6 +6,7 @@ interface DrawerData {
   title: string;
   message: string;
   image?: string;
+  dismiss?: () => void;
 }
 
 export interface BottomDrawerInterface {
@@ -39,6 +40,7 @@ export const BottomDrawerProvider: React.FC<PropsWithChildren> = ({ children }) 
   }, [drawerInfo]);
 
   const closeDrawer = () => {
+    drawerInfo?.dismiss?.();
     openDrawer(undefined);
   };
 
@@ -58,7 +60,7 @@ export const BottomDrawerProvider: React.FC<PropsWithChildren> = ({ children }) 
             </div>
             <div>
               {drawerInfo.image ? (
-                <div className="pb-5">
+                <div className="pt-5 pb-5">
                   <img
                     className="w-full rounded-2xl shadow-md"
                     src={drawerInfo.image}

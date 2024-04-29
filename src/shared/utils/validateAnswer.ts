@@ -29,6 +29,7 @@ export async function persistAnswerKeyArray(keys: string[]): Promise<void> {
   if (answers) {
     const tentativeArray = JSON.parse(answers);
     if (Array.isArray(tentativeArray)) {
+      // TODO only add not repeated ones
       tentativeArray.push(...keys);
       updatedArray = tentativeArray;
     }

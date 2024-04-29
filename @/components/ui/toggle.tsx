@@ -1,3 +1,5 @@
+import { StackSpacing } from './stack-spacing';
+
 const UniteToggle: React.FC<{
   label: string;
   image: string;
@@ -41,33 +43,31 @@ const UniteToggle: React.FC<{
 
   return (
     <>
-      {/* wrapper */}
-      <div className="pb-10">
-        <div
-          className={`p-5 pl-32 relative w-full flex justify-between items-center ${styles.backgroundColor} rounded-e-3xl rounded-bl-3xl`}
-        >
-          <div className="absolute left-5 top-[-1rem]">
-            <img height={80} width={80} src={image} />
-          </div>
-          <div className="block text-left">
-            <div>
-              <span className="font-roboto font-bold text-md">{label}</span>
-            </div>
-            <div>
-              <span className="font-roboto font-light text-sm">{calculateState()}</span>
-            </div>
+      <div
+        className={`p-5 pl-32 relative w-full flex justify-between items-center ${styles.backgroundColor} rounded-e-3xl rounded-bl-3xl`}
+      >
+        <div className="absolute left-5 top-[-1rem]">
+          <img height={80} width={80} src={image} />
+        </div>
+        <div className="block text-left">
+          <div>
+            <span className="font-roboto font-bold text-md">{label}</span>
           </div>
           <div>
-            <button className="h-8 w-[3.5rem]" onClick={() => onChange(!state)}>
-              <div
-                className={`bg-black w-full h-full rounded-full flex items-center p-1 ${styles.toggleColor} ${styles.togglePositioning}`}
-              >
-                <div className="h-6 w-6 bg-white rounded-full"></div>
-              </div>
-            </button>
+            <span className="font-roboto font-light text-sm">{calculateState()}</span>
           </div>
         </div>
+        <div>
+          <button className="h-8 w-[3.5rem]" onClick={() => onChange(!state)}>
+            <div
+              className={`bg-black w-full h-full rounded-full flex items-center p-1 ${styles.toggleColor} ${styles.togglePositioning}`}
+            >
+              <div className="h-6 w-6 bg-white rounded-full"></div>
+            </div>
+          </button>
+        </div>
       </div>
+      <StackSpacing size="md" />
     </>
   );
 };
