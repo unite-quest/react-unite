@@ -159,7 +159,7 @@ function DogCuisineChallenge() {
     openModal({
       type: 'imageSuccess',
       message:
-        'Acertou todos os ingredientes! O Mochi cresceu bem e saudável, aperte X para ir para o próximo desafio.',
+        'Parabéns, você acertou todos os ingredientes e o Mochi cresceu bem e saudável! Aperte X para ir para o próximo desafio.',
       image: 'https://gabrieltnishimura.github.io/unite/mochi/mochi-5.webp',
       dismiss: () => {
         navigate(`/challenge/${ChallengeRouteIdentifier.Five_Labyrinth}/landing`);

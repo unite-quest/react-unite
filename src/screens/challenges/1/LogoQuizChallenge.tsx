@@ -1,8 +1,6 @@
 import { ChallengeFooter } from '@/components/shell/ChallengeFooter';
 import { ChallengeScreen } from '@/components/shell/ChallengeScreen';
-import { StackSpacing } from '@/components/ui/stack-spacing';
 import { LogoQuizTile } from '@/components/ui/tile';
-import { UniteText } from '@/components/ui/unite-text';
 import { LoaderContext } from '@/shared/loader/LoaderProvider';
 import { ModalContext } from '@/shared/modal/ModalProvider';
 import { ChallengeRouteIdentifier } from '@/shared/utils/ChallengeIdentifiers';
@@ -69,6 +67,7 @@ function LogoQuizChallenge() {
   return (
     <>
       <ChallengeScreen
+        description="Selecione cada um dos jogos abaixo e descubra o nome."
         Footer={
           <ChallengeFooter
             title={`Finalizar ${correctAnswers}/${answers.length}`}
@@ -77,8 +76,6 @@ function LogoQuizChallenge() {
           />
         }
       >
-        <UniteText>Selecione cada um dos jogos abaixo e descubra o nome.</UniteText>
-        <StackSpacing size="sm" />
         <div className="grid grid-cols-3 gap-4">
           {logoMap.map((logo, index) => {
             return (

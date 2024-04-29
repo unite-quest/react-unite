@@ -1,3 +1,5 @@
+import { UniteText } from './unite-text';
+
 const UniteRadio: React.FC<{
   options: string[];
   selectedValue: string;
@@ -25,18 +27,20 @@ const UniteRadio: React.FC<{
         return (
           <div key={option} className="pb-2">
             <button
-              className={`w-full flex rounded-xl items-center p-2 min-h-14 text-left relative ${style.backgroundContainer}`}
+              className={`w-full flex rounded-xl items-center p-4 min-h-14 text-left relative ${style.backgroundContainer}`}
               onClick={() => onSelect(option)}
             >
               <div
                 className={`absolute rounded-full h-9 w-9 ${style.valueContainer} flex items-center justify-center`}
               >
-                <span className={`font-roboto font-bold text-base ${style.valueText}`}>
+                <UniteText size="md" weight="bold" textStyle={style.valueText}>
                   {alternative[index]}
-                </span>
+                </UniteText>
               </div>
               <div className="pl-11">
-                <span className={`font-roboto font-medium ${style.labelText}`}>{option}</span>
+                <UniteText size="md" weight="bold" textStyle={style.labelText}>
+                  {option}
+                </UniteText>
               </div>
             </button>
           </div>

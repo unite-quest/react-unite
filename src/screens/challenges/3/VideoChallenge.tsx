@@ -1,6 +1,8 @@
 import { ChallengeFooter } from '@/components/shell/ChallengeFooter';
 import { ChallengeScreen } from '@/components/shell/ChallengeScreen';
 import { ListItem } from '@/components/ui/list-item';
+import { StackSpacing } from '@/components/ui/stack-spacing';
+import { UniteText } from '@/components/ui/unite-text';
 import { LoaderContext } from '@/shared/loader/LoaderProvider';
 import { ModalContext } from '@/shared/modal/ModalProvider';
 import { ChallengeRouteIdentifier } from '@/shared/utils/ChallengeIdentifiers';
@@ -101,12 +103,12 @@ function LogoQuizChallenge() {
             referrerPolicy="strict-origin-when-cross-origin"
             allowFullScreen
           ></iframe>
-          <div className="pt-6 pb-6 text-left">
-            <span>
-              Para nos certificar que você assistiu o vídeo atentamente até o fim, responda as
-              seguintes perguntas
-            </span>
-          </div>
+          <StackSpacing size="sm" />
+          <UniteText>
+            Para nos certificar que você assistiu o vídeo atentamente até o fim, responda as
+            seguintes perguntas:
+          </UniteText>
+          <StackSpacing size="sm" />
           <div className="w-full divide-y">
             {questions.map(({ question }, index) => {
               return (

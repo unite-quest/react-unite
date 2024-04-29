@@ -5,14 +5,12 @@ import { ModalContext } from '@/shared/modal/ModalProvider';
 import { ChallengeRouteIdentifier } from '@/shared/utils/ChallengeIdentifiers';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-//import { useCurrentQuestion } from 'src/hooks/useCurrentQuestion';
 
 function LogicGatesChallenge() {
   const navigate = useNavigate();
   const [inputs, setInputs] = useState<boolean[]>(Array(3).fill(false));
   const { openModal } = useContext(ModalContext);
   const { openDrawer } = useContext(BottomDrawerContext);
-  //const { id: questionId } = useCurrentQuestion();
 
   const submit = async () => {
     if (!inputs[0] && (inputs[1] || inputs[2])) {
@@ -34,6 +32,8 @@ function LogicGatesChallenge() {
   return (
     <>
       <ChallengeScreen
+        description='Este é um exercício de portas lógicas, clique nos botões para deixá-los na combinação
+      necessária para que o "?" seja 1. Estamos dependendo de você para nos formarmos!'
         Footer={<ChallengeFooter title="Submeter" onClick={submit} />}
         onTipClick={() => {
           openDrawer({
@@ -43,12 +43,6 @@ function LogicGatesChallenge() {
           });
         }}
       >
-        <div className="pt-6 pb-12 text-left">
-          <span>
-            Este é um exercício de portas lógicas, clique nos botões para deixá-los na combinação
-            necessária para que o "?" seja 1. Estamos dependendo de você para nos formarmos!
-          </span>
-        </div>
         <div className="flex">
           <div className="w-1/3"></div>
           <div className="w-1/3 border-4 border-black border-solid h-10">?</div>

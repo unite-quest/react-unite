@@ -5,6 +5,8 @@ import { ChallengeIdentifier } from '@/shared/utils/ChallengeIdentifiers';
 import { useCurrentChallenge } from 'src/hooks/useCurrentChallenge';
 import { Header } from '../ui/header';
 import { Lamp } from '../ui/lamp';
+import { StackSpacing } from '../ui/stack-spacing';
+import { UniteText } from '../ui/unite-text';
 
 const ChallengeScreen: React.FC<
   PropsWithChildren<{
@@ -38,9 +40,10 @@ const ChallengeScreen: React.FC<
         />
         <div className={noPadding ? '' : 'pl-5 pr-5'}>
           {description ? (
-            <div className="pt-6 pb-12 text-left">
-              <span>{description}</span>
-            </div>
+            <>
+              <UniteText>{description}</UniteText>
+              <StackSpacing size="md" />
+            </>
           ) : null}
           {children}
         </div>

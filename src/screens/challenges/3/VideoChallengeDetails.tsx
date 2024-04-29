@@ -1,6 +1,8 @@
 import { ChallengeFooter } from '@/components/shell/ChallengeFooter';
 import { ChallengeScreen } from '@/components/shell/ChallengeScreen';
 import { UniteRadio } from '@/components/ui/radio';
+import { StackSpacing } from '@/components/ui/stack-spacing';
+import { UniteText } from '@/components/ui/unite-text';
 import { ModalContext } from '@/shared/modal/ModalProvider';
 import { validateAndPersistAnswer } from '@/shared/utils/validateAnswer';
 import { useContext, useState } from 'react';
@@ -126,20 +128,18 @@ function VideoChallengeDetails() {
           <ChallengeFooter title="Submeter palpite" onClick={submitAnswer} disabled={!answer} />
         }
       >
-        <div className="text-left">
-          <div className="font-bold pb-5">
-            <span>{answerMeta.title}</span>
-          </div>
-          <div className="pb-8">
-            <span>{answerMeta.description}</span>
-          </div>
-          <div className="w-full divide-y">
-            <UniteRadio
-              options={answerMeta.alternatives}
-              onSelect={setAnswer}
-              selectedValue={answer}
-            />
-          </div>
+        <UniteText size="md" weight="bold">
+          {answerMeta.title}
+        </UniteText>
+        <StackSpacing size="sm" />
+        <UniteText size="md">{answerMeta.description}</UniteText>
+        <StackSpacing size="sm" />
+        <div className="w-full divide-y">
+          <UniteRadio
+            options={answerMeta.alternatives}
+            onSelect={setAnswer}
+            selectedValue={answer}
+          />
         </div>
       </ChallengeScreen>
     </>

@@ -26,13 +26,9 @@ function LogicGatesChallenge() {
   return (
     <>
       <ChallengeScreen
+        description="Antes de iniciar esse desafio, precisamos saber de uma informação. Onde nos conhecemos?"
         Footer={<ChallengeFooter title="Submeter" onClick={submit} disabled={!selectedValue} />}
       >
-        <div className="pt-6 pb-12 text-left">
-          <span>
-            Antes de iniciar esse desafio, precisamos saber de uma informação. Onde nos conhecemos?
-          </span>
-        </div>
         <UniteRadio options={places} onSelect={setSelectedValue} selectedValue={selectedValue} />
       </ChallengeScreen>
     </>
