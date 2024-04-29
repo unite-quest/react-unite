@@ -41,11 +41,51 @@ export const corgiChallengeLevels: TrickList[] = [
     tricks: [CorgiTrick.Standing, CorgiTrick.LayingDown],
   },
   {
+    tricks: [CorgiTrick.Standing, CorgiTrick.LayingDown, CorgiTrick.Standing],
+  },
+  {
+    tricks: [CorgiTrick.Standing, CorgiTrick.LayingDown, CorgiTrick.Standing, CorgiTrick.Sitting],
+  },
+  {
     tricks: [
-      CorgiTrick.Backwards,
+      CorgiTrick.Standing,
       CorgiTrick.LayingDown,
+      CorgiTrick.Standing,
+      CorgiTrick.Sitting,
       CorgiTrick.Backwards,
+    ],
+  },
+  {
+    tricks: [
+      CorgiTrick.Standing,
       CorgiTrick.LayingDown,
+      CorgiTrick.Standing,
+      CorgiTrick.Sitting,
+      CorgiTrick.Backwards,
+      CorgiTrick.Standing,
+    ],
+  },
+  {
+    tricks: [
+      CorgiTrick.Standing,
+      CorgiTrick.LayingDown,
+      CorgiTrick.Standing,
+      CorgiTrick.Sitting,
+      CorgiTrick.Backwards,
+      CorgiTrick.Standing,
+      CorgiTrick.Sitting,
+    ],
+  },
+  {
+    tricks: [
+      CorgiTrick.Standing,
+      CorgiTrick.LayingDown,
+      CorgiTrick.Standing,
+      CorgiTrick.Sitting,
+      CorgiTrick.Backwards,
+      CorgiTrick.Standing,
+      CorgiTrick.Sitting,
+      CorgiTrick.Backwards,
     ],
   },
 ];

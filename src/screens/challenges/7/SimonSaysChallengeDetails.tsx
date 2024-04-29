@@ -3,38 +3,72 @@ import { SimonSaysTile } from '@/components/ui/tile';
 import { ModalContext } from '@/shared/modal/ModalProvider';
 import { ChallengeRouteIdentifier } from '@/shared/utils/ChallengeIdentifiers';
 import { corgiChallengeLevels, corgiPosesMap } from '@/shared/utils/corgiPosesMap';
+import { validateAndPersistAnswer } from '@/shared/utils/validateAnswer';
 import { useContext, useEffect, useState } from 'react';
 import { createSearchParams, useNavigate } from 'react-router-dom';
+import useAllAnswers from 'src/hooks/useAllAnswers';
+import { useAnswerState } from 'src/hooks/useAnswerState';
+import { useCurrentChallenge } from 'src/hooks/useCurrentChallenge';
 import { useCurrentQuestion } from 'src/hooks/useCurrentQuestion';
 
 function SimonSaysChallenge() {
   const { openModal } = useContext(ModalContext);
+  const { id: challengeId } = useCurrentChallenge();
   const { id: questionId } = useCurrentQuestion();
   const [answers, setAnswers] = useState<number[]>([]);
   const currentLevel = corgiChallengeLevels[questionId];
+  const dbAnswers = useAllAnswers();
+  const { answeredQuestionIds, refetchAnsweredQuestions } = useAnswerState(challengeId);
 
   const totalLength = currentLevel.tricks.length;
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (currentLevel.tricks.length !== answers.length) {
+    if (currentLevel.tricks.length !== answers.length || !dbAnswers) {
       // don't validate if not fully responded yet
       return;
     }
+    const fn = async () => {
+      const answerString = answers.join('|');
+      const { valid } = await validateAndPersistAnswer(
+        dbAnswers,
+        challengeId,
+        String(questionId + 1),
+        answerString,
+      );
+      await refetchAnsweredQuestions();
+      if (!valid) {
+        setAnswers([]);
+        openModal({
+          type: 'failure',
+          message:
+            'Resposta incorreta! Tente novamente (e se quiser ver a sequência novamente aperte no botão voltar =)',
+        });
+        return;
+      }
+    };
+    fn();
+  }, [
+    answers,
+    challengeId,
+    currentLevel.tricks.length,
+    dbAnswers,
+    openModal,
+    questionId,
+    refetchAnsweredQuestions,
+  ]);
 
-    const correctAnswers = currentLevel.tricks.filter((trick, index) => {
-      return trick === answers[index];
-    });
-    const valid = correctAnswers.length === currentLevel.tricks.length;
-    if (!valid) {
-      setAnswers([]);
-      openModal({
-        type: 'failure',
-        message:
-          'Resposta incorreta! Tente novamente (e se quiser ver a sequência novamente aperte no botão voltar =)',
-      });
+  useEffect(() => {
+    if (!answeredQuestionIds?.length) {
       return;
     }
+
+    if (!answeredQuestionIds.includes(String(questionId + 1))) {
+      // incorrect answer
+      return;
+    }
+
+    // last answer
     if (corgiChallengeLevels.length === questionId + 1) {
       openModal({
         type: 'success',
@@ -59,11 +93,12 @@ function SimonSaysChallenge() {
         });
       },
     });
-  }, [answers, currentLevel.tricks, navigate, openModal, questionId]);
+  }, [answeredQuestionIds, navigate, openModal, questionId]);
 
   return (
     <>
       <ChallengeScreen
+        description="Repita a ordem apresentada na tela anterior. No rodapé, apresentamos a barra de progresso para concluir esse desafio."
         Footer={
           <>
             <div className="pt-36"></div>
@@ -83,23 +118,17 @@ function SimonSaysChallenge() {
           </>
         }
       >
-        <div>
-          <div className="pt-6 pb-6 text-left">
-            Repita a ordem apresentada na tela anterior. No rodapé, apresentamos a barra de
-            progresso para concluir esse desafio.
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            {corgiPosesMap.map(({ poseId, background, image }) => {
-              return (
-                <SimonSaysTile
-                  key={poseId}
-                  onClick={() => setAnswers(prevArray => [...prevArray, poseId])}
-                  image={image}
-                  bg={background}
-                />
-              );
-            })}
-          </div>
+        <div className="grid grid-cols-2 gap-4">
+          {corgiPosesMap.map(({ poseId, background, image }) => {
+            return (
+              <SimonSaysTile
+                key={poseId}
+                onClick={() => setAnswers(prevArray => [...prevArray, poseId])}
+                image={image}
+                bg={background}
+              />
+            );
+          })}
         </div>
       </ChallengeScreen>
     </>

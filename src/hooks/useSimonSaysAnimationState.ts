@@ -25,7 +25,6 @@ export default function useSimonSaysAnimationState(
     if (questionId === undefined || questionId === null) {
       return;
     }
-    console.log('Restarting all counters since questionId changed');
     setCounter(3);
     setShowCounter(true);
     setTrickIndex(0);
@@ -39,7 +38,7 @@ export default function useSimonSaysAnimationState(
     }
 
     const intervalSubscription = setInterval(() => {
-      if (counter === 0) {
+      if (counter === 1) {
         setShowCounter(false);
         clearInterval(intervalSubscription);
         return;
