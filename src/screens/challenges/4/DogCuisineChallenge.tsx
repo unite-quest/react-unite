@@ -112,7 +112,8 @@ const todaysMenu: { image: string; itemName: string; tipWhenWrong: string }[] = 
   {
     image: 'https://gabrieltnishimura.github.io/unite/Macadamia.png',
     itemName: 'Macadamia',
-    tipWhenWrong: 'Macadamia',
+    tipWhenWrong:
+      'Macadamia tem uma substância, ainda desconhecida, que pode afetar os músculos, o sistema digestivo e o sistema nervoso dos cães.',
   },
 ];
 
