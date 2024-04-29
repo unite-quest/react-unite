@@ -26,7 +26,6 @@ export const AuthenticationProvider: React.FC<PropsWithChildren> = ({ children }
         }
 
         const u = new UserModel(firebaseUser);
-        console.log('user updated', u);
         setUser(u);
       });
     };

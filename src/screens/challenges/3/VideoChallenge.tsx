@@ -2,8 +2,9 @@ import { ChallengeFooter } from '@/components/shell/ChallengeFooter';
 import { ChallengeScreen } from '@/components/shell/ChallengeScreen';
 import { ListItem } from '@/components/ui/list-item';
 import { LoaderContext } from '@/shared/loader/LoaderProvider';
+import { ModalContext } from '@/shared/modal/ModalProvider';
 import { ChallengeRouteIdentifier } from '@/shared/utils/ChallengeIdentifiers';
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { createSearchParams, useNavigate } from 'react-router-dom';
 import { useAnswerState } from 'src/hooks/useAnswerState';
 import { useCurrentChallenge } from 'src/hooks/useCurrentChallenge';
@@ -38,12 +39,18 @@ const questions: { question: string }[] = [
 function LogoQuizChallenge() {
   const navigate = useNavigate();
   const { setLoading } = useContext(LoaderContext);
+  const { openModal } = useContext(ModalContext);
 
   const { id } = useCurrentChallenge();
   const { answeredQuestionIds } = useAnswerState(id);
 
   // [0] means the first question has a correct answer
   const [correctAnswers, setCorrectAnswers] = useState<Array<number>>([]);
+  const challengeFinished = correctAnswers.length === questions.length;
+
+  const goToNextChallenge = useCallback(() => {
+    navigate(`/challenge/${ChallengeRouteIdentifier.Four_DogCuisine}/landing`);
+  }, [navigate]);
 
   useEffect(() => {
     if (answeredQuestionIds === undefined) {
@@ -52,6 +59,18 @@ function LogoQuizChallenge() {
     setCorrectAnswers(answeredQuestionIds.map(id => Number(id) - 1));
     setLoading(false);
   }, [answeredQuestionIds, setLoading]);
+
+  useEffect(() => {
+    if (!challengeFinished) {
+      return;
+    }
+    openModal({
+      type: 'challengeCompleted',
+      dismiss: () => {
+        goToNextChallenge();
+      },
+    });
+  }, [challengeFinished, goToNextChallenge, openModal]);
 
   const onOpenQuestion = (index: number) => {
     navigate({
@@ -62,10 +81,6 @@ function LogoQuizChallenge() {
     });
   };
 
-  const goToNextChallenge = () => {
-    navigate(`/challenge/${ChallengeRouteIdentifier.Four_DogCuisine}/landing`);
-  };
-
   return (
     <>
       <ChallengeScreen
@@ -73,7 +88,7 @@ function LogoQuizChallenge() {
           <ChallengeFooter
             title={`Finalizar (${correctAnswers.length}/${questions.length})`}
             onClick={goToNextChallenge}
-            disabled={correctAnswers.length !== questions.length}
+            disabled={!challengeFinished}
           />
         }
       >

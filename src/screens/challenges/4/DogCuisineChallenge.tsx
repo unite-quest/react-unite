@@ -160,7 +160,7 @@ function DogCuisineChallenge() {
         type: 'image',
         message: 'Acertou! O Mochi cresceu bem e saudável.',
         image: 'https://gabrieltnishimura.github.io/unite/mochi/mochi-5.webp',
-        onPrimaryPress: () => {
+        dismiss: () => {
           navigate(`/challenge/${ChallengeRouteIdentifier.Five_Labyrinth}/landing`);
         },
       });
@@ -170,7 +170,6 @@ function DogCuisineChallenge() {
     // show mochi feedback
     // mochi growth algorithm is based off of incorrect choices (1<x<5 = 1; 5<x<8 = 2; 9<x<12 = 3; 12<x<16 = 4;)
     const mochiGrowthLevel = Math.floor(correctChoices.length / 4.1 + 1);
-    console.log('Mochi growth level based on', mochiGrowthLevel, correctChoices.length);
     const feedback = mochiGrowthFeedback[mochiGrowthLevel];
     // randomize item feedback
     const randomIndex = Math.floor(Math.random() * incorrectChoices.length);

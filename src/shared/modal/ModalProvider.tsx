@@ -4,13 +4,27 @@ import React, { PropsWithChildren, useEffect } from 'react';
 import useLocationHash from 'src/hooks/useLocationHash';
 import poppers from '../../assets/poppers.webp';
 import wrench from '../../assets/wrench.webp';
-interface ModalData {
-  type: 'success' | 'failure' | 'image';
+
+interface ChallengeCompletedModalData {
+  type: 'challengeCompleted';
+  dismiss: () => void;
+}
+interface ImageModalData {
+  type: 'image';
+  image: string;
+  message: string;
+  dismiss: () => void;
+}
+
+interface CustomModalData {
+  type: 'success' | 'failure';
   message: string;
   image?: string;
   dismiss?: () => void;
   onPrimaryPress?: () => void;
 }
+
+type ModalData = CustomModalData | ImageModalData | ChallengeCompletedModalData;
 
 export interface ModalInterface {
   openModal: (data: ModalData | undefined) => void;
@@ -23,8 +37,9 @@ export const ModalContext = React.createContext<ModalInterface>({
 export const ModalProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const locationHash = useLocationHash();
   const [modalInfo, openModal] = React.useState<ModalData | undefined>(undefined);
-  const circleStyle = modalInfo?.type === 'success' ? 'bg-[#219262]' : 'bg-[#C92626]';
-  const titleStyle = modalInfo?.type === 'success' ? 'text-[#219262]' : 'text-[#C92626]';
+  const isSuccess = modalInfo?.type === 'success' || modalInfo?.type === 'challengeCompleted';
+  const circleStyle = isSuccess ? 'bg-[#219262]' : 'bg-[#C92626]';
+  const titleStyle = isSuccess ? 'text-[#219262]' : 'text-[#C92626]';
 
   useEffect(() => {
     if (modalInfo) {
@@ -42,17 +57,29 @@ export const ModalProvider: React.FC<PropsWithChildren> = ({ children }) => {
     }
   }, [modalInfo]);
 
-  const primaryPress = () => {
-    modalInfo?.onPrimaryPress?.();
-    openModal(undefined);
-  };
+  const primaryPress =
+    modalInfo?.type === 'challengeCompleted' ||
+    modalInfo?.type === 'image' ||
+    !modalInfo?.onPrimaryPress
+      ? null
+      : () => {
+          modalInfo?.onPrimaryPress?.();
+          openModal(undefined);
+        };
+
+  const image = modalInfo?.type === 'image' ? modalInfo.image : null;
+
+  const message =
+    modalInfo?.type === 'challengeCompleted'
+      ? 'Parabéns, você completou esse nível! Pressione X para ir para o próximo desafio.'
+      : modalInfo?.message;
 
   const closeModal = () => {
     modalInfo?.dismiss?.();
     openModal(undefined);
   };
 
-  const successOrFailure = modalInfo?.type === 'success' || modalInfo?.type === 'failure';
+  const successOrFailure = isSuccess || modalInfo?.type === 'failure';
 
   return (
     <ModalContext.Provider value={{ openModal }}>
@@ -69,16 +96,12 @@ export const ModalProvider: React.FC<PropsWithChildren> = ({ children }) => {
                 </button>
               </div>
               <div className="flex justify-center pb-4">
-                {modalInfo.image ? <img height={200} width={200} src={modalInfo.image} /> : null}
+                {image ? <img height={200} width={200} src={image} /> : null}
                 {successOrFailure ? (
                   <div
                     className={`rounded-full w-28 h-28 flex items-center justify-center ${circleStyle}`}
                   >
-                    <img
-                      height={75}
-                      width={75}
-                      src={modalInfo.type === 'success' ? poppers : wrench}
-                    />
+                    <img height={75} width={75} src={isSuccess ? poppers : wrench} />
                   </div>
                 ) : null}
               </div>
@@ -86,13 +109,13 @@ export const ModalProvider: React.FC<PropsWithChildren> = ({ children }) => {
                 {successOrFailure ? (
                   <div className="pb-4">
                     <h1 className={`font-pt-serif font-bold text-2xl ${titleStyle}`}>
-                      {modalInfo.type === 'success' ? 'Sucesso!' : 'Erro ):'}
+                      {isSuccess ? 'Sucesso!' : 'Erro ):'}
                     </h1>
                   </div>
                 ) : null}
-                <UniteText align="center">{modalInfo.message}</UniteText>
+                <UniteText align="center">{message}</UniteText>
               </div>
-              {modalInfo?.onPrimaryPress ? (
+              {primaryPress ? (
                 <div className="pt-2">
                   <UniteButton title="Ok" buttonVariant="adventure" onClick={primaryPress} />
                 </div>

@@ -90,7 +90,6 @@ function VideoChallengeDetails() {
       return;
     }
 
-    console.log(answer);
     const { valid } = await validateAndPersistAnswer(
       dbAnswers,
       challengeId,
@@ -102,7 +101,7 @@ function VideoChallengeDetails() {
       openModal({
         type: 'success',
         message: 'Ótima resposta, continue assim!',
-        onPrimaryPress: () => {
+        dismiss: () => {
           navigate(-1);
         },
       });
