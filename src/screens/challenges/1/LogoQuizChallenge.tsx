@@ -56,9 +56,8 @@ function LogoQuizChallenge() {
     }
 
     openModal({
-      type: 'success',
-      message: 'Você finalizou esse desafio! Aperte no X para ir para o próximo.',
-      dismiss: () => {
+      type: 'challengeCompleted',
+      onPrimaryPress: () => {
         goToNextChallenge();
       },
     });

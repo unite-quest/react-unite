@@ -37,7 +37,7 @@ export const RentalDrawerProvider: React.FC<PropsWithChildren> = ({ children }) 
     <RentalDrawerContext.Provider value={{ openRentalDrawer, closeRentalDrawer }}>
       {drawerInfo ? (
         <div className="w-full h-full fixed top-0 left-0 z-50">
-          <div className="w-full h-full absolute top-0 left-0 bg-black opacity-50 z-60"></div>
+          <div className="w-full h-full absolute top-0 left-0 bg-black opacity-75 z-60"></div>
           <div className="w-full h-full absolute top-[10%] left-0 bg-white z-70 rounded-t-3xl text-left p-8 overflow-auto animate-out">
             <div className="flex justify-end">
               <button
@@ -60,7 +60,7 @@ export const RentalDrawerProvider: React.FC<PropsWithChildren> = ({ children }) 
                   />
                 </>
               ) : null}
-
+              <StackSpacing size="md" />
               <UniteTitle>{drawerInfo.title}</UniteTitle>
               <StackSpacing size="sm" />
               {drawerInfo.content || null}

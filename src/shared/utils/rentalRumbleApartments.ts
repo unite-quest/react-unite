@@ -140,7 +140,7 @@ export const rentalRumbleApartments: LivingConditions[] = [
       },
       {
         user: 'Gabriel',
-        review: 'Pelo menos dá pra ir pro supermercado daqui ¯\\_(ツ)_/¯ ',
+        review: 'Pelo menos dá pra ir pro supermercado daqui ¯\\_(ツ)_/¯',
       },
     ],
   },

@@ -68,7 +68,7 @@ function LogoQuizChallenge() {
     }
     openModal({
       type: 'challengeCompleted',
-      dismiss: () => {
+      onPrimaryPress: () => {
         goToNextChallenge();
       },
     });

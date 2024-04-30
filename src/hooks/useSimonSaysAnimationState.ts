@@ -8,7 +8,7 @@ export type CorgiAnimationState = {
   counter: number;
 };
 
-const INTERVAL_TICK = 1000;
+const INTERVAL_TICK = 750;
 
 export default function useSimonSaysAnimationState(
   questionId: number,

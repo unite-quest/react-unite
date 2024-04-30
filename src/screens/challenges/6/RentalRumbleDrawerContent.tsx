@@ -47,7 +47,7 @@ export const RentalRumbleDrawerContent: React.FC<{
       })}
       <StackSpacing size="sm" />
       <UniteText weight="bold">Anotações da família</UniteText>
-      <StackSpacing size="sm" />
+      <StackSpacing size="xs" />
       {place.reviews.map(({ user, review }) => {
         const profile = user === 'Gabriel' ? gabriel : user === 'Mimi' ? mimi : mochi;
         return (
@@ -61,6 +61,7 @@ export const RentalRumbleDrawerContent: React.FC<{
           </div>
         );
       })}
+      <StackSpacing size="sm" />
       <div className="flex">
         <StackSpacing size="sm" />
         <button

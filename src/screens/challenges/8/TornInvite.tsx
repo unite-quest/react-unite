@@ -86,7 +86,7 @@ function TornInvite() {
         Footer={
           <ChallengeFooter
             onClick={submit}
-            title={`Submeter palpite ${totalGuestsSubmitted}/${totalGuests}`}
+            title={`Submeter (${totalGuestsSubmitted}/${totalGuests})`}
             disabled={!answer}
           />
         }

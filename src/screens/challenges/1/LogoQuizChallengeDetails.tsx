@@ -62,7 +62,7 @@ function LogoQuizChallenge() {
   return (
     <>
       <ChallengeScreen
-        Footer={<ChallengeFooter title="Submeter palpite" onClick={submit} disabled={!answer} />}
+        Footer={<ChallengeFooter title="Submeter" onClick={submit} disabled={!answer} />}
         onTipClick={askForTip}
       >
         <UniteText>Qual o nome desse jogo?</UniteText>
@@ -74,7 +74,7 @@ function LogoQuizChallenge() {
         <input
           ref={answerInput}
           onKeyUp={({ key }) => (key === 'Enter' ? submit() : null)}
-          className="relative border border-dark-green w-full h-11 rounded-lg font-roboto"
+          className="border-2 border-dark-green w-full p-3 rounded-2xl font-roboto text-lg font-medium"
           onChange={e => setAnswer(e.target.value)}
         />
       </ChallengeScreen>

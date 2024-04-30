@@ -124,9 +124,7 @@ function VideoChallengeDetails() {
   return (
     <>
       <ChallengeScreen
-        Footer={
-          <ChallengeFooter title="Submeter palpite" onClick={submitAnswer} disabled={!answer} />
-        }
+        Footer={<ChallengeFooter title="Submeter" onClick={submitAnswer} disabled={!answer} />}
       >
         <UniteText size="md" weight="bold">
           {answerMeta.title}

@@ -15,8 +15,7 @@ function LogicGatesChallenge() {
   const submit = async () => {
     if (!inputs[0] && (inputs[1] || inputs[2])) {
       openModal({
-        type: 'success',
-        message: '',
+        type: 'challengeCompleted',
         onPrimaryPress: () => {
           navigate(`/challenge/${ChallengeRouteIdentifier.Three_Video}/landing`);
         },

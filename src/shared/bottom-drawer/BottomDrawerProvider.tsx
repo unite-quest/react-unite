@@ -48,7 +48,7 @@ export const BottomDrawerProvider: React.FC<PropsWithChildren> = ({ children }) 
     <BottomDrawerContext.Provider value={{ openDrawer, closeDrawer }}>
       {drawerInfo ? (
         <div className="w-full h-full fixed top-0 left-0 z-50">
-          <div className="w-full h-full absolute top-0 left-0 bg-black opacity-50 z-60"></div>
+          <div className="w-full h-full absolute top-0 left-0 bg-black opacity-75 z-60"></div>
           <div className="w-full absolute bottom-0 left-0 bg-white z-70 rounded-t-3xl text-left p-8 overflow-auto">
             <div className="flex justify-end">
               <button

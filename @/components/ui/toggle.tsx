@@ -10,7 +10,7 @@ const UniteToggle: React.FC<{
   // implement undefined state
   function calculateState(): string {
     if (state === undefined) {
-      return 'N/A';
+      return 'A definir';
     } else if (state === true) {
       return 'Permitido';
     }
@@ -44,7 +44,8 @@ const UniteToggle: React.FC<{
 
   return (
     <>
-      <div
+      <button
+        onClick={() => onChange(!state)}
         className={`p-5 pl-[7.2rem] relative w-full flex justify-between items-center ${styles.backgroundColor} rounded-e-3xl rounded-bl-3xl`}
       >
         <div className="absolute left-5 top-[-1rem]">
@@ -71,7 +72,7 @@ const UniteToggle: React.FC<{
             </div>
           </button>
         </div>
-      </div>
+      </button>
       <StackSpacing size="md" />
     </>
   );

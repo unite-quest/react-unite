@@ -61,7 +61,12 @@ function ChallengeLanding() {
         <StackSpacing size="lg" />
         <InsetSpacing size="md">
           <div className="flex justify-center">
-            <img className="rotate-[4deg] border-8 border-white" src={challenge.image} />
+            <img
+              height={250}
+              width={250}
+              className="rotate-[4deg] border-8 border-white"
+              src={challenge.image}
+            />
           </div>
         </InsetSpacing>
       </ChallengeScreen>

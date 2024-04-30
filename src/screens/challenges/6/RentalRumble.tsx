@@ -85,7 +85,7 @@ function RentalRumble() {
     if (answeredQuestionIds.length === rentalRumbleApartments.length) {
       openModal({
         type: 'challengeCompleted',
-        dismiss: () => {
+        onPrimaryPress: () => {
           navigate(`/challenge/${ChallengeRouteIdentifier.Seven_SimonSays}/landing`);
         },
       });
@@ -105,7 +105,7 @@ function RentalRumble() {
         }}
         Footer={
           <ChallengeFooter
-            title={`Submeter palpite (${currentAnswers}/${rentalRumbleApartments.length})`}
+            title={`Submeter (${currentAnswers}/${rentalRumbleApartments.length})`}
             onClick={submit}
             disabled={currentAnswers !== rentalRumbleApartments.length}
           />
