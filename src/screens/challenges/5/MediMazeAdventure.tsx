@@ -21,7 +21,12 @@ function MediMazeAdventure() {
   return (
     <>
       <ChallengeScreen noPadding Footer={<></>}>
-        <MazeCanvas maze={maze} playerPosition={playerPosition} />
+        <MazeCanvas
+          maze={maze}
+          playerPosition={playerPosition}
+          width={window.innerWidth}
+          height={window.innerHeight}
+        />
         <div className="absolute bottom-12 right-12">
           <Joystick
             size={90}
