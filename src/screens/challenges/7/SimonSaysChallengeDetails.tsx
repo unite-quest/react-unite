@@ -111,7 +111,7 @@ function SimonSaysChallenge() {
                     style={{ width: `${Math.floor((answers.length / totalLength) * 100)}%` }}
                   ></div>
                 </div>
-                <UniteText weight="bold" textStyle="text-white">
+                <UniteText weight="bold" textStyle="text-white" align="center">
                   {answers.length} / {totalLength}
                 </UniteText>
               </div>

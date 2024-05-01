@@ -2,6 +2,7 @@ import { LoaderContext } from '@/shared/loader/LoaderProvider';
 import { ChallengeIdentifier } from '@/shared/utils/ChallengeIdentifiers';
 import React, { Suspense, useContext, useEffect } from 'react';
 import { useCurrentChallenge } from 'src/hooks/useCurrentChallenge';
+import MediMazeAdventure from '../5/MediMazeAdventure';
 import TornInvite from '../8/TornInvite';
 
 function Challenges() {
@@ -35,7 +36,7 @@ function Challenges() {
       component: <DogCuisineChallenge />,
     },
     [ChallengeIdentifier.Five_Labyrinth]: {
-      component: <VideoChallenge />,
+      component: <MediMazeAdventure />,
     },
     [ChallengeIdentifier.Six_ApartmentTinder]: {
       component: <RentalRumble />,
