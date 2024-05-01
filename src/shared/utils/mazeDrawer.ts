@@ -1,22 +1,21 @@
 export type Direction = 'FORWARD' | 'RIGHT' | 'LEFT' | 'BACKWARD' | null;
+export type Position = { x: number; y: number };
 
 function getCharacterSpriteCoordinates(
   direction: Direction,
   tick: number,
-): {
-  x: number;
-  y: number;
-} {
+  stopped: boolean,
+): Position {
   let tilePosition = 0;
-  const increment = tick % 6;
+  const increment = stopped ? 0 : tick % 6;
   if (direction === 'BACKWARD') {
-    tilePosition = 32;
+    tilePosition = stopped ? 0 : 32;
   } else if (direction === 'FORWARD') {
-    tilePosition = 40;
+    tilePosition = stopped ? 8 : 40;
   } else if (direction === 'RIGHT') {
-    tilePosition = 48;
+    tilePosition = stopped ? 16 : 48;
   } else if (direction === 'LEFT') {
-    tilePosition = 56;
+    tilePosition = stopped ? 24 : 56;
   }
 
   const index = tilePosition + increment;
@@ -37,13 +36,13 @@ export function drawPlayer(
   ctx: CanvasRenderingContext2D,
   characterSprite: HTMLImageElement,
   direction: Direction,
-  x: number,
-  y: number,
+  position: Position,
+  stopped: boolean,
   tick: number,
 ) {
   const scale = 2;
   const spriteSize = 64;
-  const coordinates = getCharacterSpriteCoordinates(direction, tick);
+  const coordinates = getCharacterSpriteCoordinates(direction, tick, stopped);
 
   ctx.drawImage(
     characterSprite,
@@ -51,9 +50,54 @@ export function drawPlayer(
     coordinates.y,
     spriteSize,
     spriteSize,
-    x,
-    y,
+    position.x,
+    position.y,
     spriteSize * scale,
     spriteSize * scale,
   );
+}
+
+export function drawGround(
+  ctx: CanvasRenderingContext2D,
+  ground: number[][],
+  tilesetImage: HTMLImageElement,
+  config: {
+    height: number;
+    width: number;
+  },
+) {
+  const tilesetConfig = {
+    tilesPerRow: 6,
+    tilesPerCol: 13,
+  };
+  const gap = 1;
+  for (let r = 0; r < ground.length; r++) {
+    for (let c = 0; c < ground[r].length; c++) {
+      const scale = config.width / 16 / ground[r].length;
+      const tile = ground[r][c];
+      const tileHeight: number = 16;
+      const tileWidth: number = 16;
+      const tileRow = Math.floor(tile / tilesetConfig.tilesPerRow);
+      const tileCol = tile % tilesetConfig.tilesPerRow;
+      const gapXMultiplier = tileCol;
+      // after third row, every gap is irregular - this accounts for that (SQN)
+      const gapYMultiplier = tileRow > 3 ? (tileRow % 2) + 3 : tileRow;
+
+      // Calculate the source coordinates considering the gap
+      const sourceX = tileCol * tileWidth + gapXMultiplier * gap;
+      const sourceY = tileRow * tileHeight + gapYMultiplier * gap;
+
+      ctx.drawImage(
+        tilesetImage,
+        sourceX, // Adjusted source x to skip the gap
+        sourceY, // Adjusted source y to skip the gap
+        tileWidth,
+        tileHeight,
+        c * tileWidth * scale,
+        r * tileHeight * scale,
+        tileWidth * scale,
+        tileHeight * scale,
+      );
+    }
+  }
 }

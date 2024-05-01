@@ -5,7 +5,7 @@ import { MazeCanvas } from './MazeCanvas';
 
 function MediMazeAdventure() {
   const [direction, setDirection] = useState<'FORWARD' | 'RIGHT' | 'LEFT' | 'BACKWARD' | null>(
-    'BACKWARD',
+    null,
   );
 
   return (
@@ -27,7 +27,9 @@ function MediMazeAdventure() {
             move={e => {
               setDirection(e.direction);
             }}
-            stop={console.info}
+            stop={() => {
+              setDirection(null);
+            }}
           ></Joystick>
         </div>
       </ChallengeScreen>
