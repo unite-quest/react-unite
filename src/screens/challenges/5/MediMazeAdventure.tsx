@@ -1,8 +1,8 @@
 import { ChallengeScreen } from '@/components/shell/ChallengeScreen';
 import { useState } from 'react';
 import { Joystick } from 'react-joystick-component';
+import animation from '../../../assets/maze/level-sample.gif';
 import { MazeCanvas } from './MazeCanvas';
-
 function MediMazeAdventure() {
   const [direction, setDirection] = useState<'FORWARD' | 'RIGHT' | 'LEFT' | 'BACKWARD' | null>(
     null,
@@ -11,12 +11,15 @@ function MediMazeAdventure() {
   return (
     <>
       <ChallengeScreen noPadding noBottomPadding Footer={<></>}>
-        <MazeCanvas
-          direction={direction}
-          width={window.innerWidth}
-          height={window.innerHeight - 80}
-        />
-        <div className="absolute bottom-12 right-12">
+        <div className="absolute z-10">
+          <MazeCanvas
+            direction={direction}
+            width={window.innerWidth}
+            height={window.innerHeight - 80}
+          />
+        </div>
+        <img className="absolute top-32" src={animation} />
+        <div className="absolute bottom-12 right-12 z-20">
           <Joystick
             size={90}
             sticky={false}

@@ -2,7 +2,7 @@ import { MutableRefObject, useEffect, useRef, useState } from 'react';
 import characterArmor from '../assets/maze/armor.png';
 import characterSpriteSheet from '../assets/maze/character-base.png';
 import characterHair from '../assets/maze/hair.png';
-import tilemap from '../assets/tilemap.png';
+import tilemap from '../assets/maze/hospital.png';
 
 export function useLoadSprites(): {
   tilesetLoaded: boolean;

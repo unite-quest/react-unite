@@ -40,7 +40,7 @@ export function drawPlayer(
   stopped: boolean,
   tick: number,
 ) {
-  const scale = 2;
+  const scale = 1.5;
   const spriteSize = 64;
   const coordinates = getCharacterSpriteCoordinates(direction, tick, stopped);
 
@@ -67,8 +67,8 @@ export function drawGround(
   },
 ) {
   const tilesetConfig = {
-    tilesPerRow: 6,
-    tilesPerCol: 13,
+    tilesPerRow: 16,
+    tilesPerCol: 110,
   };
   const gap = 1;
   for (let r = 0; r < ground.length; r++) {

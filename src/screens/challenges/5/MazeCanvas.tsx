@@ -1,4 +1,4 @@
-import { Direction, drawGround, drawPlayer } from '@/shared/utils/mazeDrawer';
+import { Direction, drawPlayer } from '@/shared/utils/mazeDrawer';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useLoadSprites } from 'src/hooks/useLoadSprites';
 import { usePositionControl } from 'src/hooks/usePositionControl';
@@ -63,10 +63,7 @@ export const MazeCanvas: React.FC<Props> = ({ width, height, direction }) => {
     }
     ctx.reset();
     ctx.imageSmoothingEnabled = false;
-    drawGround(ctx, ground, tileset.current, {
-      width,
-      height,
-    });
+
     drawPlayer(ctx, character.body.current, lastKnownDirection, playerPosition, stopped, tick);
     drawPlayer(ctx, character.clothes.current, lastKnownDirection, playerPosition, stopped, tick);
     drawPlayer(ctx, character.hair.current, lastKnownDirection, playerPosition, stopped, tick);
