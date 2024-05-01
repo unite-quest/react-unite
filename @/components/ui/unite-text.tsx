@@ -38,7 +38,7 @@ const UniteTitle: React.FC<
   return (
     <>
       <div className={`${alignStyle}`}>
-        <span className={`font-pt-serif text-4xl font-bold ${color}`}>{children}</span>
+        <h1 className={`font-pt-serif text-4xl font-bold ${color}`}>{children}</h1>
       </div>
     </>
   );

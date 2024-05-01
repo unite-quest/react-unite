@@ -69,7 +69,6 @@ function Story() {
           desafios representam etapas marcantes de nossas vidas, desde o momento em que nos
           conhecemos até o dia do nosso casamento.
         </UniteText>
-        <StackSpacing size="xl" />
       </UniteScreen>
     </>
   );

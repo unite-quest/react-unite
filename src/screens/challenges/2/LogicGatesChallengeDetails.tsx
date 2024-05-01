@@ -2,37 +2,57 @@ import { ChallengeFooter } from '@/components/shell/ChallengeFooter';
 import { ChallengeScreen } from '@/components/shell/ChallengeScreen';
 import { BottomDrawerContext } from '@/shared/bottom-drawer/BottomDrawerProvider';
 import { ModalContext } from '@/shared/modal/ModalProvider';
-import { ChallengeRouteIdentifier } from '@/shared/utils/ChallengeIdentifiers';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useCurrentQuestion } from 'src/hooks/useCurrentQuestion';
+import Not from './Not';
+
+function timeout(delay: number) {
+  return new Promise(res => setTimeout(res, delay));
+}
 
 function LogicGatesChallenge() {
   const navigate = useNavigate();
   const [inputs, setInputs] = useState<boolean[]>(Array(3).fill(false));
+  const [switchState, setSwitch] = useState<boolean>(false);
+  const [lightState, setLight] = useState<boolean>(false);
+  const [progressBar, setProgressBar] = useState<number>(0);
   const { openModal } = useContext(ModalContext);
   const { openDrawer } = useContext(BottomDrawerContext);
+  const { id: questionId } = useCurrentQuestion();
+
+  const toggleSwitch = () => {
+    setSwitch(prevState => !prevState);
+    console.log(switchState);
+  };
 
   const submit = async () => {
-    if (!inputs[0] && (inputs[1] || inputs[2])) {
+    setProgressBar(100);
+    await timeout(1000);
+    if (!switchState) {
+      setLight(true);
+    }
+    await timeout(1000);
+    if (!switchState) {
       openModal({
         type: 'challengeCompleted',
         onPrimaryPress: () => {
-          navigate(`/challenge/${ChallengeRouteIdentifier.Three_Video}/landing`);
+          //navigate(`/challenge/${ChallengeRouteIdentifier.Three_Video}/landing`);
         },
       });
     } else {
       openModal({
         type: 'failure',
-        message: 'Hmmm, não exatamente. Revise sua resposta',
+        message: 'Não acendeu a lâmpada :(',
       });
+      setProgressBar(0);
     }
   };
 
   return (
     <>
       <ChallengeScreen
-        description='Este é um exercício de portas lógicas, clique nos botões para deixá-los na combinação
-      necessária para que o "?" seja 1. Estamos dependendo de você para nos formarmos!'
+        description="Esta é uma porta lógica chamada NOT. Quando o interruptor está ligado, a corrente não passa. Quando o interruptor está desligado, a corrente passa. Tente acender a lâmpada."
         Footer={<ChallengeFooter title="Submeter" onClick={submit} />}
         onTipClick={() => {
           openDrawer({
@@ -42,53 +62,19 @@ function LogicGatesChallenge() {
           });
         }}
       >
-        <div className="flex">
-          <div className="w-1/3"></div>
-          <div className="w-1/3 border-4 border-black border-solid h-10">?</div>
-          <div className="w-1/3"></div>
-        </div>
-        <div className="flex">
-          <div className="w-1/2"></div>
-          <div className="w-1/2 border-l-4 border-black border-solid h-10" />
-        </div>
-        <div className="flex">
-          <div className="w-full border-4 border-black border-solid h-10">AND</div>
-        </div>
-        <div className="flex">
-          <div className="w-1/6"></div>
-          <div className="w-1/6 border-l-4 border-black border-solid h-10" />
-          <div className="w-1/3"></div>
-          <div className="w-1/3 border-l-4 border-black border-solid h-10" />
-        </div>
-        <div className="flex">
-          <div className="w-1/3 border-4 border-black border-solid h-10">NOT</div>
-          <div className="w-2/3 border-4 border-black border-solid h-10"> OR</div>
-        </div>
-        <div className="flex">
-          <div className="w-1/6"></div>
-          <div className="w-1/6 border-l-4 border-black border-solid h-10" />
-          <div className="w-1/6"></div>
-          <div className="w-1/6 border-l-4 border-black border-solid h-10" />
-          <div className="w-1/6"></div>
-          <div className="w-1/6 border-l-4 border-black border-solid h-10" />
-        </div>
-        <div className="flex">
-          {inputs.map((input, index) => {
-            return (
-              <button
-                className={'w-1/3 h-10 rounded-full ' + (input ? 'bg-emerald-600' : 'bg-red-600')}
-                onClick={() =>
-                  setInputs(prevArray => {
-                    let newArr = [...prevArray];
-                    newArr[index] = !prevArray[index];
-                    return newArr;
-                  })
-                }
-              >
-                {input ? '1' : '0'}
-              </button>
-            );
-          })}
+        <div className="flex justify-center relative">
+          <Not switchState={switchState} lightState={lightState} onClick={toggleSwitch} />
+          <div>
+            <div className="w-2.5 bg-gray-200 rounded-full h-full dark:bg-gray-700 mb-1 flex-col-reverse flex absolute left-[70%]">
+              <div
+                className="bg-dark-green w-2.5 rounded-full"
+                style={{
+                  transition: 'height 1s ease-in-out',
+                  height: `${progressBar}%`,
+                }}
+              ></div>
+            </div>
+          </div>
         </div>
       </ChallengeScreen>
     </>
