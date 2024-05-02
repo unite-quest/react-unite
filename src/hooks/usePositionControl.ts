@@ -1,16 +1,11 @@
-import { Direction, Position } from '@/shared/utils/mazeDrawer';
+import { TilesetStaticTransposer } from '@/shared/utils/TilesetStaticTransposer';
+import { Direction, Position } from '@/shared/utils/maze/playerDrawer';
 import { useEffect, useState } from 'react';
-
-const boundaries = {
-  left: -40,
-  right: 280,
-  top: 80,
-  bottom: 485,
-};
 
 export function usePositionControl(
   direction: Direction,
   tick: number,
+  tilesets: TilesetStaticTransposer[],
   initialPosition: Position,
 ): {
   position: Position;
@@ -37,28 +32,32 @@ export function usePositionControl(
     const moveStep = 10; // Defines how much the player moves per tick
     if (direction === 'RIGHT') {
       setPosition(pos => {
-        if (pos.x > boundaries.right) {
+        const isColliding = tilesets.some(tileset => tileset.isColliding(pos, direction));
+        if (isColliding) {
           return { x: pos.x, y: pos.y };
         }
         return { x: pos.x + moveStep, y: pos.y };
       });
     } else if (direction === 'LEFT') {
       setPosition(pos => {
-        if (pos.x < boundaries.left) {
+        const isColliding = tilesets.some(tileset => tileset.isColliding(pos, direction));
+        if (isColliding) {
           return { x: pos.x, y: pos.y };
         }
         return { x: pos.x - moveStep, y: pos.y };
       });
     } else if (direction === 'FORWARD') {
       setPosition(pos => {
-        if (pos.y < boundaries.top) {
+        const isColliding = tilesets.some(tileset => tileset.isColliding(pos, direction));
+        if (isColliding) {
           return { x: pos.x, y: pos.y };
         }
         return { x: pos.x, y: pos.y - moveStep };
       });
     } else if (direction === 'BACKWARD') {
       setPosition(pos => {
-        if (pos.y > boundaries.bottom) {
+        const isColliding = tilesets.some(tileset => tileset.isColliding(pos, direction));
+        if (isColliding) {
           return { x: pos.x, y: pos.y };
         }
         return { x: pos.x, y: pos.y + moveStep };
