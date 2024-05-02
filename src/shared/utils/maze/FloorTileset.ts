@@ -14,7 +14,7 @@ export class FloorTileset extends TilesetStaticTransposer {
       tileset,
       [
         [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
-        [EMP, EMP, 478, 478, 478, 478, 478, 478, EMP, EMP, EMP, EMP],
+        [EMP, EMP, 478, 478, 478, 478, 478, EMP, EMP, EMP, EMP, EMP],
         [EMP, EMP, 478, 478, 478, 478, 478, 478, 478, 478, 478, 477],
         [EMP, EMP, 478, 478, 478, 478, 478, 478, 478, 478, 478, 477],
         [EMP, EMP, 478, 478, 478, 478, 478, 478, 478, 478, 478, 477],

@@ -1,6 +1,7 @@
 import { TilesetStaticTransposer } from '@/shared/utils/TilesetStaticTransposer';
 import { BorderTileset } from '@/shared/utils/maze/BorderTileset';
 import { FloorTileset } from '@/shared/utils/maze/FloorTileset';
+import { WallTileset } from '@/shared/utils/maze/WallTileset';
 import { Direction, drawPlayer } from '@/shared/utils/maze/playerDrawer';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useLoadSprites } from 'src/hooks/useLoadSprites';
@@ -62,6 +63,7 @@ export const MazeCanvas: React.FC<Props> = ({ width, height, direction }) => {
     setTilesets([
       new FloorTileset(canvasMetadata, floors.current),
       new BorderTileset(canvasMetadata, borders.current),
+      new WallTileset(canvasMetadata, walls.current),
     ]);
   }, [borders, floors, height, tilesetLoaded, walls, width]);
 
