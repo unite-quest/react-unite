@@ -1,4 +1,4 @@
-import { Direction, Position } from '@/shared/utils/mazeDrawer';
+import { Direction, Position } from '@/shared/utils/maze/playerDrawer';
 import { useEffect, useState } from 'react';
 
 const boundaries = {
