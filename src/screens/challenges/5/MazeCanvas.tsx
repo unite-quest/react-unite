@@ -2,7 +2,7 @@ import { TilesetStaticTransposer } from '@/shared/utils/TilesetStaticTransposer'
 import { BorderTileset } from '@/shared/utils/maze/BorderTileset';
 import { FloorTileset } from '@/shared/utils/maze/FloorTileset';
 import { WallTileset } from '@/shared/utils/maze/WallTileset';
-import { Direction, drawPlayer } from '@/shared/utils/maze/playerDrawer';
+import { Direction, Position, drawPlayer } from '@/shared/utils/maze/playerDrawer';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useLoadSprites } from 'src/hooks/useLoadSprites';
 import { usePositionControl } from 'src/hooks/usePositionControl';
@@ -10,11 +10,17 @@ import { usePositionControl } from 'src/hooks/usePositionControl';
 type Props = {
   height: number;
   width: number;
+  playerInitialPosition: Position;
   direction: Direction;
 };
 const TICK_INTERVAL = 75;
 
-export const MazeCanvas: React.FC<Props> = ({ width, height, direction }) => {
+export const MazeCanvas: React.FC<Props> = ({
+  width,
+  height,
+  playerInitialPosition,
+  direction,
+}) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [tick, setTick] = useState(0);
   const [tilesets, setTilesets] = useState<TilesetStaticTransposer[]>([]);
@@ -24,10 +30,7 @@ export const MazeCanvas: React.FC<Props> = ({ width, height, direction }) => {
     position: playerPosition,
     stopped,
     lastKnownDirection,
-  } = usePositionControl(direction, tick, {
-    x: 0,
-    y: 200,
-  });
+  } = usePositionControl(direction, tick, tilesets, playerInitialPosition);
 
   // gameplay loop
   useLayoutEffect(() => {

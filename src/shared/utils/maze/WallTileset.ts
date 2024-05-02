@@ -1,5 +1,6 @@
 import { CanvasMetadata } from '../TilesetExtractor';
 import { TilesetStaticTransposer } from '../TilesetStaticTransposer';
+import { Direction, Position } from './playerDrawer';
 
 const EMP = 1222;
 export class WallTileset extends TilesetStaticTransposer {
@@ -29,5 +30,10 @@ export class WallTileset extends TilesetStaticTransposer {
         [EMP, EMP, EMP, EMP, 700, 700, 700, EMP, EMP, EMP, EMP, EMP],
       ],
     );
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  isColliding(_: Position, _2: Direction): boolean {
+    return false;
   }
 }

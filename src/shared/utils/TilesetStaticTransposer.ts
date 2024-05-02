@@ -1,6 +1,7 @@
 import { CanvasMetadata, TilesetExtractor, TilesetMetadata } from './TilesetExtractor';
+import { Direction, Position } from './maze/playerDrawer';
 
-export class TilesetStaticTransposer {
+export abstract class TilesetStaticTransposer {
   canvasMetadata: CanvasMetadata;
   tilesetMetadata: TilesetMetadata;
   tileset: HTMLImageElement;
@@ -40,4 +41,6 @@ export class TilesetStaticTransposer {
       }
     }
   }
+
+  abstract isColliding(playerPosition: Position, playerDirection: Direction): boolean;
 }
