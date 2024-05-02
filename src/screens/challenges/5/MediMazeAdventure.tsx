@@ -1,13 +1,19 @@
 import { ChallengeScreen } from '@/components/shell/ChallengeScreen';
+import { LoaderContext } from '@/shared/loader/LoaderProvider';
 import { Position } from '@/shared/utils/maze/playerDrawer';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Joystick } from 'react-joystick-component';
 import { MazeCanvas } from './MazeCanvas';
 function MediMazeAdventure() {
+  const { setLoading } = useContext(LoaderContext);
   const [direction, setDirection] = useState<'FORWARD' | 'RIGHT' | 'LEFT' | 'BACKWARD' | null>(
     null,
   );
   const initialPosition: Position = { x: 130, y: 380 };
+
+  const onLoaded = () => {
+    setLoading(false);
+  };
 
   return (
     <>
@@ -17,6 +23,7 @@ function MediMazeAdventure() {
           width={window.innerWidth}
           height={window.innerHeight - 80}
           playerInitialPosition={initialPosition}
+          onLoaded={onLoaded}
         />
         <div className="absolute bottom-12 right-12 z-20">
           <Joystick

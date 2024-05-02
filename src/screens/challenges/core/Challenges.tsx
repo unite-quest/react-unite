@@ -2,7 +2,6 @@ import { LoaderContext } from '@/shared/loader/LoaderProvider';
 import { ChallengeIdentifier } from '@/shared/utils/ChallengeIdentifiers';
 import React, { Suspense, useContext, useEffect } from 'react';
 import { useCurrentChallenge } from 'src/hooks/useCurrentChallenge';
-import MediMazeAdventure from '../5/MediMazeAdventure';
 import TornInvite from '../8/TornInvite';
 
 function Challenges() {
@@ -19,6 +18,7 @@ function Challenges() {
   const LogicGatesChallenge = React.lazy(() => import('../2/LogicGatesChallenge'));
   const VideoChallenge = React.lazy(() => import('../3/VideoChallenge'));
   const DogCuisineChallenge = React.lazy(() => import('../4/DogCuisineChallenge'));
+  const MediMazeAdventure = React.lazy(() => import('../5/MediMazeAdventure'));
   const RentalRumble = React.lazy(() => import('../6/RentalRumble'));
   const SimonSaysChallenge = React.lazy(() => import('../7/SimonSaysChallenge'));
 

@@ -12,6 +12,7 @@ type Props = {
   width: number;
   playerInitialPosition: Position;
   direction: Direction;
+  onLoaded: () => void;
 };
 const TICK_INTERVAL = 75;
 
@@ -20,6 +21,7 @@ export const MazeCanvas: React.FC<Props> = ({
   height,
   playerInitialPosition,
   direction,
+  onLoaded,
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [tick, setTick] = useState(0);
@@ -37,13 +39,14 @@ export const MazeCanvas: React.FC<Props> = ({
     if (!tilesetLoaded) {
       return;
     }
+    onLoaded();
 
     const intervalId = setInterval(() => {
       setTick(t => t + 1);
     }, TICK_INTERVAL);
 
     return () => clearInterval(intervalId); // Clear
-  }, [tilesetLoaded]);
+  }, [onLoaded, tilesetLoaded]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
