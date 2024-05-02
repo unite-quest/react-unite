@@ -23,7 +23,8 @@ export class TilesetStaticTransposer {
     for (let r = 0; r < this.tiles.length; r++) {
       for (let c = 0; c < this.tiles[r].length; c++) {
         const { sourceX, sourceY, tileHeight, tileWidth } = extractor.getTile(r, c);
-        const scale = this.canvasMetadata.width / tileHeight / this.tiles[r].length;
+        // to avois artifacts, scale should NEVER be a floating point number
+        const scale = Math.round(this.canvasMetadata.width / tileHeight / this.tiles[r].length);
 
         canvas.drawImage(
           this.tileset,

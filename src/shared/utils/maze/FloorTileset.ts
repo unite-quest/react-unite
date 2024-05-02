@@ -1,6 +1,7 @@
 import { CanvasMetadata } from '../TilesetExtractor';
 import { TilesetStaticTransposer } from '../TilesetStaticTransposer';
 
+const EMP = 585;
 export class FloorTileset extends TilesetStaticTransposer {
   constructor(canvasMetadata: CanvasMetadata, tileset: HTMLImageElement) {
     super(
@@ -12,19 +13,20 @@ export class FloorTileset extends TilesetStaticTransposer {
       },
       tileset,
       [
-        [585, 585, 478, 478, 478, 478, 478, 478, 585, 585, 585, 585],
-        [585, 585, 478, 478, 478, 478, 478, 478, 585, 585, 585, 585],
-        [585, 585, 478, 478, 478, 478, 478, 478, 478, 478, 478, 477],
-        [585, 585, 478, 478, 478, 478, 478, 478, 478, 478, 478, 477],
-        [585, 585, 478, 478, 478, 478, 478, 478, 478, 478, 478, 477],
-        [585, 585, 478, 478, 478, 478, 478, 478, 585, 585, 585, 585],
-        [585, 585, 478, 478, 478, 478, 478, 478, 585, 585, 585, 585],
-        [585, 585, 478, 478, 478, 478, 478, 478, 585, 585, 585, 585],
-        [585, 585, 478, 478, 478, 478, 478, 478, 585, 585, 585, 585],
-        [585, 585, 478, 478, 478, 478, 478, 478, 585, 585, 585, 585],
-        [585, 585, 478, 478, 478, 478, 478, 478, 585, 585, 585, 585],
-        [585, 585, 478, 478, 478, 478, 478, 478, 585, 585, 585, 585],
-        [585, 585, 478, 478, 478, 478, 478, 478, 585, 585, 585, 585],
+        [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
+        [EMP, EMP, 478, 478, 478, 478, 478, 478, EMP, EMP, EMP, EMP],
+        [EMP, EMP, 478, 478, 478, 478, 478, 478, 478, 478, 478, 477],
+        [EMP, EMP, 478, 478, 478, 478, 478, 478, 478, 478, 478, 477],
+        [EMP, EMP, 478, 478, 478, 478, 478, 478, 478, 478, 478, 477],
+        [EMP, EMP, 478, 478, 478, 478, 478, 478, EMP, EMP, EMP, EMP],
+        [EMP, EMP, 478, 478, 478, 478, 478, 478, EMP, EMP, EMP, EMP],
+        [EMP, EMP, 478, 478, 478, 478, 478, 478, EMP, EMP, EMP, EMP],
+        [EMP, EMP, 478, 478, 478, 478, 478, 478, EMP, EMP, EMP, EMP],
+        [EMP, EMP, 478, 478, 478, 478, 478, 478, EMP, EMP, EMP, EMP],
+        [EMP, EMP, 478, 478, 478, 478, 478, 478, EMP, EMP, EMP, EMP],
+        [EMP, EMP, 478, 478, 478, 478, 478, 478, EMP, EMP, EMP, EMP],
+        [EMP, EMP, EMP, EMP, 478, 478, 478, EMP, EMP, EMP, EMP, EMP],
+        [EMP, EMP, EMP, EMP, 478, 478, 478, EMP, EMP, EMP, EMP, EMP],
       ],
     );
   }

@@ -1,6 +1,6 @@
 import { TilesetStaticTransposer } from '@/shared/utils/TilesetStaticTransposer';
+import { BorderTileset } from '@/shared/utils/maze/BorderTileset';
 import { FloorTileset } from '@/shared/utils/maze/FloorTileset';
-import { WallTileset } from '@/shared/utils/maze/WallTileset';
 import { Direction, drawPlayer } from '@/shared/utils/maze/playerDrawer';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useLoadSprites } from 'src/hooks/useLoadSprites';
@@ -18,7 +18,7 @@ export const MazeCanvas: React.FC<Props> = ({ width, height, direction }) => {
   const [tick, setTick] = useState(0);
   const [tilesets, setTilesets] = useState<TilesetStaticTransposer[]>([]);
 
-  const { character, floors, walls, tilesetLoaded } = useLoadSprites();
+  const { character, floors, walls, borders, tilesetLoaded } = useLoadSprites();
   const {
     position: playerPosition,
     stopped,
@@ -49,14 +49,21 @@ export const MazeCanvas: React.FC<Props> = ({ width, height, direction }) => {
       height,
     };
 
-    if (!ctx || !canvas || !tilesetLoaded || !floors.current || !walls.current) {
+    if (
+      !ctx ||
+      !canvas ||
+      !tilesetLoaded ||
+      !floors.current ||
+      !walls.current ||
+      !borders.current
+    ) {
       return;
     }
     setTilesets([
       new FloorTileset(canvasMetadata, floors.current),
-      new WallTileset(canvasMetadata, walls.current),
+      new BorderTileset(canvasMetadata, borders.current),
     ]);
-  }, [floors, height, tilesetLoaded, walls, width]);
+  }, [borders, floors, height, tilesetLoaded, walls, width]);
 
   // output graphics
   useEffect(() => {
@@ -76,20 +83,15 @@ export const MazeCanvas: React.FC<Props> = ({ width, height, direction }) => {
     drawPlayer(ctx, character.body.current, lastKnownDirection, playerPosition, stopped, tick);
     drawPlayer(ctx, character.clothes.current, lastKnownDirection, playerPosition, stopped, tick);
     drawPlayer(ctx, character.hair.current, lastKnownDirection, playerPosition, stopped, tick);
-    ctx.restore();
   }, [
     character.body,
     character.clothes,
     character.hair,
-    direction,
-    height,
+    floors,
     lastKnownDirection,
     playerPosition,
     stopped,
     tick,
-    floors,
-    tilesetLoaded,
-    width,
     tilesets,
   ]);
 
