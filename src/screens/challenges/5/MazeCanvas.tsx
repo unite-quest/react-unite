@@ -82,7 +82,7 @@ export const MazeCanvas: React.FC<Props> = ({
       return;
     }
 
-    ctx.reset();
+    ctx.save();
     ctx.imageSmoothingEnabled = false;
     for (const tileset of tilesets) {
       tileset.transpose(ctx);
@@ -91,6 +91,7 @@ export const MazeCanvas: React.FC<Props> = ({
     drawPlayer(ctx, character.body.current, lastKnownDirection, playerPosition, stopped, tick);
     drawPlayer(ctx, character.clothes.current, lastKnownDirection, playerPosition, stopped, tick);
     drawPlayer(ctx, character.hair.current, lastKnownDirection, playerPosition, stopped, tick);
+    ctx.restore();
   }, [
     character.body,
     character.clothes,
