@@ -1,6 +1,5 @@
 import { CanvasMetadata } from '../TilesetExtractor';
 import { TilesetStaticTransposer } from '../TilesetStaticTransposer';
-import { Direction, Position } from './playerDrawer';
 
 const EMP = 585;
 export class FloorTileset extends TilesetStaticTransposer {
@@ -8,9 +7,11 @@ export class FloorTileset extends TilesetStaticTransposer {
     super(
       canvasMetadata,
       {
+        name: 'Floor',
         columns: 15,
         rows: 40,
         tileSize: 16,
+        playerColidesWithTiles: [],
       },
       tileset,
       [
@@ -30,10 +31,5 @@ export class FloorTileset extends TilesetStaticTransposer {
         [EMP, EMP, EMP, EMP, 478, 478, 478, EMP, EMP, EMP, EMP, EMP],
       ],
     );
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  isColliding(_: Position, _2: Direction): boolean {
-    return false;
   }
 }

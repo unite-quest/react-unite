@@ -1,7 +1,3 @@
-import { TilesetStaticTransposer } from '@/shared/utils/TilesetStaticTransposer';
-import { BorderTileset } from '@/shared/utils/maze/BorderTileset';
-import { FloorTileset } from '@/shared/utils/maze/FloorTileset';
-import { WallTileset } from '@/shared/utils/maze/WallTileset';
 import { Direction, Position, drawPlayer } from '@/shared/utils/maze/playerDrawer';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useLoadSprites } from 'src/hooks/useLoadSprites';
@@ -25,14 +21,13 @@ export const MazeCanvas: React.FC<Props> = ({
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [tick, setTick] = useState(0);
-  const [tilesets, setTilesets] = useState<TilesetStaticTransposer[]>([]);
 
-  const { character, floors, walls, borders, tilesetLoaded } = useLoadSprites();
+  const { character, tilesetLoaded, staticTilesets } = useLoadSprites({ height, width });
   const {
     position: playerPosition,
     stopped,
     lastKnownDirection,
-  } = usePositionControl(direction, tick, tilesets, playerInitialPosition);
+  } = usePositionControl(direction, tick, staticTilesets, playerInitialPosition);
 
   // gameplay loop
   useLayoutEffect(() => {
@@ -48,43 +43,18 @@ export const MazeCanvas: React.FC<Props> = ({
     return () => clearInterval(intervalId); // Clear
   }, [onLoaded, tilesetLoaded]);
 
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const ctx = canvas?.getContext('2d');
-    const canvasMetadata = {
-      width,
-      height,
-    };
-
-    if (
-      !ctx ||
-      !canvas ||
-      !tilesetLoaded ||
-      !floors.current ||
-      !walls.current ||
-      !borders.current
-    ) {
-      return;
-    }
-    setTilesets([
-      new FloorTileset(canvasMetadata, floors.current),
-      new BorderTileset(canvasMetadata, borders.current),
-      new WallTileset(canvasMetadata, walls.current),
-    ]);
-  }, [borders, floors, height, tilesetLoaded, walls, width]);
-
   // output graphics
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext('2d');
 
-    if (!ctx || !canvas || tilesets.length === 0 || !floors.current || !character.body) {
+    if (!ctx || !canvas || staticTilesets.length === 0) {
       return;
     }
 
     ctx.save();
     ctx.imageSmoothingEnabled = false;
-    for (const tileset of tilesets) {
+    for (const tileset of staticTilesets) {
       tileset.transpose(ctx);
     }
 
@@ -96,13 +66,14 @@ export const MazeCanvas: React.FC<Props> = ({
     character.body,
     character.clothes,
     character.hair,
-    floors,
     lastKnownDirection,
     playerPosition,
+    staticTilesets,
     stopped,
     tick,
-    tilesets,
   ]);
 
-  return <canvas ref={canvasRef} width={width} height={height} />;
+  return (
+    <canvas ref={canvasRef} width={width} height={height} style={{ imageRendering: 'pixelated' }} />
+  );
 };

@@ -4,9 +4,11 @@ export type CanvasMetadata = {
 };
 
 export type TilesetMetadata = {
+  name: string;
   columns: number;
   rows: number;
   tileSize: number;
+  playerColidesWithTiles: number[];
 };
 
 type TileMetadata = {

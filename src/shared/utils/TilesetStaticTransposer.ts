@@ -42,5 +42,41 @@ export abstract class TilesetStaticTransposer {
     }
   }
 
-  abstract isColliding(playerPosition: Position, playerDirection: Direction): boolean;
+  public isColliding(playerPosition: Position, playerDirection: Direction): boolean {
+    // translate position to tilemap x and y
+    const scale = Math.round(
+      // 2?
+      this.canvasMetadata.width / this.tilesetMetadata.tileSize / this.tiles[0].length,
+    );
+    const playerCenter: Position = {
+      x: playerPosition.x + 32,
+      y: playerPosition.y + 32,
+    };
+    const translated: Position = {
+      x: Math.round(playerCenter.x / (scale * this.tilesetMetadata.tileSize)),
+      y: Math.round(playerCenter.y / (scale * this.tilesetMetadata.tileSize)),
+    };
+
+    // create increments based on direction
+    const rowIncrement = playerDirection === 'LEFT' ? -1 : playerDirection === 'RIGHT' ? 1 : 0;
+    const colIncrement =
+      playerDirection === 'FORWARD' ? -1 : playerDirection === 'BACKWARD' ? 1 : 0;
+    const newX = translated.y + colIncrement;
+    const newY = translated.x + rowIncrement;
+    // edge cases
+    if (newX >= this.tiles.length) {
+      return true;
+    }
+    if (newY >= this.tiles[newX].length) {
+      return true;
+    }
+
+    // actual colision check
+    const newTile = this.tiles[newX][newY];
+    if (this.tilesetMetadata.playerColidesWithTiles.includes(newTile)) {
+      console.log('[Tileset] colliding with ', this.tilesetMetadata.name);
+      return true;
+    }
+    return false;
+  }
 }
