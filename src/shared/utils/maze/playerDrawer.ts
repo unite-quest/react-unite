@@ -40,7 +40,7 @@ export function drawPlayer(
   stopped: boolean,
   tick: number,
 ) {
-  const scale = 1.5;
+  const scale = 1.6;
   const spriteSize = 64;
   const coordinates = getCharacterSpriteCoordinates(direction, tick, stopped);
 

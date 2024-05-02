@@ -1,3 +1,4 @@
+import { MazeObjective } from '@/shared/utils/maze/mazeLevelMetadata';
 import { Direction, Position, drawPlayer } from '@/shared/utils/maze/playerDrawer';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useLoadSprites } from 'src/hooks/useLoadSprites';
@@ -9,6 +10,7 @@ type Props = {
   playerInitialPosition: Position;
   direction: Direction;
   onLoaded: () => void;
+  objective: MazeObjective;
 };
 const TICK_INTERVAL = 75;
 
@@ -18,6 +20,7 @@ export const MazeCanvas: React.FC<Props> = ({
   playerInitialPosition,
   direction,
   onLoaded,
+  objective,
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [tick, setTick] = useState(0);
@@ -27,7 +30,7 @@ export const MazeCanvas: React.FC<Props> = ({
     position: playerPosition,
     stopped,
     lastKnownDirection,
-  } = usePositionControl(direction, tick, staticTilesets, playerInitialPosition);
+  } = usePositionControl(direction, tick, staticTilesets, playerInitialPosition, objective);
 
   // gameplay loop
   useLayoutEffect(() => {
