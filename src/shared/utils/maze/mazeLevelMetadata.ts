@@ -25,6 +25,26 @@ export function getMazeParameters(questionId: number): {
       { x: 280, y: 70 },
       { x: 280, y: 120 },
     ],
-    playerInitialPosition: { x: 90, y: 370 },
+    playerInitialPosition: { x: 10, y: 370 },
   };
 }
+
+export const mazeTutorial: { title: string; description: string; image: string }[] = [
+  {
+    title: 'Tutorial (1/3)',
+    description:
+      'Use o joystick no canto inferior direito para controlar o Gabriel. O seu objetivo é encontrar a sala em que a Mimi está!',
+    image: 'https://placehold.co/250x400',
+  },
+  {
+    title: 'Tutorial (2/3)',
+    description: 'Cuidado com os enfermeiros correndo pela sala',
+    image: 'https://placehold.co/250x400',
+  },
+  {
+    title: 'Tutorial (3/3)',
+    description:
+      'Use o joystick no canto inferior direito para controlar o Gabriel. O seu objetivo é encontrar a sala em que a Mimi está!',
+    image: 'https://placehold.co/250x400',
+  },
+];

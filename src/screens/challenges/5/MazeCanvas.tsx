@@ -5,6 +5,7 @@ import { useLoadSprites } from 'src/hooks/useLoadSprites';
 import { usePositionControl } from 'src/hooks/usePositionControl';
 
 type Props = {
+  questionId: number;
   height: number;
   width: number;
   playerInitialPosition: Position;
@@ -15,6 +16,7 @@ type Props = {
 const TICK_INTERVAL = 75;
 
 export const MazeCanvas: React.FC<Props> = ({
+  questionId,
   width,
   height,
   playerInitialPosition,
@@ -25,7 +27,10 @@ export const MazeCanvas: React.FC<Props> = ({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [tick, setTick] = useState(0);
 
-  const { character, tilesetLoaded, staticTilesets } = useLoadSprites({ height, width });
+  const { character, tilesetLoaded, staticTilesets } = useLoadSprites(questionId, {
+    height,
+    width,
+  });
   const {
     position: playerPosition,
     stopped,
@@ -54,7 +59,6 @@ export const MazeCanvas: React.FC<Props> = ({
     if (!ctx || !canvas || staticTilesets.length === 0) {
       return;
     }
-
     ctx.save();
     ctx.imageSmoothingEnabled = false;
     for (const tileset of staticTilesets) {

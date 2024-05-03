@@ -1,65 +1,49 @@
+import { ChallengeFooter } from '@/components/shell/ChallengeFooter';
 import { ChallengeScreen } from '@/components/shell/ChallengeScreen';
+import { StackSpacing } from '@/components/ui/stack-spacing';
+import { UniteText, UniteTitle } from '@/components/ui/unite-text';
 import { LoaderContext } from '@/shared/loader/LoaderProvider';
-import { ModalContext } from '@/shared/modal/ModalProvider';
-import { getMazeParameters } from '@/shared/utils/maze/mazeLevelMetadata';
-import { useContext, useState } from 'react';
-import { Joystick } from 'react-joystick-component';
+import { mazeTutorial } from '@/shared/utils/maze/mazeLevelMetadata';
+import { useContext, useEffect } from 'react';
+import { createSearchParams, useNavigate } from 'react-router-dom';
 import { useCurrentQuestion } from 'src/hooks/useCurrentQuestion';
-import { MazeCanvas } from './MazeCanvas';
 
 function MediMazeAdventure() {
   const { setLoading } = useContext(LoaderContext);
+  const navigate = useNavigate();
   const { id: questionId } = useCurrentQuestion();
-  const { openModal } = useContext(ModalContext);
+  const tutorial = mazeTutorial[questionId];
 
-  const [direction, setDirection] = useState<'FORWARD' | 'RIGHT' | 'LEFT' | 'BACKWARD' | null>(
-    null,
-  );
-  const onLoaded = () => {
-    setLoading(false);
-  };
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 200);
+  }, [setLoading]);
 
-  const onReachObjective = () => {
-    openModal({
-      type: 'success',
-      message: 'Você conseguiu chegar no objetivo! Clique no x para continuar',
+  const submit = () => {
+    navigate({
+      pathname: 'details',
+      search: createSearchParams({
+        id: String(questionId),
+      }).toString(),
     });
   };
 
-  const { boundingBox, playerInitialPosition } = getMazeParameters(questionId);
+  if (!tutorial) {
+    throw new Error('Invalid tutorial');
+  }
 
   return (
     <>
-      <ChallengeScreen noPadding noBottomPadding Footer={<></>}>
-        <div style={{ paddingLeft: '10px', paddingRight: '10px' }}>
-          <MazeCanvas
-            direction={direction}
-            width={window.innerWidth - 20}
-            height={window.innerHeight - 80}
-            playerInitialPosition={playerInitialPosition}
-            onLoaded={onLoaded}
-            objective={{
-              boundingBox,
-              onReachBox: onReachObjective,
-            }}
-          />
+      <ChallengeScreen Footer={<ChallengeFooter title="Ir para o desafio" onClick={submit} />}>
+        <UniteTitle>{tutorial.title}</UniteTitle>
+        <StackSpacing size="sm" />
+        <UniteText>{tutorial.description}</UniteText>
+        <StackSpacing size="sm" />
+        <div className="flex justify-center">
+          <img className="shadow rounded-lg" height={250} width={400} src={tutorial.image} />
         </div>
-        <div className="absolute bottom-12 right-12 z-20">
-          <Joystick
-            size={90}
-            sticky={false}
-            baseColor="#454545"
-            stickColor="#ABABAB"
-            throttle={200}
-            minDistance={80}
-            move={e => {
-              setDirection(e.direction);
-            }}
-            stop={() => {
-              setDirection(null);
-            }}
-          ></Joystick>
-        </div>
+        <StackSpacing size="lg" />
       </ChallengeScreen>
     </>
   );

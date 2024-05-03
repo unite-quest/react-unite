@@ -2,30 +2,34 @@ import { CanvasMetadata, TilesetExtractor, TilesetMetadata } from './TilesetExtr
 import { Direction, Position } from './maze/playerDrawer';
 
 export abstract class TilesetStaticTransposer {
+  questionId: number;
   canvasMetadata: CanvasMetadata;
   tilesetMetadata: TilesetMetadata;
   tileset: HTMLImageElement;
-  tiles: number[][];
 
   constructor(
+    questionId: number,
     canvasMetadata: CanvasMetadata,
     tilesetMetadata: TilesetMetadata,
     tileset: HTMLImageElement,
-    tiles: number[][],
   ) {
+    this.questionId = questionId;
     this.canvasMetadata = canvasMetadata;
     this.tilesetMetadata = tilesetMetadata;
     this.tileset = tileset;
-    this.tiles = tiles;
   }
 
+  public abstract getTilesForQuestionId(): number[][];
+
   public transpose(canvas: CanvasRenderingContext2D) {
-    const extractor = new TilesetExtractor(this.canvasMetadata, this.tilesetMetadata, this.tiles);
-    for (let r = 0; r < this.tiles.length; r++) {
-      for (let c = 0; c < this.tiles[r].length; c++) {
+    const tiles = this.getTilesForQuestionId();
+
+    const extractor = new TilesetExtractor(this.canvasMetadata, this.tilesetMetadata, tiles);
+    for (let r = 0; r < tiles.length; r++) {
+      for (let c = 0; c < tiles[r].length; c++) {
         const { sourceX, sourceY, tileHeight, tileWidth } = extractor.getTile(r, c);
         // to avois artifacts, scale should NEVER be a floating point number
-        const scale = Math.round(this.canvasMetadata.width / tileHeight / this.tiles[r].length);
+        const scale = Math.round(this.canvasMetadata.width / tileHeight / tiles[r].length);
 
         canvas.drawImage(
           this.tileset,
@@ -43,10 +47,12 @@ export abstract class TilesetStaticTransposer {
   }
 
   public isColliding(playerPosition: Position, playerDirection: Direction): boolean {
+    const tiles = this.getTilesForQuestionId();
+
     // translate position to tilemap x and y
     const scale = Math.round(
       // 2?
-      this.canvasMetadata.width / this.tilesetMetadata.tileSize / this.tiles[0].length,
+      this.canvasMetadata.width / this.tilesetMetadata.tileSize / tiles[0].length,
     );
     const playerCenter: Position = {
       x: playerPosition.x + 32,
@@ -64,15 +70,15 @@ export abstract class TilesetStaticTransposer {
     const newX = translated.y + colIncrement;
     const newY = translated.x + rowIncrement;
     // edge cases
-    if (newX >= this.tiles.length) {
+    if (newX >= tiles.length) {
       return true;
     }
-    if (newY >= this.tiles[newX].length) {
+    if (newY >= tiles[newX].length) {
       return true;
     }
 
     // actual colision check
-    const newTile = this.tiles[newX][newY];
+    const newTile = tiles[newX][newY];
     if (this.tilesetMetadata.playerColidesWithTiles.includes(newTile)) {
       console.log('[Tileset] colliding with ', this.tilesetMetadata.name);
       return true;

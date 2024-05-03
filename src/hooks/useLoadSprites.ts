@@ -13,7 +13,10 @@ import walls from '../assets/maze/background/walls.png';
 import characterSpriteSheet from '../assets/maze/character-base.png';
 import characterHair from '../assets/maze/hair.png';
 
-export function useLoadSprites(canvasMetadata: CanvasMetadata): {
+export function useLoadSprites(
+  questionId: number,
+  canvasMetadata: CanvasMetadata,
+): {
   tilesetLoaded: boolean;
   staticTilesets: TilesetStaticTransposer[];
   character: {
@@ -52,15 +55,15 @@ export function useLoadSprites(canvasMetadata: CanvasMetadata): {
     ]);
     imagesLoaded.then(() => {
       setTilesetLoaded(true);
-      // this needs to be here otherwise an infinite react hook loop happens?
+      // this needs to be here otherwise an infinite react hook loop happens?!
       setTilesets([
-        new FloorTileset(canvasMetadata, floorsRef.current),
-        new BorderTileset(canvasMetadata, bordersRef.current),
-        new WallTileset(canvasMetadata, wallsRef.current),
-        new HospitalTileset(canvasMetadata, elementsRef.current),
+        new FloorTileset(questionId, canvasMetadata, floorsRef.current),
+        new BorderTileset(questionId, canvasMetadata, bordersRef.current),
+        new WallTileset(questionId, canvasMetadata, wallsRef.current),
+        new HospitalTileset(questionId, canvasMetadata, elementsRef.current),
       ]);
     });
-  }, [canvasMetadata]);
+  }, [canvasMetadata, questionId]);
 
   return {
     tilesetLoaded,

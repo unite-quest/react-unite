@@ -14,9 +14,10 @@ function ChallengesDetails() {
   }, [setLoading]);
 
   const LogoQuizChallengeDetails = React.lazy(() => import('../1/LogoQuizChallengeDetails'));
-  const VideoChallengeDetails = React.lazy(() => import('../3/VideoChallengeDetails'));
-  const SimonSaysChallengeDetails = React.lazy(() => import('../7/SimonSaysChallengeDetails'));
   const LogicGatesChallengeDetails = React.lazy(() => import('../2/LogicGatesChallengeDetails'));
+  const VideoChallengeDetails = React.lazy(() => import('../3/VideoChallengeDetails'));
+  const MediMazeAdventureDetails = React.lazy(() => import('../5/MediMazeAdventureDetails'));
+  const SimonSaysChallengeDetails = React.lazy(() => import('../7/SimonSaysChallengeDetails'));
 
   const Challenges: Record<ChallengeIdentifier, { component: JSX.Element }> = {
     [ChallengeIdentifier.One_LogoQuiz]: {
@@ -32,7 +33,7 @@ function ChallengesDetails() {
       component: <></>,
     },
     [ChallengeIdentifier.Five_Labyrinth]: {
-      component: <></>,
+      component: <MediMazeAdventureDetails />,
     },
     [ChallengeIdentifier.Six_ApartmentTinder]: {
       component: <></>,

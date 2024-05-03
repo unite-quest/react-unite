@@ -3,8 +3,9 @@ import { TilesetStaticTransposer } from '../TilesetStaticTransposer';
 
 const EMP = 585;
 export class FloorTileset extends TilesetStaticTransposer {
-  constructor(canvasMetadata: CanvasMetadata, tileset: HTMLImageElement) {
+  constructor(questionId: number, canvasMetadata: CanvasMetadata, tileset: HTMLImageElement) {
     super(
+      questionId,
       canvasMetadata,
       {
         name: 'Floor',
@@ -14,7 +15,12 @@ export class FloorTileset extends TilesetStaticTransposer {
         playerColidesWithTiles: [],
       },
       tileset,
-      [
+    );
+  }
+
+  public getTilesForQuestionId(): number[][] {
+    if (this.questionId === 0) {
+      return [
         [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
         [EMP, 478, 478, 478, 478, 478, EMP, EMP, EMP, EMP, EMP, EMP],
         [EMP, 478, 478, 478, 478, 478, EMP, EMP, EMP, EMP, EMP, EMP],
@@ -29,7 +35,23 @@ export class FloorTileset extends TilesetStaticTransposer {
         [EMP, 478, 478, 478, 478, 478, 478, EMP, EMP, EMP, EMP, EMP],
         [EMP, EMP, EMP, 478, 478, 478, EMP, EMP, EMP, EMP, EMP, EMP],
         [EMP, EMP, EMP, 478, 478, 478, EMP, EMP, EMP, EMP, EMP, EMP],
-      ],
-    );
+      ];
+    }
+    return [
+      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
+      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
+      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
+      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
+      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, 477, EMP],
+      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, 477, EMP],
+      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
+      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
+      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
+      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
+      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
+      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
+      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
+      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
+    ];
   }
 }

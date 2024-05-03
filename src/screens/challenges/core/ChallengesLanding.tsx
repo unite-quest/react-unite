@@ -44,6 +44,14 @@ function ChallengeLanding() {
         }).toString(),
       });
       return;
+    } else if (id === ChallengeIdentifier.Five_Labyrinth) {
+      navigate({
+        pathname: `/challenge/${ChallengeRouteIdentifier.Five_Labyrinth}`,
+        search: createSearchParams({
+          id: '0',
+        }).toString(),
+      });
+      return;
     }
     navigate('..', {
       relative: 'path',

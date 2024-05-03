@@ -93,7 +93,7 @@ export function usePositionControl(
         return { x: pos.x, y: pos.y + moveStep };
       });
     }
-  }, [direction, isCollidingWithObjective, lastUpdateTick, tick, tilesets]); // Include dependencies that affect the effect
+  }, [direction, isCollidingWithObjective, lastUpdateTick, objective, tick, tilesets]); // Include dependencies that affect the effect
 
   useEffect(() => {
     console.log(direction, position);
