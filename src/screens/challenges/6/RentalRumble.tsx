@@ -95,7 +95,7 @@ function RentalRumble() {
   return (
     <>
       <ChallengeScreen
-        description="Analise casa um dos imóveis abaixo e dê o seu veredito. Todas as casas deverão ser avaliadas para continuar."
+        description="Analise cada um dos imóveis abaixo e dê o seu veredito. Todas as casas deverão ser avaliadas para continuar."
         onTipClick={() => {
           openDrawer({
             title: 'Não entendeu?',
