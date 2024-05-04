@@ -38,12 +38,12 @@ export const logoMap: { questionId: string; image: string; tip: string }[] = [
   {
     questionId: '5',
     image: logo5,
-    tip: 'É um jogo de cartas colecionáveis criado por Richard Garfield, no qual os jogadores utilizam um baralho de cartas construído de acordo com o seu modo individual de jogo para tentar vencer o baralho adversário.',
+    tip: 'É um jogo de cartas colecionáveis no qual os jogadores utilizam um baralho de cartas para tentar vencer o baralho adversário. O nome desse jogo é a palavra cuja definição é criação de ilusão por meio de truques e artifícios só que em inglês.',
   },
   {
     questionId: '6',
     image: logo6,
-    tip: 'O objetivo é ser o primeiro a se livrar de todas as cartas que possui na mão. Nas próximas rodadas, até 2 jogadores nos rankings mais baixos devem entregar sua carta mais alta para os jogadores nos rankings mais altos, e os jogadores que receberam cartas entregam cartas desnecessárias em troca.',
+    tip: 'O objetivo é ser o primeiro a se livrar de todas as cartas que possui na mão. Nas próximas rodadas, até 2 jogadores nos rankings mais baixos devem entregar sua carta mais alta para os jogadores nos rankings mais altos, e os jogadores que receberam cartas entregam cartas desnecessárias em troca. O nome desse jogo é o nome do cargo mais alto que se pode ter no governo.',
   },
   {
     questionId: '7',
@@ -58,7 +58,7 @@ export const logoMap: { questionId: string; image: string; tip: string }[] = [
   {
     questionId: '9',
     image: logo9,
-    tip: 'É um jogo on-line do gênero MMORPG, desenvolvido e distribuído pela produtora Blizzard Entertainment e lançado em 2004. O jogo se passa no mundo fantástico de Azeroth.',
+    tip: 'É um jogo on-line do gênero MMORPG, desenvolvido e distribuído pela Blizzard Entertainment e lançado em 2004. O nome desse jogo é uma expressão de espanto ou admiração em inglês.',
   },
   {
     questionId: '10',
@@ -68,7 +68,7 @@ export const logoMap: { questionId: string; image: string; tip: string }[] = [
   {
     questionId: '11',
     image: logo11,
-    tip: 'É um jogo de puzzle lançado pela King em 12 de abril de 2012',
+    tip: 'É um jogo de puzzle lançado pela King em 12 de abril de 2012. ',
   },
   {
     questionId: '12',
@@ -83,7 +83,7 @@ export const logoMap: { questionId: string; image: string; tip: string }[] = [
   {
     questionId: '14',
     image: logo14,
-    tip: 'É um RPG eletrônico desenvolvido pela Intelligent Systems e publicado pela Nintendo para o Nintendo 64, sendo lançado em 2000',
+    tip: 'É um RPG eletrônico publicado pela Nintendo para o Nintendo 64, sendo lançado em 2000.',
   },
   {
     questionId: '15',

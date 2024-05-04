@@ -19,7 +19,7 @@ function LogoQuizChallenge() {
 
   const [answers, setAnswers] = useState<boolean[]>(Array(logoMap.length).fill(false));
   const correctAnswers = answers.filter(value => !!value).length;
-  const challengeFinished = correctAnswers === answers.length;
+  const challengeFinished = correctAnswers >= 9;
 
   const goToLogoDetailedScreen = (index: number) => {
     navigate({
@@ -69,7 +69,7 @@ function LogoQuizChallenge() {
         description="Selecione cada um dos jogos abaixo e descubra o nome."
         Footer={
           <ChallengeFooter
-            title={`Finalizar ${correctAnswers}/${answers.length}`}
+            title={`Finalizar ${correctAnswers}/9`}
             disabled={!challengeFinished}
             onClick={goToNextChallenge}
           />
