@@ -6,6 +6,7 @@ import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCurrentQuestion } from 'src/hooks/useCurrentQuestion';
 import And from './And';
+import Hard from './HardLogicGates';
 import Not from './Not';
 import NotOrAnd from './NotOrAnd';
 import Or from './Or';
@@ -25,7 +26,6 @@ const logicGatesMap: LogicGateMetadata[] = [
     navigate: `/challenge/${ChallengeRouteIdentifier.Two_LogicGates}/details?id=2`,
     numberOfInputs: 1,
     validation: inputs => {
-      console.log(!inputs[0]);
       return !inputs[0];
     },
   },
@@ -64,9 +64,9 @@ const logicGatesMap: LogicGateMetadata[] = [
     description:
       'Escolha a combinação de interruptores ligados ou desligados que farão a lâmpada acender. A nossa formatura está dependendo de você!',
     navigate: `/challenge/${ChallengeRouteIdentifier.Three_Video}/landing`,
-    numberOfInputs: 3,
+    numberOfInputs: 11,
     validation: inputs => {
-      return !inputs[0] && (inputs[1] || inputs[2]);
+      return inputs[0] && inputs[1] && inputs[2] && inputs[3];
     },
   },
 ];
@@ -78,6 +78,7 @@ function timeout(delay: number) {
 function LogicGatesChallenge() {
   const navigate = useNavigate();
   const [lightState, setLight] = useState<boolean>(false);
+  const [lightStates, setLightStates] = useState<boolean[]>(Array(4).fill(false));
   const [submitState, setSubmitState] = useState<boolean>(false);
   const [showProgressBar, setShowProgressBar] = useState<boolean>(false);
   const [progressBar, setProgressBar] = useState<number>(0);
@@ -85,7 +86,8 @@ function LogicGatesChallenge() {
   const { id: questionId } = useCurrentQuestion();
   const meta = logicGatesMap[questionId - 1];
   const [inputs, setInputs] = useState<boolean[]>(Array(meta.numberOfInputs).fill(false));
-  const progressBarPosition = questionId === 4 ? 'left-[90%]' : 'left-[75%]';
+  const progressBarPosition =
+    questionId === 4 ? 'left-[90%]' : questionId === 5 ? 'left-[96%]' : 'left-[75%]';
 
   useEffect(() => {
     setInputs(Array(meta.numberOfInputs).fill(false));
@@ -99,17 +101,47 @@ function LogicGatesChallenge() {
     setInputs(inputs.map((input, idx) => (idx === index ? !input : input)));
   };
 
+  const onClockClick = () => {
+    setInputs(inputs.map((input, idx) => (idx === 11 ? inputs[10] : input)));
+  };
+
+  const onResetClick = () => {
+    setInputs(inputs.map((input, idx) => (idx === 11 ? false : input)));
+  };
+
+  const onSetClick = () => {
+    setInputs(inputs.map((input, idx) => (idx === 11 ? true : input)));
+  };
+
+  const validateHardChallenge = () => {
+    const lamp1 = (inputs[0] || inputs[1]) && !inputs[2];
+    const lamp2 = !(!(inputs[3] || inputs[4]) && inputs[5] === inputs[6]);
+    const lamp3 = (inputs[7] || inputs[8]) !== inputs[11];
+    const lamp4 = !inputs[11] === !inputs[10];
+    console.log([lamp1, lamp2, lamp3, lamp4]);
+    return [lamp1, lamp2, lamp3, lamp4];
+  };
+
   const submit = async () => {
+    let answers = [...inputs];
     setSubmitState(true);
     setShowProgressBar(true);
     await timeout(200);
     setProgressBar(100);
-    await timeout(1000);
-    if (meta.validation(inputs)) {
-      setLight(true);
+    if (questionId === 5) {
+      answers = validateHardChallenge();
+      setLightStates(answers);
+      await timeout(1000);
+      setLightStates([false, false, false, false]);
+    } else {
+      await timeout(1000);
+      if (meta.validation(answers)) {
+        setLight(true);
+      }
     }
+
     await timeout(1000);
-    if (meta.validation(inputs) && (questionId === 4 || questionId === 5)) {
+    if (meta.validation(answers) && (questionId === 4 || questionId === 5)) {
       openModal({
         type: 'imageSuccess',
         message: 'Conseguimos nos formar graças à sua cola!',
@@ -118,7 +150,7 @@ function LogicGatesChallenge() {
           navigate(meta.navigate);
         },
       });
-    } else if (meta.validation(inputs)) {
+    } else if (meta.validation(answers)) {
       openModal({
         type: 'challengeCompleted',
         onPrimaryPress: () => {
@@ -128,7 +160,7 @@ function LogicGatesChallenge() {
     } else {
       openModal({
         type: 'failure',
-        message: 'Não acendeu a lâmpada :(',
+        message: questionId === 5 ? 'Reveja a sua resposta :(' : 'Não acendeu a lâmpada :(',
       });
       setProgressBar(0);
       setShowProgressBar(false);
@@ -170,6 +202,15 @@ function LogicGatesChallenge() {
               onClick1={() => toggleSwitch(0)}
               onClick2={() => toggleSwitch(1)}
               onClick3={() => toggleSwitch(2)}
+            />
+          ) : questionId === 5 ? (
+            <Hard
+              switchStates={inputs}
+              lightStates={lightStates}
+              onSwitchClick={(index: number) => toggleSwitch(index)}
+              onClockClick={onClockClick}
+              onResetClick={onResetClick}
+              onSetClick={onSetClick}
             />
           ) : null}
           {showProgressBar ? (

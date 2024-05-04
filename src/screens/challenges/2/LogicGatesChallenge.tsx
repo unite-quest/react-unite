@@ -13,7 +13,7 @@ function LogicGatesChallenge() {
     if (!selectedValue) {
       return;
     }
-    const difficulty = selectedValue === 'Faculdade' || selectedValue === 'Trabalho' ? 2 : 1;
+    const difficulty = selectedValue === 'Faculdade' || selectedValue === 'Trabalho' ? 5 : 1;
 
     navigate({
       pathname: 'details',
