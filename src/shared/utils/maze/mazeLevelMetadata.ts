@@ -36,7 +36,7 @@ export function getMazeParameters(questionId: number): {
       ],
       playerInit: {
         direction: 'FORWARD',
-        position: { x: 90, y: 370 },
+        position: { x: 2.9, y: 11.1 },
       },
     };
   }
@@ -48,7 +48,7 @@ export function getMazeParameters(questionId: number): {
       ],
       playerInit: {
         direction: 'RIGHT',
-        position: { x: -40, y: 180 },
+        position: { x: -1, y: 5.2 },
       },
     };
   }

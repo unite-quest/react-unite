@@ -1,4 +1,4 @@
-import { CanvasMetadata } from '@/shared/utils/maze/TilesetExtractor';
+import { CanvasMetadata, MappedTileMetadata } from '@/shared/utils/maze/TilesetExtractor';
 import { TilesetStaticTransposer } from '@/shared/utils/maze/TilesetStaticTransposer';
 import { MutableRefObject, useEffect, useRef, useState } from 'react';
 import { EntrywayBorderTileset } from 'src/screens/challenges/5/level1/EntrywayBorderTileset';
@@ -16,12 +16,6 @@ import hospitalElements from '../../assets/maze/background/hospital.png';
 import walls from '../../assets/maze/background/walls.png';
 import characterSpriteSheet from '../../assets/maze/character-base.png';
 import characterHair from '../../assets/maze/hair.png';
-
-// for scaling calculation and global positioning?
-export type MappedTileMetadata = {
-  columnLength: number;
-  tileSize: number;
-};
 
 function getMappedTileMetadata(questionId: number): MappedTileMetadata {
   if (questionId === 0) {
@@ -106,6 +100,11 @@ export function useLoadSprites(
       }
     });
   }, [canvasMetadata, questionId]);
+
+  useEffect(() => {
+    console.log('Rendering tiles at a scale of ', tilesets?.[0]?.scale);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tilesetLoaded]);
 
   return {
     tilesetLoaded,

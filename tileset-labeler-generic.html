@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tileset Labeler</title>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+    <img id="tileset" src="src/assets/maze/background/generic.png" style="display: none" />
+    <button onclick="downloadCanvas()">Download Tileset</button>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const tileset = document.getElementById('tileset');
+        tileset.onload = () => {
+          const rows = 78; // Total rows in the tileset
+          const cols = 16; // Total columns in the tileset
+          const tileSize = 16; // Calculate the size of each tile
+          canvas.width = tileset.width;
+          canvas.height = tileset.height;
+
+          // Draw the image onto the canvas
+          ctx.drawImage(tileset, 0, 0);
+
+          // Setup text properties
+          ctx.font = '6px Arial'; // Set font size smaller if it doesn't fit
+          ctx.fillStyle = 'red'; // Text color
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+
+          // Iterate over each tile position and draw the number
+          let number = 0;
+          for (let r = 0; r < rows; r++) {
+            for (let c = 0; c < cols; c++) {
+              const x = c * tileSize + tileSize / 2;
+              const y = r * tileSize + tileSize / 2;
+              ctx.fillText(number++, x, y);
+            }
+          }
+        };
+      });
+
+      function downloadCanvas() {
+        const canvas = document.getElementById('canvas');
+        const link = document.createElement('a');
+        link.download = 'labeled_tileset.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      }
+    </script>
+  </body>
+</html>

@@ -1,3 +1,4 @@
+import { ScalingData } from '@/shared/utils/maze/TilesetExtractor';
 import { TilesetStaticTransposer } from '@/shared/utils/maze/TilesetStaticTransposer';
 import {
   DynamicCollisionBoundary,
@@ -6,7 +7,17 @@ import {
 import { Direction, Position } from '@/shared/utils/maze/playerDrawer';
 import { useEffect, useState } from 'react';
 
+function translatePositionToCanvas(scaling: ScalingData, originalPosition: Position): Position {
+  const scale = scaling.canvas.width / scaling.tile.columnLength / scaling.tile.tileSize;
+
+  return {
+    x: originalPosition.x * scale * 16,
+    y: originalPosition.y * scale * 16,
+  };
+}
+
 export function usePositionControl(
+  scalingData: ScalingData,
   direction: Direction,
   tick: number,
   tilesets: TilesetStaticTransposer[],
@@ -17,7 +28,9 @@ export function usePositionControl(
   stopped: boolean;
   lastKnownDirection: Direction;
 } {
-  const [position, setPosition] = useState<Position>(playerInit.position);
+  const [position, setPosition] = useState<Position>(
+    translatePositionToCanvas(scalingData, playerInit.position),
+  );
   const [lastUpdateTick, setLastUpdateTick] = useState<number>(0);
   const [stopped, setStopped] = useState<boolean>(direction !== null);
   const [lastKnownDirection, setLastKnownDirection] = useState<Direction>(playerInit.direction);

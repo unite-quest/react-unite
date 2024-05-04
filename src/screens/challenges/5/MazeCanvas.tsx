@@ -16,6 +16,7 @@ type Props = {
   direction: Direction;
   onLoaded: () => void;
   objectiveCollisionBoundary: DynamicCollisionBoundary;
+  onCollideWithEnemy: (entityId: string) => void;
 };
 const TICK_INTERVAL = 75;
 
@@ -27,20 +28,34 @@ export const MazeCanvas: React.FC<Props> = ({
   direction,
   onLoaded,
   objectiveCollisionBoundary,
+  onCollideWithEnemy,
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [tick, setTick] = useState(0);
-
-  const { character, tilesetLoaded, staticTilesets, tileMetadata } = useLoadSprites(questionId, {
+  const canvasMetadata = {
     height,
     width,
-  });
-  const { enemyCollisionBoundaries, enemies } = useSpawnEnemies(questionId, tileMetadata, tick);
+  };
+  const { character, tilesetLoaded, staticTilesets, tileMetadata } = useLoadSprites(
+    questionId,
+    canvasMetadata,
+  );
+  const scaling = {
+    canvas: canvasMetadata,
+    tile: tileMetadata,
+  };
+  const { enemyCollisionBoundaries, enemies } = useSpawnEnemies(
+    questionId,
+    scaling,
+    tick,
+    onCollideWithEnemy,
+  );
+
   const {
     position: playerPosition,
     stopped,
     lastKnownDirection,
-  } = usePositionControl(direction, tick, staticTilesets, playerInit, [
+  } = usePositionControl(scaling, direction, tick, staticTilesets, playerInit, [
     objectiveCollisionBoundary,
     ...enemyCollisionBoundaries,
   ]);

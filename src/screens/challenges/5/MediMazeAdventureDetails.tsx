@@ -12,13 +12,13 @@ import { MazeCanvas } from './MazeCanvas';
 function getCanvasDimensions(): { sidePadding: number; width: number; height: number } {
   const sidePadding = 16;
   const availableWidth = window.innerWidth - 2 * sidePadding;
-  const decrementForWidthToBeDivisibleBy16 = availableWidth % 16;
+  const decrementForWidthToBeDivisibleBy12 = availableWidth % 12;
   const availableHeight = window.innerHeight - 80;
   const decrementForHeightToBeDivisibleBy16 = availableHeight % 16;
   return {
     sidePadding,
     height: availableHeight - decrementForHeightToBeDivisibleBy16,
-    width: availableWidth - decrementForWidthToBeDivisibleBy16,
+    width: availableWidth - decrementForWidthToBeDivisibleBy12,
   };
 }
 
@@ -79,6 +79,9 @@ function MediMazeAdventureDetails() {
               type: 'objective',
               boundingBox,
               onTouch: onReachObjective,
+            }}
+            onCollideWithEnemy={entityId => {
+              console.log('COLLIDING WITH ENEMY!', entityId);
             }}
           />
         </div>

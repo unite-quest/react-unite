@@ -3,6 +3,17 @@ export type CanvasMetadata = {
   width: number;
 };
 
+// for scaling calculation and global positioning?
+export type MappedTileMetadata = {
+  columnLength: number;
+  tileSize: number;
+};
+
+export type ScalingData = {
+  canvas: CanvasMetadata;
+  tile: MappedTileMetadata;
+};
+
 export type TilesetMetadata = {
   name: string;
   columns: number;
