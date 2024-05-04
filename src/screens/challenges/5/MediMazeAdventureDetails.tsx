@@ -60,6 +60,12 @@ function MediMazeAdventureDetails() {
       },
     });
   };
+  const onCollideWithEnemy = (entityId: string) => {
+    openModal({
+      type: 'failure',
+      message: `Você colidiu com o inimigo ${entityId}`,
+    });
+  };
 
   const { boundingBox, playerInit } = getMazeParameters(questionId);
   const { sidePadding, height, width } = getCanvasDimensions();
@@ -80,9 +86,7 @@ function MediMazeAdventureDetails() {
               boundingBox,
               onTouch: onReachObjective,
             }}
-            onCollideWithEnemy={entityId => {
-              console.log('COLLIDING WITH ENEMY!', entityId);
-            }}
+            onCollideWithEnemy={onCollideWithEnemy}
           />
         </div>
         <div className="absolute bottom-12 right-12 z-20">

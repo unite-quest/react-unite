@@ -9,6 +9,8 @@ export abstract class EnemySpriteRenderer {
   private position: Position;
   scalingData: ScalingData;
   private tick: number;
+  private scale: number;
+  private positionInCanvas: Position;
 
   constructor(
     entityId: string,
@@ -24,6 +26,16 @@ export abstract class EnemySpriteRenderer {
     this.position = position;
     this.scalingData = scalingData;
     this.tick = tick;
+
+    this.scale =
+      this.scalingData.canvas.width /
+      this.scalingData.tile.columnLength /
+      this.scalingData.tile.tileSize;
+
+    this.positionInCanvas = {
+      x: this.position.x * this.scale * 16,
+      y: this.position.y * this.scale * 16,
+    };
   }
 
   private getCharacterSpriteCoordinates(): Position {
@@ -57,19 +69,9 @@ export abstract class EnemySpriteRenderer {
   }
 
   public render(canvas: CanvasRenderingContext2D) {
-    // todo stop hardcoding
-    const scale =
-      this.scalingData.canvas.width /
-      this.scalingData.tile.columnLength /
-      this.scalingData.tile.tileSize;
     const spriteWidth = 16;
     const spriteHeight = 32;
     const coordinatesInSprite = this.getCharacterSpriteCoordinates();
-
-    const translatePositionToCanvas = {
-      x: this.position.x * scale * 16,
-      y: this.position.y * scale * 16,
-    };
 
     canvas.drawImage(
       this.characterSprite,
@@ -77,10 +79,10 @@ export abstract class EnemySpriteRenderer {
       coordinatesInSprite.y,
       spriteWidth,
       spriteHeight,
-      translatePositionToCanvas.x,
-      translatePositionToCanvas.y,
-      spriteWidth * scale,
-      spriteHeight * scale,
+      this.positionInCanvas.x,
+      this.positionInCanvas.y,
+      spriteWidth * this.scale,
+      spriteHeight * this.scale,
     );
   }
 
@@ -90,8 +92,8 @@ export abstract class EnemySpriteRenderer {
 
   public getBoundingBox(): ObjectiveBoundingBox {
     return [
-      { x: 0, y: 0 },
-      { x: 0, y: 0 },
+      { x: this.positionInCanvas.x, y: this.positionInCanvas.y },
+      { x: this.positionInCanvas.x + 16, y: this.positionInCanvas.y + 32 },
     ];
   }
 }
