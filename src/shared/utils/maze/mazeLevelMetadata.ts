@@ -36,7 +36,7 @@ export function getMazeParameters(questionId: number): {
       ],
       playerInit: {
         direction: 'RIGHT',
-        position: { x: -10, y: 110 },
+        position: { x: -40, y: 180 },
       },
     };
   }
