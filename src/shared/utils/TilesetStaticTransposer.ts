@@ -25,13 +25,15 @@ export abstract class TilesetStaticTransposer {
 
   public transpose(canvas: CanvasRenderingContext2D) {
     const tiles = this.getTiles();
-
     const extractor = new TilesetExtractor(this.canvasMetadata, this.tilesetMetadata, tiles);
+
     for (let r = 0; r < tiles.length; r++) {
       for (let c = 0; c < tiles[r].length; c++) {
         const { sourceX, sourceY, tileHeight, tileWidth } = extractor.getTile(r, c);
-        // to avois artifacts, scale should NEVER be a floating point number
-        const scale = Math.round(this.canvasMetadata.width / tileHeight / tiles[r].length);
+        // to avoid artifacts, scale should NEVER be a floating point number
+        // actually, to avoid artifacts, scale should generate a number that's not a floating point number
+        // so as long as the canvas width is divisible by tileHeight (16) and tiles[r].length, we should be good
+        const scale = this.canvasMetadata.width / tileHeight / tiles[r].length;
 
         canvas.drawImage(
           this.tileset,
@@ -49,6 +51,7 @@ export abstract class TilesetStaticTransposer {
   }
 
   public isColliding(playerPosition: Position, playerDirection: Direction): boolean {
+    return false;
     const tiles = this.getTiles();
 
     // translate position to tilemap x and y

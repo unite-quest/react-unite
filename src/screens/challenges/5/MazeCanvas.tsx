@@ -80,6 +80,10 @@ export const MazeCanvas: React.FC<Props> = ({
     tick,
   ]);
 
+  useEffect(() => {
+    console.log(`Initialized Canvas with h=${height}; w=${width}`);
+  }, [height, width]);
+
   return (
     <canvas ref={canvasRef} width={width} height={height} style={{ imageRendering: 'pixelated' }} />
   );

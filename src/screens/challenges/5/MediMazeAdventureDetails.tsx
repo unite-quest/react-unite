@@ -9,6 +9,19 @@ import { createSearchParams, useNavigate } from 'react-router-dom';
 import { useCurrentQuestion } from 'src/hooks/useCurrentQuestion';
 import { MazeCanvas } from './MazeCanvas';
 
+function getCanvasDimensions(): { sidePadding: number; width: number; height: number } {
+  const sidePadding = 16;
+  const availableWidth = window.innerWidth - 2 * sidePadding;
+  const decrementForWidthToBeDivisibleBy16 = availableWidth % 16;
+  const availableHeight = window.innerHeight - 80;
+  const decrementForHeightToBeDivisibleBy16 = availableHeight % 16;
+  return {
+    sidePadding,
+    height: availableHeight - decrementForHeightToBeDivisibleBy16,
+    width: availableWidth - decrementForWidthToBeDivisibleBy16,
+  };
+}
+
 function MediMazeAdventureDetails() {
   const { setLoading } = useContext(LoaderContext);
   const { id: questionId } = useCurrentQuestion();
@@ -49,16 +62,17 @@ function MediMazeAdventureDetails() {
   };
 
   const { boundingBox, playerInit } = getMazeParameters(questionId);
+  const { sidePadding, height, width } = getCanvasDimensions();
 
   return (
     <>
       <ChallengeScreen noPadding noBottomPadding Footer={<></>}>
-        <div style={{ paddingLeft: '10px', paddingRight: '10px' }}>
+        <div style={{ paddingLeft: `${sidePadding}px`, paddingRight: `${sidePadding}px` }}>
           <MazeCanvas
             questionId={questionId}
             direction={direction}
-            width={window.innerWidth - 20}
-            height={window.innerHeight - 80}
+            height={height}
+            width={width}
             playerInit={playerInit}
             onLoaded={onLoaded}
             objective={{
