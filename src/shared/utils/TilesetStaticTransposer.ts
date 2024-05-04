@@ -19,10 +19,12 @@ export abstract class TilesetStaticTransposer {
     this.tileset = tileset;
   }
 
-  public abstract getTilesForQuestionId(): number[][];
+  public abstract getTiles(): number[][];
+
+  public abstract getCollidingTiles(): number[];
 
   public transpose(canvas: CanvasRenderingContext2D) {
-    const tiles = this.getTilesForQuestionId();
+    const tiles = this.getTiles();
 
     const extractor = new TilesetExtractor(this.canvasMetadata, this.tilesetMetadata, tiles);
     for (let r = 0; r < tiles.length; r++) {
@@ -47,7 +49,7 @@ export abstract class TilesetStaticTransposer {
   }
 
   public isColliding(playerPosition: Position, playerDirection: Direction): boolean {
-    const tiles = this.getTilesForQuestionId();
+    const tiles = this.getTiles();
 
     // translate position to tilemap x and y
     const scale = Math.round(
@@ -71,15 +73,17 @@ export abstract class TilesetStaticTransposer {
     const newY = translated.x + rowIncrement;
     // edge cases
     if (newX >= tiles.length) {
+      console.log('[Tileset] colliding with edge', this.tilesetMetadata.name);
       return true;
     }
     if (newY >= tiles[newX].length) {
+      console.log('[Tileset] colliding with edge', this.tilesetMetadata.name);
       return true;
     }
 
     // actual colision check
     const newTile = tiles[newX][newY];
-    if (this.tilesetMetadata.playerColidesWithTiles.includes(newTile)) {
+    if (this.getCollidingTiles().includes(newTile)) {
       console.log('[Tileset] colliding with ', this.tilesetMetadata.name);
       return true;
     }

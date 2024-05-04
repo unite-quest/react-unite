@@ -1,5 +1,5 @@
-import { MazeObjective } from '@/shared/utils/maze/mazeLevelMetadata';
-import { Direction, Position, drawPlayer } from '@/shared/utils/maze/playerDrawer';
+import { MazeObjective, PlayerInitialParameters } from '@/shared/utils/maze/mazeLevelMetadata';
+import { Direction, drawPlayer } from '@/shared/utils/maze/playerDrawer';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useLoadSprites } from 'src/hooks/useLoadSprites';
 import { usePositionControl } from 'src/hooks/usePositionControl';
@@ -8,7 +8,7 @@ type Props = {
   questionId: number;
   height: number;
   width: number;
-  playerInitialPosition: Position;
+  playerInit: PlayerInitialParameters;
   direction: Direction;
   onLoaded: () => void;
   objective: MazeObjective;
@@ -19,7 +19,7 @@ export const MazeCanvas: React.FC<Props> = ({
   questionId,
   width,
   height,
-  playerInitialPosition,
+  playerInit,
   direction,
   onLoaded,
   objective,
@@ -35,7 +35,7 @@ export const MazeCanvas: React.FC<Props> = ({
     position: playerPosition,
     stopped,
     lastKnownDirection,
-  } = usePositionControl(direction, tick, staticTilesets, playerInitialPosition, objective);
+  } = usePositionControl(direction, tick, staticTilesets, playerInit, objective);
 
   // gameplay loop
   useLayoutEffect(() => {

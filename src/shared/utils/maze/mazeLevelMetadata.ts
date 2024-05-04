@@ -1,6 +1,11 @@
-import { Position } from './playerDrawer';
+import { Direction, Position } from './playerDrawer';
 
 export type ObjectiveBoundingBox = [Position, Position];
+
+export type PlayerInitialParameters = {
+  position: Position;
+  direction: Direction;
+};
 
 export type MazeObjective = {
   boundingBox: ObjectiveBoundingBox;
@@ -9,7 +14,7 @@ export type MazeObjective = {
 
 export function getMazeParameters(questionId: number): {
   boundingBox: ObjectiveBoundingBox;
-  playerInitialPosition: Position;
+  playerInit: PlayerInitialParameters;
 } {
   if (questionId === 0) {
     return {
@@ -17,7 +22,22 @@ export function getMazeParameters(questionId: number): {
         { x: 280, y: 70 },
         { x: 280, y: 120 },
       ],
-      playerInitialPosition: { x: 90, y: 370 },
+      playerInit: {
+        direction: 'FORWARD',
+        position: { x: 90, y: 370 },
+      },
+    };
+  }
+  if (questionId === 1) {
+    return {
+      boundingBox: [
+        { x: 280, y: 70 },
+        { x: 280, y: 120 },
+      ],
+      playerInit: {
+        direction: 'RIGHT',
+        position: { x: -10, y: 110 },
+      },
     };
   }
   return {
@@ -25,7 +45,10 @@ export function getMazeParameters(questionId: number): {
       { x: 280, y: 70 },
       { x: 280, y: 120 },
     ],
-    playerInitialPosition: { x: 10, y: 370 },
+    playerInit: {
+      direction: 'RIGHT',
+      position: { x: -10, y: 110 },
+    },
   };
 }
 
@@ -38,13 +61,12 @@ export const mazeTutorial: { title: string; description: string; image: string }
   },
   {
     title: 'Tutorial (2/3)',
-    description: 'Cuidado com os enfermeiros correndo pela sala',
+    description: 'Tome cuidado com os enfermeiros correndo pela sala',
     image: 'https://placehold.co/250x400',
   },
   {
     title: 'Tutorial (3/3)',
-    description:
-      'Use o joystick no canto inferior direito para controlar o Gabriel. O seu objetivo é encontrar a sala em que a Mimi está!',
+    description: 'Tome cuidado com',
     image: 'https://placehold.co/250x400',
   },
 ];

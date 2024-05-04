@@ -48,7 +48,7 @@ function MediMazeAdventureDetails() {
     });
   };
 
-  const { boundingBox, playerInitialPosition } = getMazeParameters(questionId);
+  const { boundingBox, playerInit } = getMazeParameters(questionId);
 
   return (
     <>
@@ -59,7 +59,7 @@ function MediMazeAdventureDetails() {
             direction={direction}
             width={window.innerWidth - 20}
             height={window.innerHeight - 80}
-            playerInitialPosition={playerInitialPosition}
+            playerInit={playerInit}
             onLoaded={onLoaded}
             objective={{
               boundingBox,

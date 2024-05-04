@@ -12,13 +12,12 @@ export class FloorTileset extends TilesetStaticTransposer {
         columns: 15,
         rows: 40,
         tileSize: 16,
-        playerColidesWithTiles: [],
       },
       tileset,
     );
   }
 
-  public getTilesForQuestionId(): number[][] {
+  public getTiles(): number[][] {
     if (this.questionId === 0) {
       return [
         [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
@@ -37,21 +36,35 @@ export class FloorTileset extends TilesetStaticTransposer {
         [EMP, EMP, EMP, 478, 478, 478, EMP, EMP, EMP, EMP, EMP, EMP],
       ];
     }
-    return [
-      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
-      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
-      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
-      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
-      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, 477, EMP],
-      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, 477, EMP],
-      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
-      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
-      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
-      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
-      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
-      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
-      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
-      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
-    ];
+    if (this.questionId === 1) {
+      return [
+        [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
+        [EMP, 478, 478, 478, 478, 478, EMP, EMP, EMP, EMP, EMP, EMP],
+        [EMP, 478, 478, 478, 478, 478, EMP, EMP, EMP, EMP, EMP, EMP],
+        [EMP, 478, 478, 478, 478, 478, EMP, EMP, EMP, EMP, EMP, EMP],
+        [EMP, 478, 478, 478, 478, 478, 478, 478, 478, 478, 477, EMP],
+        [EMP, 478, 478, 478, 478, 478, 478, 478, 478, 478, 477, EMP],
+        [EMP, 478, 478, 478, 478, 478, 478, EMP, EMP, EMP, EMP, EMP],
+        [EMP, 478, 478, 478, 478, 478, 478, EMP, EMP, EMP, EMP, EMP],
+        [EMP, 478, 478, 478, 478, 478, 478, EMP, EMP, EMP, EMP, EMP],
+        [EMP, 478, 478, 478, 478, 478, 478, EMP, EMP, EMP, EMP, EMP],
+        [EMP, 478, 478, 478, 478, 478, 478, EMP, EMP, EMP, EMP, EMP],
+        [EMP, 478, 478, 478, 478, 478, 478, EMP, EMP, EMP, EMP, EMP],
+        [EMP, 478, 478, 478, 478, 478, 478, EMP, EMP, EMP, EMP, EMP],
+        [EMP, 478, 478, 478, 478, 478, 478, EMP, EMP, EMP, EMP, EMP],
+        [EMP, 478, 478, 478, 478, 478, 478, EMP, EMP, EMP, EMP, EMP],
+        [EMP, 478, 478, 478, 478, 478, 478, EMP, EMP, EMP, EMP, EMP],
+        [EMP, 478, 478, 478, 478, 478, 478, EMP, EMP, EMP, EMP, EMP],
+        [EMP, 478, 478, 478, 478, 478, 478, EMP, EMP, EMP, EMP, EMP],
+        [EMP, EMP, EMP, 478, 478, 478, EMP, EMP, EMP, EMP, EMP, EMP],
+        [EMP, EMP, EMP, 478, 478, 478, EMP, EMP, EMP, EMP, EMP, EMP],
+      ];
+    }
+
+    return [];
+  }
+
+  public getCollidingTiles(): number[] {
+    return [];
   }
 }

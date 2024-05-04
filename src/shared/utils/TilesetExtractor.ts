@@ -8,7 +8,6 @@ export type TilesetMetadata = {
   columns: number;
   rows: number;
   tileSize: number;
-  playerColidesWithTiles: number[];
 };
 
 type TileMetadata = {

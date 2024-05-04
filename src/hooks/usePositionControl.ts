@@ -1,5 +1,5 @@
 import { TilesetStaticTransposer } from '@/shared/utils/TilesetStaticTransposer';
-import { MazeObjective } from '@/shared/utils/maze/mazeLevelMetadata';
+import { MazeObjective, PlayerInitialParameters } from '@/shared/utils/maze/mazeLevelMetadata';
 import { Direction, Position } from '@/shared/utils/maze/playerDrawer';
 import { useEffect, useMemo, useState } from 'react';
 
@@ -7,17 +7,17 @@ export function usePositionControl(
   direction: Direction,
   tick: number,
   tilesets: TilesetStaticTransposer[],
-  initialPosition: Position,
+  playerInit: PlayerInitialParameters,
   objective: MazeObjective,
 ): {
   position: Position;
   stopped: boolean;
   lastKnownDirection: Direction;
 } {
-  const [position, setPosition] = useState<Position>(initialPosition);
+  const [position, setPosition] = useState<Position>(playerInit.position);
   const [lastUpdateTick, setLastUpdateTick] = useState<number>(0);
   const [stopped, setStopped] = useState<boolean>(direction !== null);
-  const [lastKnownDirection, setLastKnownDirection] = useState<Direction>(direction);
+  const [lastKnownDirection, setLastKnownDirection] = useState<Direction>(playerInit.direction);
 
   const isCollidingWithObjective = useMemo(() => {
     const rowIncrement = direction === 'LEFT' ? -10 : direction === 'RIGHT' ? 10 : 0;
@@ -32,8 +32,6 @@ export function usePositionControl(
       newY >= lowerBoundary.y &&
       newY <= upperBoundary.y
     ) {
-      // { x: 280, y: 70 },
-      // { x: 280, y: 120 },
       return true;
     }
     return false;
