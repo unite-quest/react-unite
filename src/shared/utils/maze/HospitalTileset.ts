@@ -38,9 +38,9 @@ export class HospitalTileset extends TilesetStaticTransposer {
     }
     if (this.questionId === 1) {
       return [
-        [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
-        [EMP, 442, 443, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
-        [EMP, 458, 459, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
+        [EMP, EMP, EMP, 434, 435, EMP, EMP, EMP, EMP, 336, 337, EMP],
+        [EMP, 442, 443, 450, 451, EMP, EMP, EMP, EMP, 352, 353, EMP],
+        [EMP, 458, 459, 466, 467, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
         [EMP, 472, 473, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
         [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
         [EMP, EMP, EMP, 339, 340, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
