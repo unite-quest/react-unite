@@ -51,7 +51,6 @@ export abstract class TilesetStaticTransposer {
   }
 
   public isColliding(playerPosition: Position, playerDirection: Direction): boolean {
-    return false;
     const tiles = this.getTiles();
 
     // translate position to tilemap x and y

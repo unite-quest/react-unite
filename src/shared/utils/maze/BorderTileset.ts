@@ -68,9 +68,6 @@ export class BorderTileset extends TilesetStaticTransposer {
   }
 
   public getCollidingTiles(): number[] {
-    if (this.questionId === 0) {
-      return [48, 49, 50, 51, 52, 53, 96, 98, 141, 143];
-    }
-    return [];
+    return [48, 49, 50, 51, 52, 53, 96, 98, 141, 143];
   }
 }

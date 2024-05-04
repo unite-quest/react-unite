@@ -12,6 +12,18 @@ export type MazeObjective = {
   onReachBox: () => void;
 };
 
+export type DynamicCollisionBoundary =
+  | {
+      type: 'objective';
+      boundingBox: ObjectiveBoundingBox;
+      onTouch: () => void;
+    }
+  | {
+      type: 'enemy';
+      boundingBox: ObjectiveBoundingBox;
+      onTouch: () => void;
+    };
+
 export function getMazeParameters(questionId: number): {
   boundingBox: ObjectiveBoundingBox;
   playerInit: PlayerInitialParameters;

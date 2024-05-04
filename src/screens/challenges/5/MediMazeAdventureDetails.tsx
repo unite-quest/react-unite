@@ -75,9 +75,10 @@ function MediMazeAdventureDetails() {
             width={width}
             playerInit={playerInit}
             onLoaded={onLoaded}
-            objective={{
+            objectiveCollisionBoundary={{
+              type: 'objective',
               boundingBox,
-              onReachBox: onReachObjective,
+              onTouch: onReachObjective,
             }}
           />
         </div>

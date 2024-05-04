@@ -68,9 +68,6 @@ export class HospitalTileset extends TilesetStaticTransposer {
   }
 
   public getCollidingTiles(): number[] {
-    if (this.questionId === 0) {
-      return [241, 295, 21, 6, 7, 8, 22, 24, 226, 242];
-    }
-    return [];
+    return [241, 295, 21, 6, 7, 8, 22, 24, 226, 242];
   }
 }

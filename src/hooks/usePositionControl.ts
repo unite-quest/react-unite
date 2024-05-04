@@ -1,14 +1,17 @@
 import { TilesetStaticTransposer } from '@/shared/utils/TilesetStaticTransposer';
-import { MazeObjective, PlayerInitialParameters } from '@/shared/utils/maze/mazeLevelMetadata';
+import {
+  DynamicCollisionBoundary,
+  PlayerInitialParameters,
+} from '@/shared/utils/maze/mazeLevelMetadata';
 import { Direction, Position } from '@/shared/utils/maze/playerDrawer';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export function usePositionControl(
   direction: Direction,
   tick: number,
   tilesets: TilesetStaticTransposer[],
   playerInit: PlayerInitialParameters,
-  objective: MazeObjective,
+  dynamicCollisionBoundary: DynamicCollisionBoundary[],
 ): {
   position: Position;
   stopped: boolean;
@@ -18,24 +21,31 @@ export function usePositionControl(
   const [lastUpdateTick, setLastUpdateTick] = useState<number>(0);
   const [stopped, setStopped] = useState<boolean>(direction !== null);
   const [lastKnownDirection, setLastKnownDirection] = useState<Direction>(playerInit.direction);
+  const [collision, setCollision] = useState<DynamicCollisionBoundary | null>(null);
 
-  const isCollidingWithObjective = useMemo(() => {
+  useEffect(() => {
     const rowIncrement = direction === 'LEFT' ? -10 : direction === 'RIGHT' ? 10 : 0;
     const colIncrement = direction === 'FORWARD' ? -10 : direction === 'BACKWARD' ? 10 : 0;
     const newY = position.y + colIncrement;
     const newX = position.x + rowIncrement;
-    const lowerBoundary = objective.boundingBox[0];
-    const upperBoundary = objective.boundingBox[1];
-    if (
-      newX >= lowerBoundary.x &&
-      newX <= upperBoundary.x &&
-      newY >= lowerBoundary.y &&
-      newY <= upperBoundary.y
-    ) {
-      return true;
-    }
-    return false;
-  }, [direction, objective.boundingBox, position.x, position.y]);
+
+    // currently you can only colide with one object at a time
+    const collidingWith = dynamicCollisionBoundary.find(boundary => {
+      const lowerBoundary = boundary.boundingBox[0];
+      const upperBoundary = boundary.boundingBox[1];
+      if (
+        newX >= lowerBoundary.x &&
+        newX <= upperBoundary.x &&
+        newY >= lowerBoundary.y &&
+        newY <= upperBoundary.y
+      ) {
+        return true;
+      }
+      return false;
+    });
+
+    setCollision(collidingWith || null);
+  }, [direction, dynamicCollisionBoundary, position.x, position.y]);
 
   useEffect(() => {
     const throttleTicks = 1; // Throttles the position update
@@ -52,8 +62,8 @@ export function usePositionControl(
     const moveStep = 10; // Defines how much the player moves per tick
 
     // objective collision
-    if (isCollidingWithObjective) {
-      objective.onReachBox();
+    if (collision) {
+      collision.onTouch();
       return;
     }
 
@@ -91,7 +101,7 @@ export function usePositionControl(
         return { x: pos.x, y: pos.y + moveStep };
       });
     }
-  }, [direction, isCollidingWithObjective, lastUpdateTick, objective, tick, tilesets]); // Include dependencies that affect the effect
+  }, [collision, direction, lastUpdateTick, tick, tilesets]); // Include dependencies that affect the effect
 
   useEffect(() => {
     console.log(direction, position);

@@ -1,4 +1,7 @@
-import { MazeObjective, PlayerInitialParameters } from '@/shared/utils/maze/mazeLevelMetadata';
+import {
+  DynamicCollisionBoundary,
+  PlayerInitialParameters,
+} from '@/shared/utils/maze/mazeLevelMetadata';
 import { Direction, drawPlayer } from '@/shared/utils/maze/playerDrawer';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useLoadSprites } from 'src/hooks/useLoadSprites';
@@ -11,7 +14,7 @@ type Props = {
   playerInit: PlayerInitialParameters;
   direction: Direction;
   onLoaded: () => void;
-  objective: MazeObjective;
+  objectiveCollisionBoundary: DynamicCollisionBoundary;
 };
 const TICK_INTERVAL = 75;
 
@@ -22,7 +25,7 @@ export const MazeCanvas: React.FC<Props> = ({
   playerInit,
   direction,
   onLoaded,
-  objective,
+  objectiveCollisionBoundary,
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [tick, setTick] = useState(0);
@@ -35,7 +38,7 @@ export const MazeCanvas: React.FC<Props> = ({
     position: playerPosition,
     stopped,
     lastKnownDirection,
-  } = usePositionControl(direction, tick, staticTilesets, playerInit, objective);
+  } = usePositionControl(direction, tick, staticTilesets, playerInit, [objectiveCollisionBoundary]);
 
   // gameplay loop
   useLayoutEffect(() => {
