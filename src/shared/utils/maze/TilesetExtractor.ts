@@ -8,6 +8,7 @@ export type TilesetMetadata = {
   columns: number;
   rows: number;
   tileSize: number;
+  mappedColumns: number;
 };
 
 type TileMetadata = {

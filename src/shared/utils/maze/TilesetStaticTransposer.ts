@@ -1,22 +1,25 @@
 import { CanvasMetadata, TilesetExtractor, TilesetMetadata } from './TilesetExtractor';
-import { Direction, Position } from './maze/playerDrawer';
+import { Direction, Position } from './playerDrawer';
 
 export abstract class TilesetStaticTransposer {
-  questionId: number;
   canvasMetadata: CanvasMetadata;
   tilesetMetadata: TilesetMetadata;
   tileset: HTMLImageElement;
+  scale: number;
 
   constructor(
-    questionId: number,
     canvasMetadata: CanvasMetadata,
     tilesetMetadata: TilesetMetadata,
     tileset: HTMLImageElement,
   ) {
-    this.questionId = questionId;
     this.canvasMetadata = canvasMetadata;
     this.tilesetMetadata = tilesetMetadata;
     this.tileset = tileset;
+    // to avoid artifacts, scale should NEVER be a floating point number
+    // actually, to avoid artifacts, scale should generate a number that's not a floating point number
+    // so as long as the canvas width is divisible by tileHeight (16) and this.tilesetMetadata.mappedColumns, we should be good
+    this.scale =
+      this.canvasMetadata.width / tilesetMetadata.tileSize / this.tilesetMetadata.mappedColumns;
   }
 
   public abstract getTiles(): number[][];
@@ -27,13 +30,17 @@ export abstract class TilesetStaticTransposer {
     const tiles = this.getTiles();
     const extractor = new TilesetExtractor(this.canvasMetadata, this.tilesetMetadata, tiles);
 
+    if (tiles.length === 0) {
+      throw new Error('Invalid number of rows provided in getTiles');
+    }
+
+    if (tiles[0].length !== this.tilesetMetadata.mappedColumns) {
+      throw new Error('Invalid number of columns provided in getTiles');
+    }
+
     for (let r = 0; r < tiles.length; r++) {
       for (let c = 0; c < tiles[r].length; c++) {
         const { sourceX, sourceY, tileHeight, tileWidth } = extractor.getTile(r, c);
-        // to avoid artifacts, scale should NEVER be a floating point number
-        // actually, to avoid artifacts, scale should generate a number that's not a floating point number
-        // so as long as the canvas width is divisible by tileHeight (16) and tiles[r].length, we should be good
-        const scale = this.canvasMetadata.width / tileHeight / tiles[r].length;
 
         canvas.drawImage(
           this.tileset,
@@ -41,10 +48,10 @@ export abstract class TilesetStaticTransposer {
           sourceY,
           tileWidth,
           tileHeight,
-          c * tileWidth * scale,
-          r * tileHeight * scale,
-          tileWidth * scale,
-          tileHeight * scale,
+          c * tileWidth * this.scale,
+          r * tileHeight * this.scale,
+          tileWidth * this.scale,
+          tileHeight * this.scale,
         );
       }
     }

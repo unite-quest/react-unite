@@ -1,4 +1,4 @@
-import { TilesetStaticTransposer } from '@/shared/utils/TilesetStaticTransposer';
+import { TilesetStaticTransposer } from '@/shared/utils/maze/TilesetStaticTransposer';
 import {
   DynamicCollisionBoundary,
   PlayerInitialParameters,

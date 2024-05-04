@@ -4,8 +4,9 @@ import {
 } from '@/shared/utils/maze/mazeLevelMetadata';
 import { Direction, drawPlayer } from '@/shared/utils/maze/playerDrawer';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { useLoadSprites } from 'src/hooks/useLoadSprites';
-import { usePositionControl } from 'src/hooks/usePositionControl';
+import { useLoadSprites } from 'src/hooks/maze/useLoadSprites';
+import { usePositionControl } from 'src/hooks/maze/usePositionControl';
+import { useSpawnEnemies } from 'src/hooks/maze/useSpawnEnemies';
 
 type Props = {
   questionId: number;
@@ -30,15 +31,19 @@ export const MazeCanvas: React.FC<Props> = ({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [tick, setTick] = useState(0);
 
-  const { character, tilesetLoaded, staticTilesets } = useLoadSprites(questionId, {
+  const { character, tilesetLoaded, staticTilesets, tileMetadata } = useLoadSprites(questionId, {
     height,
     width,
   });
+  const { enemyCollisionBoundaries, enemies } = useSpawnEnemies(questionId, tileMetadata, tick);
   const {
     position: playerPosition,
     stopped,
     lastKnownDirection,
-  } = usePositionControl(direction, tick, staticTilesets, playerInit, [objectiveCollisionBoundary]);
+  } = usePositionControl(direction, tick, staticTilesets, playerInit, [
+    objectiveCollisionBoundary,
+    ...enemyCollisionBoundaries,
+  ]);
 
   // gameplay loop
   useLayoutEffect(() => {
@@ -68,6 +73,10 @@ export const MazeCanvas: React.FC<Props> = ({
       tileset.transpose(ctx);
     }
 
+    for (const enemy of enemies) {
+      enemy.render(ctx);
+    }
+
     drawPlayer(ctx, character.body.current, lastKnownDirection, playerPosition, stopped, tick);
     drawPlayer(ctx, character.clothes.current, lastKnownDirection, playerPosition, stopped, tick);
     drawPlayer(ctx, character.hair.current, lastKnownDirection, playerPosition, stopped, tick);
@@ -76,6 +85,7 @@ export const MazeCanvas: React.FC<Props> = ({
     character.body,
     character.clothes,
     character.hair,
+    enemies,
     lastKnownDirection,
     playerPosition,
     staticTilesets,
