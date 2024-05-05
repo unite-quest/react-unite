@@ -43,8 +43,8 @@ export function getMazeParameters(questionId: number): {
   if (questionId === 1) {
     return {
       boundingBox: [
-        { x: 280, y: 70 },
-        { x: 280, y: 120 },
+        { x: 310, y: 190 },
+        { x: 350, y: 220 },
       ],
       playerInit: {
         direction: 'RIGHT',

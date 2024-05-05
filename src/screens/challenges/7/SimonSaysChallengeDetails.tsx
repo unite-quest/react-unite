@@ -3,7 +3,12 @@ import { SimonSaysTile } from '@/components/ui/tile';
 import { UniteText } from '@/components/ui/unite-text';
 import { ModalContext } from '@/shared/modal/ModalProvider';
 import { ChallengeRouteIdentifier } from '@/shared/utils/ChallengeIdentifiers';
-import { corgiChallengeLevels, corgiPosesMap } from '@/shared/utils/corgiPosesMap';
+import {
+  CorgiPoseItem,
+  corgiChallengeLevels,
+  corgiPosesMap,
+  shuffle,
+} from '@/shared/utils/corgiPosesMap';
 import { validateAndPersistAnswer } from '@/shared/utils/validateAnswer';
 import { useContext, useEffect, useState } from 'react';
 import { createSearchParams, useNavigate } from 'react-router-dom';
@@ -20,6 +25,7 @@ function SimonSaysChallenge() {
   const currentLevel = corgiChallengeLevels[questionId];
   const dbAnswers = useAllAnswers();
   const { answeredQuestionIds, refetchAnsweredQuestions } = useAnswerState(challengeId);
+  const [poses, setPoses] = useState<CorgiPoseItem[]>([]);
 
   const totalLength = currentLevel.tricks.length;
   const navigate = useNavigate();
@@ -96,6 +102,10 @@ function SimonSaysChallenge() {
     });
   }, [answeredQuestionIds, navigate, openModal, questionId]);
 
+  useEffect(() => {
+    setPoses(questionId > 1 ? shuffle(corgiPosesMap) : corgiPosesMap);
+  }, [questionId]);
+
   return (
     <>
       <ChallengeScreen
@@ -120,7 +130,7 @@ function SimonSaysChallenge() {
         }
       >
         <div className="grid grid-cols-2 gap-4">
-          {corgiPosesMap.map(({ poseId, background, image }) => {
+          {poses.map(({ poseId, background, image }) => {
             return (
               <SimonSaysTile
                 key={poseId}

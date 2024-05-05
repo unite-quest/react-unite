@@ -37,7 +37,7 @@ function MediMazeAdventureDetails() {
   };
 
   const onReachObjective = () => {
-    if (questionId === 2) {
+    if (questionId === 1) {
       openModal({
         type: 'challengeCompleted',
         onPrimaryPress: () => {
