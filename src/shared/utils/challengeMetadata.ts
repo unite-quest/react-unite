@@ -42,7 +42,7 @@ export const challengeMetadataMap: Record<ChallengeIdentifier, ChallengeMetadata
     period: '2015-2016',
     description:
       'Depois de 6 anos duros estudando Engenharia da Computação, estamos quase formados! Nos ajude a passar na última prova passando cola (resolvendo o exercício e enviando a resposta correta).',
-    background: 'bg-beige',
+    background: 'bg-[#FDE4CF]',
     image: LogicGatesIntroImage,
     footer: {
       background: 'bg-black',
@@ -66,7 +66,7 @@ export const challengeMetadataMap: Record<ChallengeIdentifier, ChallengeMetadata
     period: '2020',
     description:
       'Logo antes da pandemia começar, um filhote de Golden Retriever está se juntando a nós. O nome dele é Mochi, e ele vai trazer muita felicidade para a nossa família. Ajude-nos a fazer com que ele cresça achando os ingredientes corretos para uma refeição nutritiva (e não venenosa) para ele!',
-    background: 'bg-cool-green',
+    background: 'bg-[#F7E5DF]',
     image: DogCuisineIntroImage,
     footer: {
       background: 'bg-black',
@@ -78,7 +78,7 @@ export const challengeMetadataMap: Record<ChallengeIdentifier, ChallengeMetadata
     period: '2021',
     description:
       'Como nem tudo na vida é como a gente quer, estamos passando pelo ano mais difícil de nossas vidas. A Mimi está muito doente e está internada há alguns meses. No hospital não é permitido trazer comida de fora aos pacientes, mas ela está com uma vontade louca de comer coxinha. Me ajude a entrar furtivamente no quarto dela com algumas coxinhas!',
-    background: 'bg-cool-green',
+    background: 'bg-[#EDEDED]',
     image: 'https://placehold.co/250x250',
     footer: {
       background: 'bg-black',
@@ -90,7 +90,7 @@ export const challengeMetadataMap: Record<ChallengeIdentifier, ChallengeMetadata
     period: '2022',
     description:
       'Nós finalmente decidimos morar juntos depois de uma década namorando, já estava na hora né... Mas claro que achar uma casa não seria simples! Ajude nós três a encontrar sugestões de lugares para morar que sejam boas para todos os integrantes.',
-    background: 'bg-cool-green',
+    background: 'bg-[#E5F7DF]',
     image: LifeTogetherIntroImage,
     footer: {
       background: 'bg-black',

@@ -1,4 +1,6 @@
 import { Direction, Position } from './playerDrawer';
+const tutorial1 = 'https://gabrieltnishimura.github.io/unite/tutorial.png';
+const tutorial2 = 'https://gabrieltnishimura.github.io/unite/tutorial2.PNG';
 
 export type ObjectiveBoundingBox = [Position, Position];
 
@@ -66,15 +68,15 @@ export function getMazeParameters(questionId: number): {
 
 export const mazeTutorial: { title: string; description: string; image: string }[] = [
   {
-    title: 'Tutorial (1/3)',
+    title: 'Tutorial (1/2)',
     description:
       'Use o joystick no canto inferior direito para controlar o Gabriel. O seu objetivo é encontrar a sala em que a Mimi está!',
-    image: 'https://placehold.co/250x400',
+    image: tutorial1,
   },
   {
-    title: 'Tutorial (2/3)',
-    description: 'Tome cuidado com os enfermeiros correndo pela sala',
-    image: 'https://placehold.co/250x400',
+    title: 'Tutorial (2/2)',
+    description: 'Cuidado para não esbarrar nos médicos! A Mimi está na próxima sala.',
+    image: tutorial2,
   },
   {
     title: 'Tutorial (3/3)',
