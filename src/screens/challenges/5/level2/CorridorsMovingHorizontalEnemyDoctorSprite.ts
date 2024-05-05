@@ -2,7 +2,7 @@ import { ScalingData } from '@/shared/utils/maze/TilesetExtractor';
 import { Position } from '@/shared/utils/maze/playerDrawer';
 import { EnemySpriteRenderer } from '../../../../shared/utils/EnemySpriteRenderer';
 
-export class CorridorsMovingEnemyDoctorSprite extends EnemySpriteRenderer {
+export class CorridorsMovingHorizontalEnemyDoctorSprite extends EnemySpriteRenderer {
   //const tick2;
   constructor(
     characterSprite: HTMLImageElement,
@@ -18,14 +18,14 @@ export class CorridorsMovingEnemyDoctorSprite extends EnemySpriteRenderer {
     //const tick2 = 1;
     const shouldGoForward = (this.tick % 88) < 43;
     if (shouldGoForward) {
-      this.direction= 'FORWARD'
+      this.direction= 'RIGHT'
     } else {
-      this.direction = 'BACKWARD';
+      this.direction = 'LEFT';
     }
 
     return {
-      x: this.position.x * this.scale * 16,
-      y: shouldGoForward ? 210 + ((this.tick % 88)/4) * 10 : (320 - (((this.tick % 88) - 43)/4) * 10),
+      x:shouldGoForward ? 170 + ((this.tick % 88)/4) * 10 : (280 - (((this.tick % 88) - 43)/4) * 10),
+      y:  this.position.y * this.scale * 16,
     };
   }
 

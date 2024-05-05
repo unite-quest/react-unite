@@ -10,6 +10,7 @@ export abstract class EnemySpriteRenderer {
   scalingData: ScalingData;
   protected tick: number;
   protected scale: number;
+  protected walking: boolean;
 
   constructor(
     entityId: string,
@@ -18,6 +19,7 @@ export abstract class EnemySpriteRenderer {
     position: Position,
     scalingData: ScalingData,
     tick: number,
+    walking: boolean,
   ) {
     this.entityId = entityId;
     this.characterSprite = characterSprite;
@@ -25,6 +27,7 @@ export abstract class EnemySpriteRenderer {
     this.position = position;
     this.scalingData = scalingData;
     this.tick = tick;
+    this.walking = walking;
 
     this.scale =
       this.scalingData.canvas.width /
@@ -46,14 +49,15 @@ export abstract class EnemySpriteRenderer {
     // mimi's magic
     const i = t % 2 === 1 ? 1 : 0;
     const increment = (t + i) / 2;
+    const walkingIncrement = this.walking ? 56 : 0;
     if (this.direction === 'BACKWARD') {
-      tilePosition = 62;
+      tilePosition = 62 + walkingIncrement;
     } else if (this.direction === 'FORWARD') {
-      tilePosition = 74;
+      tilePosition = 74 + walkingIncrement;
     } else if (this.direction === 'RIGHT') {
-      tilePosition = 56;
+      tilePosition = 56+ walkingIncrement;
     } else if (this.direction === 'LEFT') {
-      tilePosition = 68;
+      tilePosition = 68+ walkingIncrement;
     }
 
     const index = tilePosition + increment;
