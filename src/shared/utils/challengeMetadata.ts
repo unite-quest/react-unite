@@ -11,6 +11,8 @@ const SimonSaysIntroImage =
   'https://gabrieltnishimura.github.io/unite/challenges-intro/intro-simon-says.webp';
 const LifeTogetherIntroImage =
   'https://gabrieltnishimura.github.io/unite/challenges-intro/intro-life-together.webp';
+  const MazeIntroImage =
+  'https://gabrieltnishimura.github.io/unite/challenges-intro/intro-maze.webp';
 
 export type ChallengeMetadata = {
   title: string;
@@ -79,7 +81,7 @@ export const challengeMetadataMap: Record<ChallengeIdentifier, ChallengeMetadata
     description:
       'Como nem tudo na vida é como a gente quer, estamos passando pelo ano mais difícil de nossas vidas. A Mimi está muito doente e está internada há alguns meses. No hospital não é permitido trazer comida de fora aos pacientes, mas ela está com uma vontade louca de comer coxinha. Me ajude a entrar furtivamente no quarto dela com algumas coxinhas!',
     background: 'bg-[#EDEDED]',
-    image: 'https://placehold.co/250x250',
+    image: MazeIntroImage,
     footer: {
       background: 'bg-black',
       buttonColor: 'black',

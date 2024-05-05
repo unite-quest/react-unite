@@ -39,8 +39,10 @@ function MediMazeAdventureDetails() {
   const onReachObjective = () => {
     if (questionId === 1) {
       openModal({
-        type: 'challengeCompleted',
-        onPrimaryPress: () => {
+        type: 'imageSuccess',
+        message: 'A Mimi recebeu a coxinha! Aperte X para ir para o próximo desafio.',
+        image: 'https://gabrieltnishimura.github.io/unite/coxinha.webp',
+        dismiss: () => {
           navigate(`/challenge/${ChallengeRouteIdentifier.Six_ApartmentTinder}/landing`);
         },
       });
