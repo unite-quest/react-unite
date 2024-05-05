@@ -67,7 +67,7 @@ const ChallengeScreen: React.FC<
         {noBottomPadding ? null : <StackSpacing size="xl" />}
         {Footer}
         {showTip ? (
-          <div className="fixed bottom-36 right-4">
+          <div className="fixed bottom-36 right-4 animate-bounce2">
             <Lamp onClick={onTipClick} />
           </div>
         ) : null}
