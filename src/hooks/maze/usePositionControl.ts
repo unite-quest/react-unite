@@ -37,10 +37,10 @@ export function usePositionControl(
   const [collision, setCollision] = useState<DynamicCollisionBoundary | null>(null);
 
   useEffect(() => {
-    const rowIncrement = direction === 'LEFT' ? -10 : direction === 'RIGHT' ? 10 : 0;
-    const colIncrement = direction === 'FORWARD' ? -10 : direction === 'BACKWARD' ? 10 : 0;
-    const newY = position.y + colIncrement;
-    const newX = position.x + rowIncrement;
+    const rowIncrement = direction === 'LEFT' ? -24 : direction === 'RIGHT' ? 24 : 0;
+    const colIncrement = direction === 'FORWARD' ? -24 : direction === 'BACKWARD' ? 24 : 0;
+    const newY = position.y + colIncrement + 40;
+    const newX = position.x + rowIncrement + 40;
 
     // currently you can only colide with one object at a time
     const collidingWith = dynamicCollisionBoundary.find(boundary => {
