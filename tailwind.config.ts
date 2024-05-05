@@ -73,7 +73,7 @@ module.exports = {
         sm: 'calc(var(--radius) - 4px)',
       },
       keyframes: {
-        bounce2: {
+        'bounce2': {
           '0%, 80%, 90%, 100%': {
             transform: 'translateY(0)',
             animationTimingFunction: 'cubic-bezier(0, 0, 0.2, 1)',
@@ -87,9 +87,39 @@ module.exports = {
             animationTimingFunction: 'cubic-bezier(0.8, 0, 1, 1)',
           },
         },
+        'credits': {
+          '0%': {
+            top: '130%',
+          },
+          '100%': {
+            top: '-100%',
+          },
+        },
+        'credits-with-color': {
+          '0%': {
+            backgroundColor: '#DBF0EE',
+          },
+          '20%': {
+            backgroundColor: '#F0EFDB',
+          },
+          '40%': {
+            backgroundColor: '#F7E5DF',
+          },
+          '60%': {
+            backgroundColor: '#E5DFF7',
+          },
+          '80%': {
+            backgroundColor: '#E5F7DF',
+          },
+          '100%': {
+            backgroundColor: '#B1B1FF',
+          },
+        },
       },
       animation: {
-        bounce2: 'bounce2 10s infinite',
+        'bounce2': 'bounce2 10s infinite',
+        'credits': 'credits 40s linear forwards',
+        'credits-with-color': 'credits-with-color 40s linear forwards',
       },
     },
   },
