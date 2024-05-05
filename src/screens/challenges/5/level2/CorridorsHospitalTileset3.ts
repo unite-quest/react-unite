@@ -7,7 +7,7 @@ export class CorridorsHospitalTileset3 extends TilesetStaticTransposer {
     super(
       canvasMetadata,
       {
-        name: 'Hospital Elements',
+        name: 'Hospital Elements 3',
         columns: 16,
         rows: 107,
         tileSize: 16,
@@ -37,7 +37,7 @@ export class CorridorsHospitalTileset3 extends TilesetStaticTransposer {
       [EMP,  50, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
       [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
       [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
-      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
+      [EMP, 756, 757, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
       [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
       [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
       [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],

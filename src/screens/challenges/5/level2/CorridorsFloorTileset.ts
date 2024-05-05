@@ -39,10 +39,10 @@ export class CorridorsFloorTileset extends TilesetStaticTransposer {
       [EMP, 478, 478, 478, 478, 478, 478, 478, 478, 478, 478, EMP],
       [EMP, 478, 478, 478, 478, 478, 478, 478, 478, 478, 478, EMP],
       [EMP, 478, 478, 478, 478, 478, 478, 478, 478, 478, 478, EMP],
-      [EMP, 478, 478, 478, 478, 478, 478, 478, 478, 478, 478, EMP],
-      [EMP, 478, 478, 478, 478, 478, 478, 478, 478, 478, 478, EMP],
-      [EMP, EMP, EMP, EMP, 478, 478, 478, 478, EMP, EMP, EMP],
       [EMP, EMP, EMP, EMP, 478, 478, 478, 478, EMP, EMP, EMP, EMP],
+      [EMP, EMP, EMP, EMP, 478, 478, 478, 478, EMP, EMP, EMP, EMP],
+      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
+      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
       [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
     ];
   }

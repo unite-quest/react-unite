@@ -7,7 +7,7 @@ export class CorridorsGenericTileset extends TilesetStaticTransposer {
     super(
       canvasMetadata,
       {
-        name: 'Border',
+        name: 'Generic',
         columns: 16,
         rows: 78,
         tileSize: 16,

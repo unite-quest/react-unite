@@ -38,10 +38,10 @@ export class CorridorsBorderTileset extends TilesetStaticTransposer {
       [96, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, 98],
       [96, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, 98],
       [96, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, 98],
-      [96, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, 98],
-      [96, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, 98],
       [141, 52, 52, 49, EMP, EMP, EMP, EMP, 50, 52, 52, 143],
       [EMP, EMP, EMP, 96, EMP, EMP, EMP, EMP, 98, EMP, EMP, EMP],
+      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
+      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
       [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
     ];
   }
