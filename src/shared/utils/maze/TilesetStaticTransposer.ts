@@ -73,7 +73,6 @@ export abstract class TilesetStaticTransposer {
       x: Math.round(playerCenter.x / (scale * this.tilesetMetadata.tileSize)),
       y: Math.round(playerCenter.y / (scale * this.tilesetMetadata.tileSize)),
     };
-    console.log('playerCenter', scale, playerCenter, translated);
 
     // create increments based on direction
     const rowIncrement = playerDirection === 'LEFT' ? -1 : playerDirection === 'RIGHT' ? 1 : 0;

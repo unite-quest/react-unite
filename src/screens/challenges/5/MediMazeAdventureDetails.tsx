@@ -63,7 +63,10 @@ function MediMazeAdventureDetails() {
   const onCollideWithEnemy = (entityId: string) => {
     openModal({
       type: 'failure',
-      message: `Você colidiu com o inimigo ${entityId}`,
+      message: `Você colidiu com o inimigo ${entityId}, aperte X para recomeçar`,
+      dismiss: () => {
+        location.reload();
+      },
     });
   };
 

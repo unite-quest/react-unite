@@ -38,32 +38,20 @@ export function usePositionControl(
 
   useEffect(() => {
     // TODO should represent position in tile coordinates instead
-    const scale = Math.round(
-      scalingData.canvas.width / scalingData.tile.tileSize / scalingData.tile.columnLength,
-    );
     const playerCenter: Position = {
       x: position.x + PLAYER_CENTER_OFFSETS.HORIZONTAL,
       y: position.y + PLAYER_CENTER_OFFSETS.VERTICAL,
     };
-    const translated: Position = {
-      x: Math.round(playerCenter.x / (scale * scalingData.tile.tileSize)),
-      y: Math.round(playerCenter.y / (scale * scalingData.tile.tileSize)),
-    };
-    const rowIncrement = direction === 'LEFT' ? -1 : direction === 'RIGHT' ? 1 : 0;
-    const colIncrement = direction === 'FORWARD' ? -1 : direction === 'BACKWARD' ? 1 : 0;
-
-    const newX = translated.x + rowIncrement;
-    const newY = translated.y + colIncrement;
 
     // currently you can only colide with one object at a time
     const collidingWith = dynamicCollisionBoundary.find(boundary => {
       const lowerBoundary = boundary.boundingBox[0];
       const upperBoundary = boundary.boundingBox[1];
       if (
-        newX >= lowerBoundary.x &&
-        newX <= upperBoundary.x &&
-        newY >= lowerBoundary.y &&
-        newY <= upperBoundary.y
+        playerCenter.x >= lowerBoundary.x &&
+        playerCenter.x <= upperBoundary.x &&
+        playerCenter.y >= lowerBoundary.y &&
+        playerCenter.y <= upperBoundary.y
       ) {
         return true;
       }

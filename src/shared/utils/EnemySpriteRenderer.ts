@@ -92,8 +92,9 @@ export abstract class EnemySpriteRenderer {
 
   public getBoundingBox(): ObjectiveBoundingBox {
     return [
-      { x: this.positionInCanvas.x, y: this.positionInCanvas.y },
-      { x: this.positionInCanvas.x + 16, y: this.positionInCanvas.y + 32 },
+      { x: this.positionInCanvas.x - 28, y: this.positionInCanvas.y - 28 },
+      // this technically depends on screen size
+      { x: this.positionInCanvas.x + 28, y: this.positionInCanvas.y + 42 },
     ];
   }
 }

@@ -31,7 +31,7 @@ export function getMazeParameters(questionId: number): {
   if (questionId === 0) {
     return {
       boundingBox: [
-        { x: 11, y: 4 },
+        { x: 11, y: 3 },
         { x: 11, y: 5 },
       ],
       playerInit: {
