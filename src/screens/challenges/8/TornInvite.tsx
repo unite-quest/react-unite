@@ -84,11 +84,15 @@ function TornInvite() {
           openDrawer({ title: 'Dica', message: tipForGuestName });
         }}
         Footer={
-          <ChallengeFooter
-            onClick={submit}
-            title={`Submeter (${totalGuestsSubmitted}/${totalGuests})`}
-            disabled={!answer}
-          />
+          answer ? (
+            <ChallengeFooter
+              onClick={submit}
+              title={`Submeter (${totalGuestsSubmitted}/${totalGuests})`}
+              disabled={!answer}
+            />
+          ) : (
+            <></>
+          )
         }
       >
         <ScrambledGuestName name={guestName} />
@@ -96,6 +100,9 @@ function TornInvite() {
         <input
           ref={answerInput}
           onKeyUp={({ key }) => (key === 'Enter' ? submit() : null)}
+          onFocus={() => {
+            window.scrollTo(0, window.innerHeight);
+          }}
           value={answer}
           className="border-2 border-dark-green w-full p-3 rounded-2xl font-roboto text-lg font-medium"
           onChange={e => setAnswer(e.target.value)}
