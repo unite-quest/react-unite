@@ -20,15 +20,11 @@ export class CorridorsFloorTileset extends TilesetStaticTransposer {
   public getTiles(): number[][] {
     return [
       // number of columns and rows is very important for scaling
-      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, 478, 478, EMP],
-      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, 478, 478, EMP],
-      [EMP, 478, 478, 478, 478, 478, 478, 478, 478, 478, 478, EMP],
-      [EMP, 478, 478, 478, 478, 478, 478, 478, 478, 478, 478, EMP],
-      [EMP, 478, 478, 478, 478, 478, 478, 478, 478, 478, 478, EMP],
-      [EMP, 478, 478, 478, 478, 478, 478, 478, 478, 478, 478, 477],
-      [478, 478, 478, 478, 478, 478, 478, 478, 478, 478, 478, 477],
-      [478, 478, 478, 478, 478, 478, 478, 478, 478, 478, 478, 477],
-      [EMP, 478, 478, 478, 478, 478, 478, 478, 478, 478, 478, EMP],
+      [EMP, EMP, 478, 478, 478, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
+      [EMP, 478, 478, 478, 478, 478, 478, 478, 478, 478, 478, 478],
+      [EMP, 478, 478, 478, 478, 478, 478, 478, 478, 478, 478, 478],
+      [EMP, 478, 478, 478, 478, 478, 478, 478, 478, 478, 478, 478],
+      [EMP, 478, 478, 478, 478, 478, 478, 478, 478, 478, 478, 478],
       [EMP, 478, 478, 478, 478, 478, 478, 478, 478, 478, 478, EMP],
       [EMP, 478, 478, 478, 478, 478, 478, 478, 478, 478, 478, EMP],
       [EMP, 478, 478, 478, 478, 478, 478, 478, 478, 478, 478, EMP],
@@ -41,8 +37,12 @@ export class CorridorsFloorTileset extends TilesetStaticTransposer {
       [EMP, 478, 478, 478, 478, 478, 478, 478, 478, 478, 478, EMP],
       [EMP, 478, 478, 478, 478, 478, 478, 478, 478, 478, 478, EMP],
       [EMP, 478, 478, 478, 478, 478, 478, 478, 478, 478, 478, EMP],
-      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
-      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
+      [EMP, 478, 478, 478, 478, 478, 478, 478, 478, 478, 478, EMP],
+      [EMP, 478, 478, 478, 478, 478, 478, 478, 478, 478, 478, EMP],
+      [EMP, 478, 478, 478, 478, 478, 478, 478, 478, 478, 478, EMP],
+      [EMP, 478, 478, 478, 478, 478, 478, 478, 478, 478, 478, EMP],
+      [EMP, EMP, EMP, EMP, 478, 478, 478, 478, EMP, EMP, EMP],
+      [EMP, EMP, EMP, EMP, 478, 478, 478, 478, EMP, EMP, EMP, EMP],
       [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
     ];
   }

@@ -2,7 +2,7 @@ import { CanvasMetadata } from '@/shared/utils/maze/TilesetExtractor';
 import { TilesetStaticTransposer } from '@/shared/utils/maze/TilesetStaticTransposer';
 
 const EMP = 1687;
-export class CorridorsHospitalTileset extends TilesetStaticTransposer {
+export class CorridorsHospitalTileset3 extends TilesetStaticTransposer {
   constructor(canvasMetadata: CanvasMetadata, tileset: HTMLImageElement) {
     super(
       canvasMetadata,
@@ -20,21 +20,21 @@ export class CorridorsHospitalTileset extends TilesetStaticTransposer {
   public getTiles(): number[][] {
     return [
       [EMP, EMP, EMP, 204, 205, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
-      [EMP, EMP, 327, 190, 191, 673, EMP, EMP, EMP, EMP, EMP, EMP],
-      [EMP, 297, 343, 236, 237, 689, EMP, EMP, EMP, EMP, EMP, EMP],
-      [EMP, 313, 273, 275, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
-      [EMP, 345, 289, 290, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
-      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
-      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
-      [EMP, EMP, EMP, EMP, EMP, 597, 598, EMP, 593, 651, 652, EMP],
-      [EMP, EMP, EMP, 521, 522, 613, 614, EMP, 609, 557, 558, EMP],
-      [EMP, EMP, EMP, 537, 538, 629, 630, EMP, EMP, 541, 542, EMP],
-      [EMP, EMP, EMP, EMP, EMP, 645, 646, EMP, EMP, EMP, EMP, EMP],
-      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
-      [EMP, 570, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
-      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
-      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
-      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
+      [EMP, 241, 327, 190, 191, 673, EMP, EMP, EMP, EMP, EMP, EMP],
+      [EMP, 257, 343, 236, 237, 689, EMP, EMP, EMP, EMP, EMP, EMP],
+      [EMP, 329, 273, 275, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
+      [EMP, 345, 289, 290, EMP, EMP, EMP, 295, 327, 295, EMP, EMP],
+      [EMP, EMP, EMP, EMP, EMP, EMP, 329, 311, 343, 311, 226, EMP],
+      [EMP, EMP, EMP, EMP, EMP, EMP, 345, EMP, EMP, EMP, 242, EMP],
+      [EMP, EMP, EMP, 594, EMP, 597, 598, EMP, EMP, EMP, 492, EMP],
+      [EMP, EMP, EMP, 610, EMP, 613, 614, EMP, EMP, EMP, EMP, EMP],
+      [EMP, EMP, EMP, EMP, EMP, 631, 632, EMP, EMP, EMP, EMP, EMP],
+      [EMP, EMP, EMP, EMP, EMP, 647, 648, EMP, EMP, EMP, EMP, EMP],
+      [EMP, 631, 632, EMP, EMP, 663, 664, EMP, EMP, EMP, EMP, EMP],
+      [EMP, 647, 648, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
+      [EMP, 667, 664, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
+      [EMP,  34, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
+      [EMP,  50, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
       [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
       [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
       [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],

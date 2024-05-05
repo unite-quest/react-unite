@@ -9,6 +9,9 @@ import { EntrywayWallTileset } from 'src/screens/challenges/5/level1/EntrywayWal
 import { CorridorsBorderTileset } from 'src/screens/challenges/5/level2/CorridorsBorderTileset';
 import { CorridorsFloorTileset } from 'src/screens/challenges/5/level2/CorridorsFloorTileset';
 import { CorridorsHospitalTileset } from 'src/screens/challenges/5/level2/CorridorsHospitalTileset';
+import { CorridorsHospitalTileset2 } from 'src/screens/challenges/5/level2/CorridorsHospitalTileset2';
+import { CorridorsHospitalTileset3 } from 'src/screens/challenges/5/level2/CorridorsHospitalTileset3';
+import { CorridorsGenericTileset } from 'src/screens/challenges/5/level2/CorridorsGenericTileset';
 import { CorridorsWallTileset } from 'src/screens/challenges/5/level2/CorridorsWallTileset';
 import characterArmor from '../../assets/maze/armor.png';
 import borders from '../../assets/maze/background/borders.png';
@@ -103,7 +106,10 @@ export function useLoadSprites(
           new CorridorsFloorTileset(canvasMetadata, floorsRef.current),
           new CorridorsBorderTileset(canvasMetadata, bordersRef.current),
           new CorridorsWallTileset(canvasMetadata, wallsRef.current),
+          new CorridorsGenericTileset(canvasMetadata, genericRef.current),
           new CorridorsHospitalTileset(canvasMetadata, elementsRef.current),
+          new CorridorsHospitalTileset2(canvasMetadata, elementsRef.current),
+          new CorridorsHospitalTileset3(canvasMetadata, elementsRef.current),
         ]);
       }
     });
