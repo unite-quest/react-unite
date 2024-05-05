@@ -118,7 +118,6 @@ function LogicGatesChallenge() {
     const lamp2 = !(!(inputs[3] || inputs[4]) && inputs[5] === inputs[6]);
     const lamp3 = (inputs[7] || inputs[8]) !== inputs[11];
     const lamp4 = !inputs[11] === !inputs[10];
-    console.log([lamp1, lamp2, lamp3, lamp4]);
     return [lamp1, lamp2, lamp3, lamp4];
   };
 

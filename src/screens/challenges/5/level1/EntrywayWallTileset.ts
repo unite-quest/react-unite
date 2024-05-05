@@ -20,9 +20,9 @@ export class EntrywayWallTileset extends TilesetStaticTransposer {
   public getTiles(): number[][] {
     return [
       [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
-      [EMP, 855, 791, 855, 791, 855, EMP, EMP, EMP, EMP, EMP, EMP],
-      [EMP, 887, 823, 887, 823, 887, 790, 855, 791, 855, 791, EMP],
-      [EMP, 700, 700, 700, 700, 700, 822, 887, 823, 887, 823, EMP],
+      [EMP, 971, 972, 973, EMP, 974, EMP, EMP, EMP, EMP, EMP, EMP],
+      [EMP, 1003, 1004, 1005, EMP, 1006, 971, 972, 972, 972, 973, EMP],
+      [EMP, 700, 700, 700, 700, 700, 1003, 1004, 1004, 1004, 1005, EMP],
       [EMP, 700, 700, 700, 700, 700, 700, 700, 700, 700, 700, EMP],
       [EMP, 700, 700, 700, 700, 700, 700, EMP, EMP, EMP, EMP, EMP],
       [EMP, 700, 700, 700, 700, 700, 700, EMP, EMP, EMP, EMP, EMP],

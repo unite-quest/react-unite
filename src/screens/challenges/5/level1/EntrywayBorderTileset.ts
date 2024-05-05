@@ -20,7 +20,7 @@ export class EntrywayBorderTileset extends TilesetStaticTransposer {
   public getTiles(): number[][] {
     return [
       [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
-      [51, 52, 52, 52, 52, 52, 53, EMP, EMP, EMP, EMP, EMP],
+      [51, 52, 52, 52, EMP, 52, 53, EMP, EMP, EMP, EMP, EMP],
       [96, EMP, EMP, EMP, EMP, EMP, 48, 52, 52, 52, 52, EMP],
       [96, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, 477, EMP],
       [96, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, 477, EMP],

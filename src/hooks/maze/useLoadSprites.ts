@@ -4,6 +4,7 @@ import { MutableRefObject, useEffect, useRef, useState } from 'react';
 import { EntrywayBorderTileset } from 'src/screens/challenges/5/level1/EntrywayBorderTileset';
 import { EntrywayFloorTileset } from 'src/screens/challenges/5/level1/EntrywayFloorTileset';
 import { EntrywayHospitalTileset } from 'src/screens/challenges/5/level1/EntrywayHospitalTileset';
+import { EntrywayHospitalTileset2 } from 'src/screens/challenges/5/level1/EntrywayHospitalTileset2';
 import { EntrywayWallTileset } from 'src/screens/challenges/5/level1/EntrywayWallTileset';
 import { CorridorsBorderTileset } from 'src/screens/challenges/5/level2/CorridorsBorderTileset';
 import { CorridorsFloorTileset } from 'src/screens/challenges/5/level2/CorridorsFloorTileset';
@@ -12,10 +13,12 @@ import { CorridorsWallTileset } from 'src/screens/challenges/5/level2/CorridorsW
 import characterArmor from '../../assets/maze/armor.png';
 import borders from '../../assets/maze/background/borders.png';
 import floors from '../../assets/maze/background/floors.png';
+import generic from '../../assets/maze/background/generic.png';
 import hospitalElements from '../../assets/maze/background/hospital.png';
 import walls from '../../assets/maze/background/walls.png';
 import characterSpriteSheet from '../../assets/maze/character-base.png';
 import characterHair from '../../assets/maze/hair.png';
+import { EntrywayGenericTileset } from 'src/screens/challenges/5/level1/EntrywayGenericTileset';
 
 function getMappedTileMetadata(questionId: number): MappedTileMetadata {
   if (questionId === 0) {
@@ -55,6 +58,7 @@ export function useLoadSprites(
   const [tilesets, setTilesets] = useState<TilesetStaticTransposer[]>([]);
   const [tilesetLoaded, setTilesetLoaded] = useState(false);
   const floorsRef = useRef(new Image());
+  const genericRef = useRef(new Image());
   const bordersRef = useRef(new Image());
   const wallsRef = useRef(new Image());
   const elementsRef = useRef(new Image());
@@ -64,6 +68,7 @@ export function useLoadSprites(
 
   useEffect(() => {
     elementsRef.current.src = hospitalElements;
+    genericRef.current.src = generic;
     bordersRef.current.src = borders;
     wallsRef.current.src = walls;
     floorsRef.current.src = floors;
@@ -73,6 +78,7 @@ export function useLoadSprites(
 
     const imagesLoaded = Promise.all([
       new Promise(resolve => (bordersRef.current.onload = resolve)),
+      new Promise(resolve => (genericRef.current.onload = resolve)),
       new Promise(resolve => (wallsRef.current.onload = resolve)),
       new Promise(resolve => (floorsRef.current.onload = resolve)),
       new Promise(resolve => (elementsRef.current.onload = resolve)),
@@ -89,6 +95,8 @@ export function useLoadSprites(
           new EntrywayBorderTileset(canvasMetadata, bordersRef.current),
           new EntrywayWallTileset(canvasMetadata, wallsRef.current),
           new EntrywayHospitalTileset(canvasMetadata, elementsRef.current),
+          new EntrywayHospitalTileset2(canvasMetadata, elementsRef.current),
+          new EntrywayGenericTileset(canvasMetadata, genericRef.current),
         ]);
       } else if (questionId === 1) {
         setTilesets([
