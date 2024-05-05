@@ -1,6 +1,12 @@
 export type Direction = 'FORWARD' | 'RIGHT' | 'LEFT' | 'BACKWARD' | null;
 export type Position = { x: number; y: number };
 
+const enableDebugCenter = false;
+export const PLAYER_CENTER_OFFSETS = {
+  HORIZONTAL: 44,
+  VERTICAL: 56,
+};
+
 function getCharacterSpriteCoordinates(
   direction: Direction,
   tick: number,
@@ -55,4 +61,13 @@ export function drawPlayer(
     spriteSize * scale,
     spriteSize * scale,
   );
+
+  if (enableDebugCenter) {
+    ctx.fillRect(
+      position.x + PLAYER_CENTER_OFFSETS.HORIZONTAL,
+      position.y + PLAYER_CENTER_OFFSETS.VERTICAL,
+      10,
+      10,
+    );
+  }
 }

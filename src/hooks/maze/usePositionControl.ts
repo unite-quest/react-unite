@@ -4,7 +4,7 @@ import {
   DynamicCollisionBoundary,
   PlayerInitialParameters,
 } from '@/shared/utils/maze/mazeLevelMetadata';
-import { Direction, Position } from '@/shared/utils/maze/playerDrawer';
+import { Direction, PLAYER_CENTER_OFFSETS, Position } from '@/shared/utils/maze/playerDrawer';
 import { useEffect, useState } from 'react';
 
 function translatePositionToCanvas(scaling: ScalingData, originalPosition: Position): Position {
@@ -37,10 +37,23 @@ export function usePositionControl(
   const [collision, setCollision] = useState<DynamicCollisionBoundary | null>(null);
 
   useEffect(() => {
-    const rowIncrement = direction === 'LEFT' ? -24 : direction === 'RIGHT' ? 24 : 0;
-    const colIncrement = direction === 'FORWARD' ? -24 : direction === 'BACKWARD' ? 24 : 0;
-    const newY = position.y + colIncrement + 40;
-    const newX = position.x + rowIncrement + 40;
+    // TODO should represent position in tile coordinates instead
+    const scale = Math.round(
+      scalingData.canvas.width / scalingData.tile.tileSize / scalingData.tile.columnLength,
+    );
+    const playerCenter: Position = {
+      x: position.x + PLAYER_CENTER_OFFSETS.HORIZONTAL,
+      y: position.y + PLAYER_CENTER_OFFSETS.VERTICAL,
+    };
+    const translated: Position = {
+      x: Math.round(playerCenter.x / (scale * scalingData.tile.tileSize)),
+      y: Math.round(playerCenter.y / (scale * scalingData.tile.tileSize)),
+    };
+    const rowIncrement = direction === 'LEFT' ? -1 : direction === 'RIGHT' ? 1 : 0;
+    const colIncrement = direction === 'FORWARD' ? -1 : direction === 'BACKWARD' ? 1 : 0;
+
+    const newX = translated.x + rowIncrement;
+    const newY = translated.y + colIncrement;
 
     // currently you can only colide with one object at a time
     const collidingWith = dynamicCollisionBoundary.find(boundary => {
@@ -58,7 +71,15 @@ export function usePositionControl(
     });
 
     setCollision(collidingWith || null);
-  }, [direction, dynamicCollisionBoundary, position.x, position.y]);
+  }, [
+    direction,
+    dynamicCollisionBoundary,
+    position.x,
+    position.y,
+    scalingData.canvas.width,
+    scalingData.tile.columnLength,
+    scalingData.tile.tileSize,
+  ]);
 
   useEffect(() => {
     const throttleTicks = 1; // Throttles the position update
@@ -117,7 +138,10 @@ export function usePositionControl(
   }, [collision, direction, lastUpdateTick, tick, tilesets]); // Include dependencies that affect the effect
 
   useEffect(() => {
-    console.log(direction, position);
+    console.log(direction, {
+      x: position.x + PLAYER_CENTER_OFFSETS.HORIZONTAL,
+      y: position.y + PLAYER_CENTER_OFFSETS.VERTICAL,
+    });
   }, [direction, position]);
 
   return {

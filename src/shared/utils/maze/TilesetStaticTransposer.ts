@@ -1,5 +1,5 @@
 import { CanvasMetadata, TilesetExtractor, TilesetMetadata } from './TilesetExtractor';
-import { Direction, Position } from './playerDrawer';
+import { Direction, PLAYER_CENTER_OFFSETS, Position } from './playerDrawer';
 
 export abstract class TilesetStaticTransposer {
   canvasMetadata: CanvasMetadata;
@@ -66,13 +66,14 @@ export abstract class TilesetStaticTransposer {
       this.canvasMetadata.width / this.tilesetMetadata.tileSize / tiles[0].length,
     );
     const playerCenter: Position = {
-      x: playerPosition.x + 32,
-      y: playerPosition.y + 32,
+      x: playerPosition.x + PLAYER_CENTER_OFFSETS.HORIZONTAL,
+      y: playerPosition.y + PLAYER_CENTER_OFFSETS.VERTICAL,
     };
     const translated: Position = {
       x: Math.round(playerCenter.x / (scale * this.tilesetMetadata.tileSize)),
       y: Math.round(playerCenter.y / (scale * this.tilesetMetadata.tileSize)),
     };
+    console.log('playerCenter', scale, playerCenter, translated);
 
     // create increments based on direction
     const rowIncrement = playerDirection === 'LEFT' ? -1 : playerDirection === 'RIGHT' ? 1 : 0;
@@ -93,7 +94,7 @@ export abstract class TilesetStaticTransposer {
     // actual colision check
     const newTile = tiles[newX][newY];
     if (this.getCollidingTiles().includes(newTile)) {
-      console.log('[Tileset] colliding with ', this.tilesetMetadata.name);
+      console.log(`[Tileset] colliding with ${this.tilesetMetadata.name}: ${newTile}`);
       return true;
     }
     return false;
