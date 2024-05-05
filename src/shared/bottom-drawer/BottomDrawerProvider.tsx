@@ -49,7 +49,9 @@ export const BottomDrawerProvider: React.FC<PropsWithChildren> = ({ children }) 
       {drawerInfo ? (
         <div className="w-full h-full fixed top-0 left-0 z-50">
           <div className="w-full h-full absolute top-0 left-0 bg-black opacity-75 z-60"></div>
-          <div className="w-full absolute bottom-0 left-0 bg-white z-70 rounded-t-3xl text-left p-8 overflow-auto">
+          <div
+            className={`w-full ${drawerInfo.image ? 'h-full' : ''} absolute bottom-0 left-0 bg-white z-70 rounded-t-3xl text-left p-8 overflow-auto`}
+          >
             <div className="flex justify-end">
               <button
                 className="h-10 w-10 rounded-full border-black border-2 items-center justify-center"
