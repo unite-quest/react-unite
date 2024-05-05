@@ -11,4 +11,20 @@ export class CorridorsStaticEnemyDoctorSprite extends EnemySpriteRenderer {
   ) {
     super('StaticEnemyDoctor', characterSprite, 'FORWARD', position, scalingData, tick);
   }
+
+  public getCanvasPositionByTick(): Position {
+    return {
+      x: this.position.x * this.scale * 16,
+      y: this.position.y * this.scale * 16,
+    };
+  }
+
+  public getSpriteDimensions(): { lowX: number; highX: number; lowY: number; highY: number } {
+    return {
+      lowX: 28,
+      lowY: 28,
+      highX: 28,
+      highY: 42,
+    };
+  }
 }

@@ -3,14 +3,13 @@ import { ObjectiveBoundingBox } from './maze/mazeLevelMetadata';
 import { Direction, Position } from './maze/playerDrawer';
 
 export abstract class EnemySpriteRenderer {
-  private entityId: string;
-  private characterSprite: HTMLImageElement;
-  private direction: Direction;
-  private position: Position;
+  protected entityId: string;
+  protected characterSprite: HTMLImageElement;
+  protected direction: Direction;
+  protected position: Position;
   scalingData: ScalingData;
-  private tick: number;
-  private scale: number;
-  private positionInCanvas: Position;
+  protected tick: number;
+  protected scale: number;
 
   constructor(
     entityId: string,
@@ -31,12 +30,15 @@ export abstract class EnemySpriteRenderer {
       this.scalingData.canvas.width /
       this.scalingData.tile.columnLength /
       this.scalingData.tile.tileSize;
-
-    this.positionInCanvas = {
-      x: this.position.x * this.scale * 16,
-      y: this.position.y * this.scale * 16,
-    };
   }
+
+  public abstract getCanvasPositionByTick(): Position;
+  public abstract getSpriteDimensions(): {
+    lowX: number;
+    highX: number;
+    lowY: number;
+    highY: number;
+  };
 
   private getCharacterSpriteCoordinates(): Position {
     let tilePosition = 0;
@@ -72,6 +74,7 @@ export abstract class EnemySpriteRenderer {
     const spriteWidth = 16;
     const spriteHeight = 32;
     const coordinatesInSprite = this.getCharacterSpriteCoordinates();
+    const positionInCanvas = this.getCanvasPositionByTick();
 
     canvas.drawImage(
       this.characterSprite,
@@ -79,8 +82,8 @@ export abstract class EnemySpriteRenderer {
       coordinatesInSprite.y,
       spriteWidth,
       spriteHeight,
-      this.positionInCanvas.x,
-      this.positionInCanvas.y,
+      positionInCanvas.x,
+      positionInCanvas.y,
       spriteWidth * this.scale,
       spriteHeight * this.scale,
     );
@@ -91,10 +94,12 @@ export abstract class EnemySpriteRenderer {
   }
 
   public getBoundingBox(): ObjectiveBoundingBox {
+    const positionInCanvas = this.getCanvasPositionByTick();
+    const { lowX, highX, lowY, highY } = this.getSpriteDimensions();
+
     return [
-      { x: this.positionInCanvas.x - 28, y: this.positionInCanvas.y - 28 },
-      // this technically depends on screen size
-      { x: this.positionInCanvas.x + 28, y: this.positionInCanvas.y + 42 },
+      { x: positionInCanvas.x - lowX, y: positionInCanvas.y - highX },
+      { x: positionInCanvas.x + lowY, y: positionInCanvas.y + highY },
     ];
   }
 }

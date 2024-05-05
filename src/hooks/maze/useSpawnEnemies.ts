@@ -2,6 +2,7 @@ import { EnemySpriteRenderer } from '@/shared/utils/EnemySpriteRenderer';
 import { ScalingData } from '@/shared/utils/maze/TilesetExtractor';
 import { DynamicCollisionBoundary } from '@/shared/utils/maze/mazeLevelMetadata';
 import { useEffect, useRef, useState } from 'react';
+import { CorridorsMovingEnemyDoctorSprite } from 'src/screens/challenges/5/level2/CorridorsMovingEnemyDoctorSprite';
 import { CorridorsStaticEnemyDoctorSprite } from 'src/screens/challenges/5/level2/CorridorsStaticEnemyDoctorSprite';
 import enemy from '../../assets/maze/sample-enemy.png';
 
@@ -37,12 +38,23 @@ export function useSpawnEnemies(
           scalingData,
           tick,
         );
-        setEnemies([doctor]);
+        const movingDoctor = new CorridorsMovingEnemyDoctorSprite(
+          enemyRef.current,
+          { x: 10, y: 6 },
+          scalingData,
+          tick,
+        );
+        setEnemies([doctor, movingDoctor]);
         setEnemyCollisionBoundaries([
           {
             type: 'enemy',
             boundingBox: doctor.getBoundingBox(),
             onTouch: () => onCollide(doctor.getEntityId()),
+          },
+          {
+            type: 'enemy',
+            boundingBox: movingDoctor.getBoundingBox(),
+            onTouch: () => onCollide(movingDoctor.getEntityId()),
           },
         ]);
       }
