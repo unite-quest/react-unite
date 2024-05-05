@@ -18,12 +18,12 @@ export const logoMap: { questionId: string; image: string; tip: string }[] = [
   {
     questionId: '1',
     image: logo1,
-    tip: 'É um jogo eletrônico de quebra-cabeça com elementos de RPG e estratégia, desenvolvido e publicado pela GungHo Online Entertainment',
+    tip: 'É um jogo eletrônico de quebra-cabeça com elementos de RPG e estratégia. Esse jogo é a combinação de "quebra-cabeça" e uma criatura mítica que começa com "D" - tudo em inglês.',
   },
   {
     questionId: '2',
     image: logo2,
-    tip: 'O jogo consiste no desenvolvimento de uma vila com a nomeação da preferência do jogador, com o objetivo de melhorá-la e torná-la capaz de defender-se de ataques de outros jogadores.',
+    tip: 'O nome desse jogo lembra um grande confronto entre comunidades.',
   },
   {
     questionId: '3',
@@ -33,7 +33,7 @@ export const logoMap: { questionId: string; image: string; tip: string }[] = [
   {
     questionId: '4',
     image: logo4,
-    tip: 'Nesse jogo você é um fazendeiro em um barraco de madeira com seu cônjuge. Em um turno, você começa a ter apenas duas ações, um para você e um para o cônjuge, de todas as possibilidades que você encontrará em uma fazenda: recolher barro, madeira ou pedra, cercas de construção, e assim por diante.',
+    tip: 'Esse jogo de tabuleiro tem o foco em alimentar suas famílias enquanto expandem suas fazendas. O nome do jogo é relacionado a prática de cultivar plantas e criar gado.',
   },
   {
     questionId: '5',
@@ -53,7 +53,7 @@ export const logoMap: { questionId: string; image: string; tip: string }[] = [
   {
     questionId: '8',
     image: logo8,
-    tip: 'É um arcade musical onde os jogadores devem acertar corretamente os painéis que correspondem às notas que aparecem na tela. As primeiras três letras são "jub"',
+    tip: 'É um arcade musical onde os jogadores devem acertar corretamente os painéis que correspondem às notas que aparecem na tela. As primeiras três letras são "jub" (e as outras estão na imagem)',
   },
   {
     questionId: '9',
@@ -68,12 +68,12 @@ export const logoMap: { questionId: string; image: string; tip: string }[] = [
   {
     questionId: '11',
     image: logo11,
-    tip: 'É um jogo de puzzle lançado pela King em 12 de abril de 2012. ',
+    tip: 'É um jogo de puzzle lançado pela King em 12 de abril de 2012. O nome trás a ideia de esmagar doces.',
   },
   {
     questionId: '12',
     image: logo12,
-    tip: 'É um jogo de tiro em primeira pessoa, lançado em 2004 pela Valve Corporation.',
+    tip: 'É um jogo de tiro em primeira pessoa, onde equipes de terroristas e contra-terroristas se enfrentam em diversas missões.',
   },
   {
     questionId: '13',
@@ -88,6 +88,6 @@ export const logoMap: { questionId: string; image: string; tip: string }[] = [
   {
     questionId: '15',
     image: logo15,
-    tip: 'É um jogo de cartas estratégico on-line desenvolvido e publicado pela empresa Blizzard Entertainment.',
+    tip: 'É um jogo de cartas estratégico on-line desenvolvido e publicado pela empresa Blizzard Entertainment. O nome do jogo traduz para "pedra de lareira".',
   },
 ];

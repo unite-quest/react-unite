@@ -1,5 +1,6 @@
 import { ChallengeFooter } from '@/components/shell/ChallengeFooter';
 import { ChallengeScreen } from '@/components/shell/ChallengeScreen';
+import { StackSpacing } from '@/components/ui/stack-spacing';
 import { LogoQuizTile } from '@/components/ui/tile';
 import { LoaderContext } from '@/shared/loader/LoaderProvider';
 import { ModalContext } from '@/shared/modal/ModalProvider';
@@ -89,6 +90,7 @@ function LogoQuizChallenge() {
             );
           })}
         </div>
+        <StackSpacing size="xl" />
       </ChallengeScreen>
     </>
   );
