@@ -62,10 +62,10 @@ function MediMazeAdventureDetails() {
       },
     });
   };
-  const onCollideWithEnemy = (entityId: string) => {
+  const onCollideWithEnemy = () => {
     openModal({
       type: 'failure',
-      message: `Você colidiu com o inimigo ${entityId}, aperte X para recomeçar`,
+      message: `A equipe médica encontrou você com uma coxinha e você foi expulso dessa sala! Aperte X para recomeçar`,
       dismiss: () => {
         location.reload();
       },

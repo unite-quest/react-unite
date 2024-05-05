@@ -1,7 +1,7 @@
 export type Direction = 'FORWARD' | 'RIGHT' | 'LEFT' | 'BACKWARD' | null;
 export type Position = { x: number; y: number };
 
-const enableDebugCenter = true;
+const enableDebugCenter = false;
 export const PLAYER_SCALE = 1.6;
 export const PLAYER_OFFSET_TO_ZERO = {
   HORIZONTAL: 24 * PLAYER_SCALE,
