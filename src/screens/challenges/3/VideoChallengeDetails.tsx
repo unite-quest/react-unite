@@ -3,6 +3,7 @@ import { ChallengeScreen } from '@/components/shell/ChallengeScreen';
 import { UniteRadio } from '@/components/ui/radio';
 import { StackSpacing } from '@/components/ui/stack-spacing';
 import { UniteText } from '@/components/ui/unite-text';
+import { BottomDrawerContext } from '@/shared/bottom-drawer/BottomDrawerProvider';
 import { ModalContext } from '@/shared/modal/ModalProvider';
 import { validateAndPersistAnswer } from '@/shared/utils/validateAnswer';
 import { useContext, useState } from 'react';
@@ -80,6 +81,7 @@ const answerMetadataForQuestion: VideoAnswerMetadata[] = [
 ];
 
 function VideoChallengeDetails() {
+  const { openDrawer } = useContext(BottomDrawerContext);
   const { openModal } = useContext(ModalContext);
   const navigate = useNavigate();
   const { id: challengeId } = useCurrentChallenge();
@@ -121,9 +123,17 @@ function VideoChallengeDetails() {
 
   const answerMeta = answerMetadataForQuestion[questionId];
 
+  const askForTip = () => {
+    openDrawer({
+      title: 'Dica',
+      message: answerMeta.tip,
+    });
+  };
+
   return (
     <>
       <ChallengeScreen
+        onTipClick={askForTip}
         Footer={<ChallengeFooter title="Submeter" onClick={submitAnswer} disabled={!answer} />}
       >
         <UniteText size="md" weight="bold">
