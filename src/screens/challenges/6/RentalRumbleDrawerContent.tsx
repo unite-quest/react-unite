@@ -8,23 +8,6 @@ import gabriel from '../../../assets/gabriel-profile.png';
 import mimi from '../../../assets/mimi-profile.png';
 import mochi from '../../../assets/mochi-profile.webp';
 
-function fromKeyToLabel(key: string): string {
-  switch (key) {
-    case 'location':
-      return 'Localização';
-    case 'view':
-      return 'Vista';
-    case 'interior':
-      return 'Interior';
-    case 'exterior':
-      return 'Exterior';
-    case 'facilities':
-      return 'Comodidades';
-    default:
-      return 'Localização';
-  }
-}
-
 export const RentalRumbleDrawerContent: React.FC<{
   place: LivingConditions;
   onReject: () => void;
@@ -32,15 +15,15 @@ export const RentalRumbleDrawerContent: React.FC<{
 }> = ({ place, onReject, onApprove }) => {
   return (
     <>
-      {Object.entries(place.ratings).map(([key, rating]) => {
+      {place.ratings.map(({ name, score }) => {
         return (
-          <div key={key} className="flex justify-between">
+          <div key={name} className="flex justify-between">
             <div>
-              <UniteText>{fromKeyToLabel(key)}</UniteText>
+              <UniteText>{name}</UniteText>
             </div>
             <div className="flex items-center">
-              <Rating count={rating} />
-              <UniteText weight="bold">{rating}/5</UniteText>
+              <Rating count={score} />
+              <UniteText weight="bold">{score}/5</UniteText>
             </div>
           </div>
         );

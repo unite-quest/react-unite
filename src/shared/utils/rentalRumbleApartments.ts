@@ -10,12 +10,7 @@ enum Rating {
 export type LivingConditions = {
   title: string;
   image: string;
-  ratings: {
-    location: Rating;
-    view: Rating;
-    interior: Rating;
-    facilities: Rating;
-  };
+  ratings: { name: string; score: Rating }[];
   reviews: {
     user: 'Mochi' | 'Mimi' | 'Gabriel';
     review: string;
@@ -26,12 +21,24 @@ export const rentalRumbleApartments: LivingConditions[] = [
   {
     title: 'Apê no espaço sideral',
     image: 'https://gabrieltnishimura.github.io/unite/rental-rumble/space-apartment.webp',
-    ratings: {
-      location: Rating.TwoStars,
-      view: Rating.FourStars,
-      interior: Rating.ThreeStars,
-      facilities: Rating.OneStar,
-    },
+    ratings: [
+      {
+        name: 'Silêncio',
+        score: 5,
+      },
+      {
+        name: 'Localização',
+        score: 0,
+      },
+      {
+        name: 'Raios UV',
+        score: 1,
+      },
+      {
+        name: 'Floresta Negra',
+        score: 3,
+      },
+    ],
     reviews: [
       {
         user: 'Mochi',
@@ -39,7 +46,7 @@ export const rentalRumbleApartments: LivingConditions[] = [
       },
       {
         user: 'Mimi',
-        review: 'O Natural da Terra mais próximo daqui é a 30 anos luz!?',
+        review: 'iFood está falando que está fora da área de entrega =(',
       },
       {
         user: 'Gabriel',
@@ -50,12 +57,24 @@ export const rentalRumbleApartments: LivingConditions[] = [
   {
     title: 'Kitnet no meio do mar',
     image: 'https://gabrieltnishimura.github.io/unite/rental-rumble/sea-kitchen.webp',
-    ratings: {
-      location: Rating.ThreeStars,
-      view: Rating.FourStars,
-      interior: Rating.TwoStars,
-      facilities: Rating.ThreeStars,
-    },
+    ratings: [
+      {
+        name: 'Comida',
+        score: 5,
+      },
+      {
+        name: 'Banho do Mochi',
+        score: 2,
+      },
+      {
+        name: 'Felicidade do Mochi',
+        score: 5,
+      },
+      {
+        name: 'Maresia',
+        score: 3,
+      },
+    ],
     reviews: [
       {
         user: 'Mimi',
@@ -67,19 +86,31 @@ export const rentalRumbleApartments: LivingConditions[] = [
       },
       {
         user: 'Gabriel',
-        review: 'Isso é mais mar do que praia, mas beleza',
+        review: 'Isso é mais mar do que praia, mas gostei!',
       },
     ],
   },
   {
     title: 'Condomínio no deserto',
     image: 'https://gabrieltnishimura.github.io/unite/rental-rumble/desert-condo.webp',
-    ratings: {
-      location: Rating.OneStar,
-      view: Rating.FourStars,
-      interior: Rating.ThreeStars,
-      facilities: Rating.ThreeStars,
-    },
+    ratings: [
+      {
+        name: 'Patas Queimadas',
+        score: 0,
+      },
+      {
+        name: 'Temperatura',
+        score: 1,
+      },
+      {
+        name: 'Localização',
+        score: 2,
+      },
+      {
+        name: 'Salada de cactus',
+        score: 3,
+      },
+    ],
     reviews: [
       {
         user: 'Mochi',
@@ -98,16 +129,28 @@ export const rentalRumbleApartments: LivingConditions[] = [
   {
     title: 'Flat Caverna',
     image: 'https://gabrieltnishimura.github.io/unite/rental-rumble/stalagmite-flat.webp',
-    ratings: {
-      location: Rating.OneStar,
-      view: Rating.OneStar,
-      interior: Rating.ThreeStars,
-      facilities: Rating.OneStar,
-    },
+    ratings: [
+      {
+        name: 'Cogumelos',
+        score: 3,
+      },
+      {
+        name: 'Temperatura',
+        score: 4,
+      },
+      {
+        name: 'Iluminação',
+        score: 1,
+      },
+      {
+        name: 'Risco de queda',
+        score: 3,
+      },
+    ],
     reviews: [
       {
         user: 'Mochi',
-        review: 'Eu posso comer esse osso aqui em baixo?',
+        review: 'Achei um monte de ossos aqui em baixo!!',
       },
       {
         user: 'Mimi',
@@ -123,16 +166,28 @@ export const rentalRumbleApartments: LivingConditions[] = [
   {
     title: 'Chalé no zoológico',
     image: 'https://gabrieltnishimura.github.io/unite/rental-rumble/zoo-apartment.webp',
-    ratings: {
-      location: Rating.OneStar,
-      view: Rating.TwoStars,
-      interior: Rating.ThreeStars,
-      facilities: Rating.TwoStars,
-    },
+    ratings: [
+      {
+        name: 'Biodiversidade',
+        score: 5,
+      },
+      {
+        name: 'Excrementos',
+        score: 1,
+      },
+      {
+        name: 'Plantas',
+        score: 3,
+      },
+      {
+        name: 'Localização',
+        score: 4,
+      },
+    ],
     reviews: [
       {
         user: 'Mochi',
-        review: 'Se vocês me derem chinchila de café dá manhã eu topo',
+        review: 'Minha dieta seria composta de chinchila, ratinhos, esquilos - delícia!',
       },
       {
         user: 'Mimi',
@@ -140,23 +195,33 @@ export const rentalRumbleApartments: LivingConditions[] = [
       },
       {
         user: 'Gabriel',
-        review: 'Pelo menos dá pra ir pro supermercado daqui ¯\\_(ツ)_/¯',
+        review:
+          'De todos os outros, esse é o que tem mais cara de ter um supermercado perto HAHAHA',
       },
     ],
   },
   {
     title: 'Casa no fundo do mar',
     image: 'https://gabrieltnishimura.github.io/unite/rental-rumble/underthesea-house.webp',
-    ratings: {
-      location: Rating.TwoStars,
-      view: Rating.FourStars,
-      interior: Rating.ThreeStars,
-      facilities: Rating.OneStar,
-    },
+    ratings: [
+      {
+        name: 'Biodiversidade',
+        score: 4,
+      },
+      {
+        name: 'Hidropônico',
+        score: 3,
+      },
+      {
+        name: 'Localização',
+        score: 1,
+      },
+    ],
     reviews: [
       {
         user: 'Mochi',
-        review: 'Se eu for passear, preciso ir com tanque de oxigênio?',
+        review:
+          'Se eu for passear, preciso ir com tanque de oxigênio? Não gostei muito da ideia...',
       },
       {
         user: 'Mimi',
@@ -164,19 +229,27 @@ export const rentalRumbleApartments: LivingConditions[] = [
       },
       {
         user: 'Gabriel',
-        review: 'As pessoas vivem aqui!?',
+        review: 'As pessoas vivem aqui!? Imagina sair para trabalhar e encontrar com tubarões =*(',
       },
     ],
   },
   {
     title: 'Sobrado no metrô',
     image: 'https://gabrieltnishimura.github.io/unite/rental-rumble/subway-apartment.webp',
-    ratings: {
-      location: Rating.ZeroStars,
-      view: Rating.ZeroStars,
-      interior: Rating.ZeroStars,
-      facilities: Rating.FiveStars,
-    },
+    ratings: [
+      {
+        name: 'Barulho',
+        score: 0,
+      },
+      {
+        name: 'Hora do rush',
+        score: 0,
+      },
+      {
+        name: 'Cozinha "aberta"',
+        score: 5,
+      },
+    ],
     reviews: [
       {
         user: 'Mochi',
