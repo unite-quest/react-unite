@@ -20,10 +20,10 @@ export class EntrywayHospitalTileset extends TilesetStaticTransposer {
   public getTiles(): number[][] {
     return [
       [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
-      [EMP, EMP,   2,   3, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
-      [EMP,   5,  18,  19, EMP,   8, EMP, EMP, EMP, EMP, EMP, EMP],
-      [EMP,  21,   6,   7,  22,  24, EMP, EMP, EMP, EMP, EMP, EMP],
-      [EMP,  37,  38,  39,  39,  40, EMP, EMP, EMP, EMP, EMP, EMP],
+      [EMP, EMP, 2, 3, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
+      [EMP, 5, 18, 19, EMP, 8, EMP, EMP, EMP, EMP, EMP, EMP],
+      [EMP, 21, 6, 7, 22, 24, EMP, EMP, EMP, EMP, EMP, EMP],
+      [EMP, 37, 38, 39, 39, 40, EMP, EMP, EMP, EMP, EMP, EMP],
       [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
       [EMP, EMP, EMP, EMP, EMP, EMP, 155, EMP, EMP, EMP, EMP, EMP],
       [EMP, 297, EMP, EMP, EMP, EMP, 171, EMP, EMP, EMP, EMP, EMP],

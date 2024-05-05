@@ -9,7 +9,7 @@ export class CorridorsStaticEnemyDoctorSprite extends EnemySpriteRenderer {
     scalingData: ScalingData,
     tick: number,
   ) {
-    super('StaticEnemyDoctor', characterSprite, 'FORWARD', position, scalingData, tick,  false);
+    super('StaticEnemyDoctor', characterSprite, 'FORWARD', position, scalingData, tick, false);
   }
 
   public getCanvasPositionByTick(): Position {

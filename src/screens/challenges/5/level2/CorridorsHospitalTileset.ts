@@ -33,10 +33,10 @@ export class CorridorsHospitalTileset extends TilesetStaticTransposer {
       [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
       [EMP, 570, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
       [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
-      [EMP, EMP,   2,   3, EMP, EMP, 676, 677, EMP, EMP, EMP, EMP],
-      [EMP,   5,  18,  19, EMP,   8, 692, 693, EMP, EMP, EMP, EMP],
-      [EMP,  21,   6,   7,  22,  24, 708, 709, EMP, EMP, EMP, EMP],
-      [EMP,  37,  38,  39,  39,  40, EMP, EMP, EMP, EMP, EMP, EMP],
+      [EMP, EMP, 2, 3, EMP, EMP, 676, 677, EMP, EMP, EMP, EMP],
+      [EMP, 5, 18, 19, EMP, 8, 692, 693, EMP, EMP, EMP, EMP],
+      [EMP, 21, 6, 7, 22, 24, 708, 709, EMP, EMP, EMP, EMP],
+      [EMP, 37, 38, 39, 39, 40, EMP, EMP, EMP, EMP, EMP, EMP],
       [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
       [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
       [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
@@ -47,6 +47,6 @@ export class CorridorsHospitalTileset extends TilesetStaticTransposer {
   }
 
   public getCollidingTiles(): number[] {
-    return [241, 295, 21, 6, 7 , 22 , 226, 242];
+    return [241, 295, 21, 6, 7, 22, 226, 242];
   }
 }

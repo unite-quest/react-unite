@@ -3,7 +3,6 @@ import { Position } from '@/shared/utils/maze/playerDrawer';
 import { EnemySpriteRenderer } from '../../../../shared/utils/EnemySpriteRenderer';
 
 export class CorridorsMovingHorizontalEnemyDoctorSprite extends EnemySpriteRenderer {
-  //const tick2;
   constructor(
     characterSprite: HTMLImageElement,
     position: Position,
@@ -14,22 +13,22 @@ export class CorridorsMovingHorizontalEnemyDoctorSprite extends EnemySpriteRende
   }
 
   public getCanvasPositionByTick(): Position {
-
-    //const tick2 = 1;
-    const shouldGoForward = (this.tick % 88) < 43;
+    const shouldGoForward = this.tick % 88 < 43;
     if (shouldGoForward) {
-      this.direction= 'RIGHT'
+      this.direction = 'RIGHT';
     } else {
       this.direction = 'LEFT';
     }
 
     return {
-      x:shouldGoForward ? 170 + ((this.tick % 88)/4) * 10 : (280 - (((this.tick % 88) - 43)/4) * 10),
-      y:  this.position.y * this.scale * 16,
+      x: shouldGoForward
+        ? 170 + ((this.tick % 88) / 4) * 10
+        : 280 - (((this.tick % 88) - 43) / 4) * 10,
+      y: this.position.y * this.scale * 16,
     };
   }
 
-  public getSpriteDimensions(): { lowX: number; highX: number; lowY : number; highY: number } {
+  public getSpriteDimensions(): { lowX: number; highX: number; lowY: number; highY: number } {
     return {
       lowX: 28,
       lowY: 28,

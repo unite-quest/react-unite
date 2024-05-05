@@ -20,8 +20,8 @@ export class CorridorsGenericTileset extends TilesetStaticTransposer {
   public getTiles(): number[][] {
     return [
       [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
-      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, 135, 136, EMP,  43, EMP],
-      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, 151, 152, EMP,  59, EMP],
+      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, 135, 136, EMP, 43, EMP],
+      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, 151, 152, EMP, 59, EMP],
       [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
       [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
       [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
