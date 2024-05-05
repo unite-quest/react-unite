@@ -1,10 +1,16 @@
 export type Direction = 'FORWARD' | 'RIGHT' | 'LEFT' | 'BACKWARD' | null;
 export type Position = { x: number; y: number };
 
-const enableDebugCenter = false;
-export const PLAYER_CENTER_OFFSETS = {
-  HORIZONTAL: 44,
-  VERTICAL: 56,
+const enableDebugCenter = true;
+export const PLAYER_SCALE = 1.6;
+export const PLAYER_OFFSET_TO_ZERO = {
+  HORIZONTAL: 24 * PLAYER_SCALE,
+  VERTICAL: 16 * PLAYER_SCALE,
+};
+
+export const PLAYER_DIMENSIONS = {
+  HORIZONTAL: 16 * PLAYER_SCALE,
+  VERTICAL: 28 * PLAYER_SCALE,
 };
 
 function getCharacterSpriteCoordinates(
@@ -46,7 +52,6 @@ export function drawPlayer(
   stopped: boolean,
   tick: number,
 ) {
-  const scale = 1.6;
   const spriteSize = 64;
   const coordinates = getCharacterSpriteCoordinates(direction, tick, stopped);
 
@@ -58,16 +63,17 @@ export function drawPlayer(
     spriteSize,
     position.x,
     position.y,
-    spriteSize * scale,
-    spriteSize * scale,
+    spriteSize * PLAYER_SCALE,
+    spriteSize * PLAYER_SCALE,
   );
 
   if (enableDebugCenter) {
+    ctx.fillStyle = 'red';
     ctx.fillRect(
-      position.x + PLAYER_CENTER_OFFSETS.HORIZONTAL,
-      position.y + PLAYER_CENTER_OFFSETS.VERTICAL,
-      10,
-      10,
+      position.x + PLAYER_OFFSET_TO_ZERO.HORIZONTAL + PLAYER_DIMENSIONS.HORIZONTAL,
+      position.y + PLAYER_OFFSET_TO_ZERO.VERTICAL,
+      1,
+      PLAYER_DIMENSIONS.VERTICAL,
     );
   }
 }

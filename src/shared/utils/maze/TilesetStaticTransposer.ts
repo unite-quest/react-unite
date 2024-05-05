@@ -1,5 +1,11 @@
 import { CanvasMetadata, TilesetExtractor, TilesetMetadata } from './TilesetExtractor';
-import { Direction, PLAYER_CENTER_OFFSETS, Position } from './playerDrawer';
+import {
+  Direction,
+  PLAYER_DIMENSIONS,
+  PLAYER_OFFSET_TO_ZERO,
+  PLAYER_SCALE,
+  Position,
+} from './playerDrawer';
 
 export abstract class TilesetStaticTransposer {
   canvasMetadata: CanvasMetadata;
@@ -57,43 +63,117 @@ export abstract class TilesetStaticTransposer {
     }
   }
 
+  // in absolute canvas dimensions
+  private getBoundingBoxForPlayer(
+    playerPosition: Position,
+    direction: Direction,
+    scale: number,
+  ): [Position, Position] {
+    const newScale = scale * PLAYER_SCALE;
+    const playerZero: Position = {
+      x: playerPosition.x + PLAYER_OFFSET_TO_ZERO.HORIZONTAL,
+      y: playerPosition.y + PLAYER_OFFSET_TO_ZERO.VERTICAL,
+    };
+
+    if (direction === 'LEFT') {
+      return [
+        {
+          x: playerZero.x - 4 * newScale,
+          y: playerZero.y,
+        },
+        {
+          x: playerZero.x - 4 * newScale,
+          y: playerZero.y + PLAYER_DIMENSIONS.VERTICAL / 2,
+        },
+      ];
+    }
+    if (direction === 'RIGHT') {
+      return [
+        {
+          x: playerZero.x + 8 * newScale,
+          y: playerZero.y,
+        },
+        {
+          x: playerZero.x + 8 * newScale,
+          y: playerZero.y + PLAYER_DIMENSIONS.VERTICAL,
+        },
+      ];
+    }
+    if (direction === 'FORWARD') {
+      return [
+        {
+          x: playerZero.x + PLAYER_DIMENSIONS.HORIZONTAL / 2,
+          y: playerZero.y + 10 * newScale,
+        },
+        {
+          x: playerZero.x + PLAYER_DIMENSIONS.HORIZONTAL / 2,
+          y: playerZero.y + 10 * newScale,
+        },
+      ];
+    }
+    if (direction === 'BACKWARD') {
+      return [
+        {
+          x: playerZero.x,
+          y: playerZero.y + PLAYER_DIMENSIONS.VERTICAL,
+        },
+        {
+          x: playerZero.x + PLAYER_DIMENSIONS.HORIZONTAL,
+          y: playerZero.y + PLAYER_DIMENSIONS.VERTICAL,
+        },
+      ];
+    }
+
+    throw new Error('invalid bouding box direction!?');
+  }
+
+  private toTileMapCoordinates(position: Position, scale: number): Position {
+    return {
+      x: Math.round(position.x / (scale * this.tilesetMetadata.tileSize)),
+      y: Math.round(position.y / (scale * this.tilesetMetadata.tileSize)),
+    };
+  }
+
   public isColliding(playerPosition: Position, playerDirection: Direction): boolean {
     const tiles = this.getTiles();
+    const tilesPerRow = tiles[0].length;
+    const scale = Math.round(
+      this.canvasMetadata.width / this.tilesetMetadata.tileSize / tilesPerRow,
+    );
 
     // translate position to tilemap x and y
-    const scale = Math.round(
-      // 2?
-      this.canvasMetadata.width / this.tilesetMetadata.tileSize / tiles[0].length,
-    );
-    const playerCenter: Position = {
-      x: playerPosition.x + PLAYER_CENTER_OFFSETS.HORIZONTAL,
-      y: playerPosition.y + PLAYER_CENTER_OFFSETS.VERTICAL,
-    };
-    const translated: Position = {
-      x: Math.round(playerCenter.x / (scale * this.tilesetMetadata.tileSize)),
-      y: Math.round(playerCenter.y / (scale * this.tilesetMetadata.tileSize)),
-    };
+    const [a, b] = this.getBoundingBoxForPlayer(playerPosition, playerDirection, scale);
+    const pointA = this.toTileMapCoordinates(a, scale);
+    const pointB = this.toTileMapCoordinates(b, scale);
+    const { x: newX, y: newY } = pointA;
+    const { x: newX2, y: newY2 } = pointB;
 
-    // create increments based on direction
-    const rowIncrement = playerDirection === 'LEFT' ? -1 : playerDirection === 'RIGHT' ? 1 : 0;
-    const colIncrement =
-      playerDirection === 'FORWARD' ? -1 : playerDirection === 'BACKWARD' ? 1 : 0;
-    const newX = translated.y + colIncrement;
-    const newY = translated.x + rowIncrement;
     // edge cases
-    if (newX >= tiles.length) {
-      console.log('[Tileset] colliding with edge', this.tilesetMetadata.name);
+    if (newY >= tiles.length) {
+      console.log('[Tileset] Y colliding with edge', this.tilesetMetadata.name);
       return true;
     }
-    if (newY >= tiles[newX].length) {
-      console.log('[Tileset] colliding with edge', this.tilesetMetadata.name);
+    if (newX >= tiles[newY].length) {
+      console.log('[Tileset] X colliding with edge', this.tilesetMetadata.name);
       return true;
     }
-
+    if (newY2 >= tiles.length) {
+      console.log('[Tileset] Y colliding with edge 2', this.tilesetMetadata.name);
+      return true;
+    }
+    if (newX2 >= tiles[newY2].length) {
+      console.log('[Tileset] X colliding with edge 2', this.tilesetMetadata.name);
+      return true;
+    }
     // actual colision check
-    const newTile = tiles[newX][newY];
+    const newTile = tiles[newY][newX];
     if (this.getCollidingTiles().includes(newTile)) {
       console.log(`[Tileset] colliding with ${this.tilesetMetadata.name}: ${newTile}`);
+      return true;
+    }
+    const newTile2 = tiles[newY2][newX2];
+    if (this.getCollidingTiles().includes(newTile2)) {
+      console.log(`[Tileset] colliding 2 with ${this.tilesetMetadata.name}: ${newTile2}`);
       return true;
     }
     return false;

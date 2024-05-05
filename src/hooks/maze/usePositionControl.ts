@@ -4,7 +4,7 @@ import {
   DynamicCollisionBoundary,
   PlayerInitialParameters,
 } from '@/shared/utils/maze/mazeLevelMetadata';
-import { Direction, PLAYER_CENTER_OFFSETS, Position } from '@/shared/utils/maze/playerDrawer';
+import { Direction, PLAYER_OFFSET_TO_ZERO, Position } from '@/shared/utils/maze/playerDrawer';
 import { useEffect, useState } from 'react';
 
 function translatePositionToCanvas(scaling: ScalingData, originalPosition: Position): Position {
@@ -39,8 +39,8 @@ export function usePositionControl(
   useEffect(() => {
     // TODO should represent position in tile coordinates instead
     const playerCenter: Position = {
-      x: position.x + PLAYER_CENTER_OFFSETS.HORIZONTAL,
-      y: position.y + PLAYER_CENTER_OFFSETS.VERTICAL,
+      x: position.x + PLAYER_OFFSET_TO_ZERO.HORIZONTAL,
+      y: position.y + PLAYER_OFFSET_TO_ZERO.VERTICAL,
     };
 
     // currently you can only colide with one object at a time
@@ -127,8 +127,8 @@ export function usePositionControl(
 
   useEffect(() => {
     console.log(direction, {
-      x: position.x + PLAYER_CENTER_OFFSETS.HORIZONTAL,
-      y: position.y + PLAYER_CENTER_OFFSETS.VERTICAL,
+      x: position.x + PLAYER_OFFSET_TO_ZERO.HORIZONTAL,
+      y: position.y + PLAYER_OFFSET_TO_ZERO.VERTICAL,
     });
   }, [direction, position]);
 

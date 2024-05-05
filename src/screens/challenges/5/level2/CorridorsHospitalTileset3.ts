@@ -47,6 +47,6 @@ export class CorridorsHospitalTileset3 extends TilesetStaticTransposer {
   }
 
   public getCollidingTiles(): number[] {
-    return [241, 295, 21, 6, 7, 8, 22, 24, 226, 242];
+    return [241, 21, 6, 7, 8, 22, 24, 226, 242];
   }
 }

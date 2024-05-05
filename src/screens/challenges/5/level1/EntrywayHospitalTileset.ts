@@ -37,6 +37,6 @@ export class EntrywayHospitalTileset extends TilesetStaticTransposer {
   }
 
   public getCollidingTiles(): number[] {
-    return [241, 295, 21, 6, 7, 8, 22, 24, 226, 242, 313, 273, 289, 290, 275];
+    return [241, 295, 21, 6, 7, 8, 22, 226, 242, 313, 273, 289, 290, 275, 37, 38, 39];
   }
 }
