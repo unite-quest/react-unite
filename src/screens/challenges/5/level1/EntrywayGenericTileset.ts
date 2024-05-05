@@ -21,8 +21,8 @@ export class EntrywayGenericTileset extends TilesetStaticTransposer {
     return [
       [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
       [EMP, EMP, EMP, EMP, 676, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
-      [EMP, EMP, EMP, EMP, 692, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
-      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
+      [EMP, EMP, EMP, EMP, 692, EMP, EMP, EMP, EMP, 43, EMP, EMP],
+      [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, 59, EMP, EMP],
       [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
       [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
       [EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP],
