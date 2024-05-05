@@ -31,8 +31,8 @@ export function getMazeParameters(questionId: number): {
   if (questionId === 0) {
     return {
       boundingBox: [
-        { x: 11, y: 3 },
-        { x: 11, y: 5 },
+        { x: 303, y: 100 },
+        { x: 330, y: 160 },
       ],
       playerInit: {
         direction: 'FORWARD',
