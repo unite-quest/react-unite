@@ -165,6 +165,8 @@ export abstract class TilesetStaticTransposer {
       console.log('[Tileset] X colliding with edge 2', this.tilesetMetadata.name);
       return true;
     }
+    return false;
+
     // actual colision check
     const newTile = tiles[newY][newX];
     if (this.getCollidingTiles().includes(newTile)) {
