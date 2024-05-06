@@ -82,6 +82,7 @@ export const MazeCanvas: React.FC<Props> = ({
     if (!ctx || !canvas || staticTilesets.length === 0) {
       return;
     }
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.save();
     ctx.imageSmoothingEnabled = false;
     for (const tileset of staticTilesets) {
