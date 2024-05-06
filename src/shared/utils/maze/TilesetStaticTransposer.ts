@@ -135,6 +135,8 @@ export abstract class TilesetStaticTransposer {
   }
 
   public isColliding(playerPosition: Position, playerDirection: Direction): boolean {
+    return false;
+
     const tiles = this.getTiles();
     const tilesPerRow = tiles[0].length;
     const scale = Math.round(
@@ -165,7 +167,6 @@ export abstract class TilesetStaticTransposer {
       console.log('[Tileset] X colliding with edge 2', this.tilesetMetadata.name);
       return true;
     }
-    return false;
 
     // actual colision check
     const newTile = tiles[newY][newX];
