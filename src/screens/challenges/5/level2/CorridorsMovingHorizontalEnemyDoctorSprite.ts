@@ -1,5 +1,5 @@
 import { ScalingData } from '@/shared/utils/maze/TilesetExtractor';
-import { Position } from '@/shared/utils/maze/playerDrawer';
+import { Position } from 'src/hooks/maze2/playerDrawer';
 import { EnemySpriteRenderer } from '../../../../shared/utils/EnemySpriteRenderer';
 
 export class CorridorsMovingHorizontalEnemyDoctorSprite extends EnemySpriteRenderer {

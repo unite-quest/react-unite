@@ -2,7 +2,6 @@ import { ChallengeScreen } from '@/components/shell/ChallengeScreen';
 import { LoaderContext } from '@/shared/loader/LoaderProvider';
 import { ModalContext } from '@/shared/modal/ModalProvider';
 import { ChallengeRouteIdentifier } from '@/shared/utils/ChallengeIdentifiers';
-import { getMazeParameters } from '@/shared/utils/maze/mazeLevelMetadata';
 import { useContext, useState } from 'react';
 import { Joystick } from 'react-joystick-component';
 import { createSearchParams, useNavigate } from 'react-router-dom';
@@ -36,7 +35,7 @@ function MediMazeAdventureDetails() {
     setLoading(false);
   };
 
-  const onReachObjective = () => {
+  const onCollideWithObjective = () => {
     if (questionId === 1) {
       openModal({
         type: 'imageSuccess',
@@ -62,6 +61,7 @@ function MediMazeAdventureDetails() {
       },
     });
   };
+
   const onCollideWithEnemy = () => {
     openModal({
       type: 'failure',
@@ -72,7 +72,6 @@ function MediMazeAdventureDetails() {
     });
   };
 
-  const { boundingBox, playerInit } = getMazeParameters(questionId);
   const { sidePadding, height, width } = getCanvasDimensions();
 
   return (
@@ -84,14 +83,9 @@ function MediMazeAdventureDetails() {
             direction={direction}
             height={height}
             width={width}
-            playerInit={playerInit}
             onLoaded={onLoaded}
-            objectiveCollisionBoundary={{
-              type: 'objective',
-              boundingBox,
-              onTouch: onReachObjective,
-            }}
             onCollideWithEnemy={onCollideWithEnemy}
+            onCollideWithObjective={onCollideWithObjective}
           />
         </div>
         <div className="absolute bottom-12 right-12 z-20">

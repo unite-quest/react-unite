@@ -1,26 +1,33 @@
-import {
-  DynamicCollisionBoundary,
-  PlayerInitialParameters,
-} from '@/shared/utils/maze/mazeLevelMetadata';
-import { Direction } from '@/shared/utils/maze/playerDrawer';
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
+import { Direction, Position } from 'src/hooks/maze2/playerDrawer';
+import { useEnemies } from 'src/hooks/maze2/useEnemies';
+import { useGlobalPositionControl } from 'src/hooks/maze2/useGlobalPositionControl';
+import { useObjective } from 'src/hooks/maze2/useObjective';
+import { usePlayer } from 'src/hooks/maze2/usePlayer';
 import { useScenario } from 'src/hooks/maze2/useScenario';
 
 type Props = {
   questionId: number;
   height: number;
   width: number;
-  playerInit: PlayerInitialParameters;
   direction: Direction;
   onLoaded: () => void;
-  objectiveCollisionBoundary: DynamicCollisionBoundary;
   onCollideWithEnemy: (entityId: string) => void;
+  onCollideWithObjective: () => void;
 };
 const TICK_INTERVAL = 75;
 
-export const MazeCanvas: React.FC<Props> = ({ questionId, width, height, direction, onLoaded }) => {
+export const MazeCanvas: React.FC<Props> = ({
+  questionId,
+  width,
+  height,
+  direction,
+  onLoaded,
+  onCollideWithEnemy,
+  onCollideWithObjective,
+}) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [tick, setTick] = useState(0);
+  const tickRef = useRef(0);
 
   const {
     loaded: scenarioLoaded,
@@ -43,56 +50,92 @@ export const MazeCanvas: React.FC<Props> = ({ questionId, width, height, directi
     positioning: playerPositioning,
     render: renderPlayer,
     move: movePlayer,
+    stop: stopPlayer,
   } = usePlayer(questionId);
 
-  // global movement control
   useGlobalPositionControl(
-    tick,
+    tickRef.current,
     direction,
     [playerPositioning, tilesetPositioning, enemyPositioning, objectivePositioning],
     [movePlayer, moveEnemies],
-    [onCollideEnemy, onCollideObjective],
+    [onCollideWithEnemy, onCollideWithObjective],
   );
 
-  // gameplay loop
-  useLayoutEffect(() => {
-    if (!scenarioLoaded || !enemiesLoaded || !playerLoaded || !objectiveLoaded) {
-      return;
+  const updateGameState = useCallback(() => {
+    tickRef.current += 1; // Increment the tick count
+    // Handle other game logic updates
+    if (direction === 'FORWARD') {
+      movePlayer((currentPosition: Position) => ({
+        direction: 'FORWARD',
+        position: {
+          x: currentPosition.x + 16,
+          y: currentPosition.y + 16,
+        },
+      }));
     }
-    onLoaded();
+    if (direction === null) {
+      stopPlayer();
+    }
+  }, [direction, movePlayer, stopPlayer]);
 
-    const intervalId = setInterval(() => {
-      setTick(t => t + 1);
-    }, TICK_INTERVAL);
-
-    return () => clearInterval(intervalId); // Clear
-  }, [onLoaded, enemiesLoaded, playerLoaded, scenarioLoaded, objectiveLoaded]);
-
-  // output graphics (TODO move to requestAnimationFrame)
-  useEffect(() => {
+  const render = useCallback(() => {
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext('2d');
-
     if (!ctx || !canvas) {
       return;
     }
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.save();
     ctx.imageSmoothingEnabled = false;
 
     renderScenario(ctx);
     renderEnemies(ctx);
-    renderPlayer(ctx);
     renderObjective(ctx);
 
+    // // Draw your character based on the current tick
+    const totalFrames = 30;
+    const frameIndex = Math.floor(tickRef.current / 2) % totalFrames; // Adjust frame change rate here
+    renderPlayer(ctx, frameIndex);
+
     ctx.restore();
+    requestAnimationFrame(render);
   }, [renderEnemies, renderObjective, renderPlayer, renderScenario]);
+
+  useEffect(() => {
+    if (!scenarioLoaded || !enemiesLoaded || !playerLoaded || !objectiveLoaded) {
+      return;
+    }
+    onLoaded();
+    const gameIntervalId = setInterval(updateGameState, TICK_INTERVAL); // game loop
+    const animationFrameId = requestAnimationFrame(render); // Start the render loop
+
+    return () => {
+      clearTimeout(gameIntervalId);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [
+    enemiesLoaded,
+    objectiveLoaded,
+    onLoaded,
+    playerLoaded,
+    render,
+    scenarioLoaded,
+    updateGameState,
+  ]);
 
   useEffect(() => {
     console.log(`Initialized Canvas with h=${height}; w=${width}`);
   }, [height, width]);
 
   return (
-    <canvas ref={canvasRef} width={width} height={height} style={{ imageRendering: 'pixelated' }} />
+    <>
+      <canvas
+        ref={canvasRef}
+        width={width}
+        height={height}
+        style={{ imageRendering: 'pixelated' }}
+      />
+    </>
   );
 };

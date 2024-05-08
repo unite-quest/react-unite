@@ -1,6 +1,6 @@
+import { Direction, Position } from '../../hooks/maze2/playerDrawer';
 import { ScalingData } from './maze/TilesetExtractor';
 import { ObjectiveBoundingBox } from './maze/mazeLevelMetadata';
-import { Direction, Position } from './maze/playerDrawer';
 
 export abstract class EnemySpriteRenderer {
   protected entityId: string;
@@ -55,9 +55,9 @@ export abstract class EnemySpriteRenderer {
     } else if (this.direction === 'FORWARD') {
       tilePosition = 74 + walkingIncrement;
     } else if (this.direction === 'RIGHT') {
-      tilePosition = 56+ walkingIncrement;
+      tilePosition = 56 + walkingIncrement;
     } else if (this.direction === 'LEFT') {
-      tilePosition = 68+ walkingIncrement;
+      tilePosition = 68 + walkingIncrement;
     }
 
     const index = tilePosition + increment;

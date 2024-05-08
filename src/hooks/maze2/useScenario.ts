@@ -6,13 +6,6 @@ import { EntrywayGenericTileset } from 'src/screens/challenges/5/level1/Entryway
 import { EntrywayHospitalTileset } from 'src/screens/challenges/5/level1/EntrywayHospitalTileset';
 import { EntrywayHospitalTileset2 } from 'src/screens/challenges/5/level1/EntrywayHospitalTileset2';
 import { EntrywayWallTileset } from 'src/screens/challenges/5/level1/EntrywayWallTileset';
-import { CorridorsBorderTileset } from 'src/screens/challenges/5/level2/CorridorsBorderTileset';
-import { CorridorsFloorTileset } from 'src/screens/challenges/5/level2/CorridorsFloorTileset';
-import { CorridorsGenericTileset } from 'src/screens/challenges/5/level2/CorridorsGenericTileset';
-import { CorridorsHospitalTileset } from 'src/screens/challenges/5/level2/CorridorsHospitalTileset';
-import { CorridorsHospitalTileset2 } from 'src/screens/challenges/5/level2/CorridorsHospitalTileset2';
-import { CorridorsHospitalTileset3 } from 'src/screens/challenges/5/level2/CorridorsHospitalTileset3';
-import { CorridorsWallTileset } from 'src/screens/challenges/5/level2/CorridorsWallTileset';
 import borders from '../../assets/maze/background/borders.png';
 import floors from '../../assets/maze/background/floors.png';
 import generic from '../../assets/maze/background/generic.png';
@@ -61,15 +54,7 @@ export function useScenario(questionId: number): {
           new EntrywayGenericTileset(genericRef.current),
         ]);
       } else if (questionId === 1) {
-        setTilesets([
-          new CorridorsFloorTileset(floorsRef.current),
-          new CorridorsBorderTileset(bordersRef.current),
-          new CorridorsWallTileset(wallsRef.current),
-          new CorridorsGenericTileset(genericRef.current),
-          new CorridorsHospitalTileset(elementsRef.current),
-          new CorridorsHospitalTileset2(elementsRef.current),
-          new CorridorsHospitalTileset3(elementsRef.current),
-        ]);
+        // TODO after
       }
     });
   }, [questionId]);
@@ -82,7 +67,7 @@ export function useScenario(questionId: number): {
 
   return {
     loaded: tilesetLoaded,
-    positioning,
+    positioning: [],
     render,
   };
 }

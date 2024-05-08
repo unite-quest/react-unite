@@ -1,4 +1,4 @@
-import { Direction, Position } from './playerDrawer';
+import { Direction, Position } from '../../../hooks/maze2/playerDrawer';
 const tutorial1 = 'https://gabrieltnishimura.github.io/unite/tutorial.png';
 const tutorial2 = 'https://gabrieltnishimura.github.io/unite/tutorial2.PNG';
 
