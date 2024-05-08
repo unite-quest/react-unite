@@ -1,8 +1,8 @@
 export type Direction = 'FORWARD' | 'RIGHT' | 'LEFT' | 'BACKWARD' | null;
 export type Position = { x: number; y: number };
 
-const enableDebugCenter = false;
-export const PLAYER_SCALE = 1.6;
+const enableDebugCenter = true;
+export const PLAYER_SCALE = 1;
 export const PLAYER_OFFSET_TO_ZERO = {
   HORIZONTAL: 24 * PLAYER_SCALE,
   VERTICAL: 16 * PLAYER_SCALE,
@@ -10,7 +10,7 @@ export const PLAYER_OFFSET_TO_ZERO = {
 
 export const PLAYER_DIMENSIONS = {
   HORIZONTAL: 16 * PLAYER_SCALE,
-  VERTICAL: 28 * PLAYER_SCALE,
+  VERTICAL: 30 * PLAYER_SCALE,
 };
 
 function getCharacterSpriteCoordinates(
@@ -71,7 +71,7 @@ export function drawPlayer(
     ctx.fillStyle = 'red';
     ctx.fillRect(
       position.x + PLAYER_OFFSET_TO_ZERO.HORIZONTAL + PLAYER_DIMENSIONS.HORIZONTAL,
-      position.y + PLAYER_OFFSET_TO_ZERO.VERTICAL,
+      position.y + PLAYER_OFFSET_TO_ZERO.VERTICAL + PLAYER_DIMENSIONS.VERTICAL,
       1,
       PLAYER_DIMENSIONS.VERTICAL,
     );

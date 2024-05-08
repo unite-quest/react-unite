@@ -2,11 +2,9 @@ import {
   DynamicCollisionBoundary,
   PlayerInitialParameters,
 } from '@/shared/utils/maze/mazeLevelMetadata';
-import { Direction, drawPlayer } from '@/shared/utils/maze/playerDrawer';
+import { Direction } from '@/shared/utils/maze/playerDrawer';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { useLoadSprites } from 'src/hooks/maze/useLoadSprites';
-import { usePositionControl } from 'src/hooks/maze/usePositionControl';
-import { useSpawnEnemies } from 'src/hooks/maze/useSpawnEnemies';
+import { useScenario } from 'src/hooks/maze2/useScenario';
 
 type Props = {
   questionId: number;
@@ -20,49 +18,45 @@ type Props = {
 };
 const TICK_INTERVAL = 75;
 
-export const MazeCanvas: React.FC<Props> = ({
-  questionId,
-  width,
-  height,
-  playerInit,
-  direction,
-  onLoaded,
-  objectiveCollisionBoundary,
-  onCollideWithEnemy,
-}) => {
+export const MazeCanvas: React.FC<Props> = ({ questionId, width, height, direction, onLoaded }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [tick, setTick] = useState(0);
-  const canvasMetadata = {
-    height,
-    width,
-  };
-  const { character, tilesetLoaded, staticTilesets, tileMetadata } = useLoadSprites(
-    questionId,
-    canvasMetadata,
-  );
-  const scaling = {
-    canvas: canvasMetadata,
-    tile: tileMetadata,
-  };
-  const { enemyCollisionBoundaries, enemies } = useSpawnEnemies(
-    questionId,
-    scaling,
-    tick,
-    onCollideWithEnemy,
-  );
 
   const {
-    position: playerPosition,
-    stopped,
-    lastKnownDirection,
-  } = usePositionControl(scaling, direction, tick, staticTilesets, playerInit, [
-    objectiveCollisionBoundary,
-    ...enemyCollisionBoundaries,
-  ]);
+    loaded: scenarioLoaded,
+    positioning: tilesetPositioning,
+    render: renderScenario,
+  } = useScenario(questionId);
+  const {
+    loaded: enemiesLoaded,
+    positioning: enemyPositioning,
+    render: renderEnemies,
+    move: moveEnemies,
+  } = useEnemies(questionId);
+  const {
+    loaded: objectiveLoaded,
+    positioning: objectivePositioning,
+    render: renderObjective,
+  } = useObjective(questionId);
+  const {
+    loaded: playerLoaded,
+    positioning: playerPositioning,
+    render: renderPlayer,
+    move: movePlayer,
+  } = usePlayer(questionId);
+
+  // global movement control
+  useGlobalPositionControl(
+    tick,
+    direction,
+    [playerPositioning, tilesetPositioning, enemyPositioning, objectivePositioning],
+    [movePlayer, moveEnemies],
+    [onCollideEnemy, onCollideObjective],
+  );
 
   // gameplay loop
   useLayoutEffect(() => {
-    if (!tilesetLoaded) {
+    if (!scenarioLoaded || !enemiesLoaded || !playerLoaded || !objectiveLoaded) {
       return;
     }
     onLoaded();
@@ -72,42 +66,27 @@ export const MazeCanvas: React.FC<Props> = ({
     }, TICK_INTERVAL);
 
     return () => clearInterval(intervalId); // Clear
-  }, [onLoaded, tilesetLoaded]);
+  }, [onLoaded, enemiesLoaded, playerLoaded, scenarioLoaded, objectiveLoaded]);
 
-  // output graphics
+  // output graphics (TODO move to requestAnimationFrame)
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext('2d');
 
-    if (!ctx || !canvas || staticTilesets.length === 0) {
+    if (!ctx || !canvas) {
       return;
     }
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.save();
     ctx.imageSmoothingEnabled = false;
-    for (const tileset of staticTilesets) {
-      tileset.transpose(ctx);
-    }
 
-    for (const enemy of enemies) {
-      enemy.render(ctx);
-    }
+    renderScenario(ctx);
+    renderEnemies(ctx);
+    renderPlayer(ctx);
+    renderObjective(ctx);
 
-    drawPlayer(ctx, character.body.current, lastKnownDirection, playerPosition, stopped, tick);
-    drawPlayer(ctx, character.clothes.current, lastKnownDirection, playerPosition, stopped, tick);
-    drawPlayer(ctx, character.hair.current, lastKnownDirection, playerPosition, stopped, tick);
     ctx.restore();
-  }, [
-    character.body,
-    character.clothes,
-    character.hair,
-    enemies,
-    lastKnownDirection,
-    playerPosition,
-    staticTilesets,
-    stopped,
-    tick,
-  ]);
+  }, [renderEnemies, renderObjective, renderPlayer, renderScenario]);
 
   useEffect(() => {
     console.log(`Initialized Canvas with h=${height}; w=${width}`);

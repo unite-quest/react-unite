@@ -1,11 +1,9 @@
-import { CanvasMetadata } from '@/shared/utils/maze/TilesetExtractor';
 import { TilesetStaticTransposer } from '@/shared/utils/maze/TilesetStaticTransposer';
 
 const EMP = 585;
 export class EntrywayFloorTileset extends TilesetStaticTransposer {
-  constructor(canvasMetadata: CanvasMetadata, tileset: HTMLImageElement) {
+  constructor(tileset: HTMLImageElement) {
     super(
-      canvasMetadata,
       {
         name: 'Floor',
         columns: 15,

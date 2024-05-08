@@ -1,4 +1,4 @@
-import { CanvasMetadata, TilesetExtractor, TilesetMetadata } from './TilesetExtractor';
+import { TilesetExtractor, TilesetMetadata } from './TilesetExtractor';
 import {
   Direction,
   PLAYER_DIMENSIONS,
@@ -8,33 +8,27 @@ import {
 } from './playerDrawer';
 
 export abstract class TilesetStaticTransposer {
-  canvasMetadata: CanvasMetadata;
   tilesetMetadata: TilesetMetadata;
   tileset: HTMLImageElement;
-  scale: number;
+  applyScaling: boolean;
 
   constructor(
-    canvasMetadata: CanvasMetadata,
     tilesetMetadata: TilesetMetadata,
     tileset: HTMLImageElement,
+    applyScaling: boolean = false,
   ) {
-    this.canvasMetadata = canvasMetadata;
     this.tilesetMetadata = tilesetMetadata;
     this.tileset = tileset;
-    // to avoid artifacts, scale should NEVER be a floating point number
-    // actually, to avoid artifacts, scale should generate a number that's not a floating point number
-    // so as long as the canvas width is divisible by tileHeight (16) and this.tilesetMetadata.mappedColumns, we should be good
-    this.scale =
-      this.canvasMetadata.width / tilesetMetadata.tileSize / this.tilesetMetadata.mappedColumns;
+    this.applyScaling = applyScaling;
   }
 
   public abstract getTiles(): number[][];
 
   public abstract getCollidingTiles(): number[];
 
-  public transpose(canvas: CanvasRenderingContext2D) {
+  public render(canvas: CanvasRenderingContext2D) {
     const tiles = this.getTiles();
-    const extractor = new TilesetExtractor(this.canvasMetadata, this.tilesetMetadata, tiles);
+    const extractor = new TilesetExtractor(this.tilesetMetadata, tiles);
 
     if (tiles.length === 0) {
       throw new Error('Invalid number of rows provided in getTiles');
@@ -54,10 +48,10 @@ export abstract class TilesetStaticTransposer {
           sourceY,
           tileWidth,
           tileHeight,
-          c * tileWidth * this.scale,
-          r * tileHeight * this.scale,
-          tileWidth * this.scale,
-          tileHeight * this.scale,
+          c * tileWidth,
+          r * tileHeight,
+          tileWidth,
+          tileHeight,
         );
       }
     }
@@ -138,10 +132,7 @@ export abstract class TilesetStaticTransposer {
     return false;
 
     const tiles = this.getTiles();
-    const tilesPerRow = tiles[0].length;
-    const scale = Math.round(
-      this.canvasMetadata.width / this.tilesetMetadata.tileSize / tilesPerRow,
-    );
+    const scale = this.getScale();
 
     // translate position to tilemap x and y
     const [a, b] = this.getBoundingBoxForPlayer(playerPosition, playerDirection, scale);

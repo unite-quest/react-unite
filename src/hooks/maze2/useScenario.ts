@@ -1,6 +1,5 @@
-import { CanvasMetadata, MappedTileMetadata } from '@/shared/utils/maze/TilesetExtractor';
 import { TilesetStaticTransposer } from '@/shared/utils/maze/TilesetStaticTransposer';
-import { MutableRefObject, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { EntrywayBorderTileset } from 'src/screens/challenges/5/level1/EntrywayBorderTileset';
 import { EntrywayFloorTileset } from 'src/screens/challenges/5/level1/EntrywayFloorTileset';
 import { EntrywayGenericTileset } from 'src/screens/challenges/5/level1/EntrywayGenericTileset';
@@ -14,49 +13,17 @@ import { CorridorsHospitalTileset } from 'src/screens/challenges/5/level2/Corrid
 import { CorridorsHospitalTileset2 } from 'src/screens/challenges/5/level2/CorridorsHospitalTileset2';
 import { CorridorsHospitalTileset3 } from 'src/screens/challenges/5/level2/CorridorsHospitalTileset3';
 import { CorridorsWallTileset } from 'src/screens/challenges/5/level2/CorridorsWallTileset';
-import characterArmor from '../../assets/maze/armor.png';
 import borders from '../../assets/maze/background/borders.png';
 import floors from '../../assets/maze/background/floors.png';
 import generic from '../../assets/maze/background/generic.png';
 import hospitalElements from '../../assets/maze/background/hospital.png';
 import walls from '../../assets/maze/background/walls.png';
-import characterSpriteSheet from '../../assets/maze/character-base.png';
-import characterHair from '../../assets/maze/hair.png';
+import { TilePositioning } from './basePosition';
 
-function getMappedTileMetadata(questionId: number): MappedTileMetadata {
-  if (questionId === 0) {
-    return {
-      columnLength: 12,
-      tileSize: 16,
-    };
-  }
-  if (questionId === 1) {
-    return {
-      columnLength: 12,
-      tileSize: 16,
-    };
-  }
-  return {
-    columnLength: 12,
-    tileSize: 16,
-  };
-}
-
-export function useLoadSprites(
-  questionId: number,
-  canvasMetadata: CanvasMetadata,
-): {
-  tilesetLoaded: boolean;
-  tileMetadata: {
-    columnLength: number;
-    tileSize: number;
-  };
-  staticTilesets: TilesetStaticTransposer[];
-  character: {
-    body: MutableRefObject<HTMLImageElement>;
-    clothes: MutableRefObject<HTMLImageElement>;
-    hair: MutableRefObject<HTMLImageElement>;
-  };
+export function useScenario(questionId: number): {
+  loaded: boolean;
+  positioning: TilePositioning[];
+  render: (canvas: CanvasRenderingContext2D) => void;
 } {
   const [tilesets, setTilesets] = useState<TilesetStaticTransposer[]>([]);
   const [tilesetLoaded, setTilesetLoaded] = useState(false);
@@ -65,9 +32,6 @@ export function useLoadSprites(
   const bordersRef = useRef(new Image());
   const wallsRef = useRef(new Image());
   const elementsRef = useRef(new Image());
-  const bodyRef = useRef(new Image());
-  const clothesRef = useRef(new Image());
-  const hairRef = useRef(new Image());
 
   useEffect(() => {
     elementsRef.current.src = hospitalElements;
@@ -75,9 +39,6 @@ export function useLoadSprites(
     bordersRef.current.src = borders;
     wallsRef.current.src = walls;
     floorsRef.current.src = floors;
-    bodyRef.current.src = characterSpriteSheet;
-    clothesRef.current.src = characterArmor;
-    hairRef.current.src = characterHair;
 
     const imagesLoaded = Promise.all([
       new Promise(resolve => (bordersRef.current.onload = resolve)),
@@ -85,44 +46,43 @@ export function useLoadSprites(
       new Promise(resolve => (wallsRef.current.onload = resolve)),
       new Promise(resolve => (floorsRef.current.onload = resolve)),
       new Promise(resolve => (elementsRef.current.onload = resolve)),
-      new Promise(resolve => (bodyRef.current.onload = resolve)),
-      new Promise(resolve => (clothesRef.current.onload = resolve)),
-      new Promise(resolve => (hairRef.current.onload = resolve)),
     ]);
+
     imagesLoaded.then(() => {
       setTilesetLoaded(true);
       // this needs to be here otherwise an infinite react hook loop happens?!
       if (questionId === 0) {
         setTilesets([
-          new EntrywayFloorTileset(canvasMetadata, floorsRef.current),
-          new EntrywayBorderTileset(canvasMetadata, bordersRef.current),
-          new EntrywayWallTileset(canvasMetadata, wallsRef.current),
-          new EntrywayHospitalTileset(canvasMetadata, elementsRef.current),
-          new EntrywayHospitalTileset2(canvasMetadata, elementsRef.current),
-          new EntrywayGenericTileset(canvasMetadata, genericRef.current),
+          new EntrywayFloorTileset(floorsRef.current),
+          new EntrywayBorderTileset(bordersRef.current),
+          new EntrywayWallTileset(wallsRef.current),
+          new EntrywayHospitalTileset(elementsRef.current),
+          new EntrywayHospitalTileset2(elementsRef.current),
+          new EntrywayGenericTileset(genericRef.current),
         ]);
       } else if (questionId === 1) {
         setTilesets([
-          new CorridorsFloorTileset(canvasMetadata, floorsRef.current),
-          new CorridorsBorderTileset(canvasMetadata, bordersRef.current),
-          new CorridorsWallTileset(canvasMetadata, wallsRef.current),
-          new CorridorsGenericTileset(canvasMetadata, genericRef.current),
-          new CorridorsHospitalTileset(canvasMetadata, elementsRef.current),
-          new CorridorsHospitalTileset2(canvasMetadata, elementsRef.current),
-          new CorridorsHospitalTileset3(canvasMetadata, elementsRef.current),
+          new CorridorsFloorTileset(floorsRef.current),
+          new CorridorsBorderTileset(bordersRef.current),
+          new CorridorsWallTileset(wallsRef.current),
+          new CorridorsGenericTileset(genericRef.current),
+          new CorridorsHospitalTileset(elementsRef.current),
+          new CorridorsHospitalTileset2(elementsRef.current),
+          new CorridorsHospitalTileset3(elementsRef.current),
         ]);
       }
     });
-  }, [canvasMetadata, questionId]);
+  }, [questionId]);
+
+  const render = (canvas: CanvasRenderingContext2D) => {
+    for (const tileset of tilesets) {
+      tileset.render(canvas);
+    }
+  };
 
   return {
-    tilesetLoaded,
-    staticTilesets: tilesets,
-    character: {
-      body: bodyRef,
-      clothes: clothesRef,
-      hair: hairRef,
-    },
-    tileMetadata: getMappedTileMetadata(questionId),
+    loaded: tilesetLoaded,
+    positioning,
+    render,
   };
 }

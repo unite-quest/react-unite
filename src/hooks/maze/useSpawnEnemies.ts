@@ -8,7 +8,6 @@ import { CorridorsStaticEnemyDoctorSprite } from 'src/screens/challenges/5/level
 import enemy from '../../assets/maze/doctor1.png';
 import doctor2 from '../../assets/maze/doctor2.png';
 import doctor3 from '../../assets/maze/doctor3.png';
-//import doctor4 from '../../assets/maze/doctor4.png';
 import receptionist from '../../assets/maze/receptionist.png';
 
 export function useSpawnEnemies(
@@ -37,10 +36,11 @@ export function useSpawnEnemies(
     enemyRef2.current.src = doctor3;
     enemyRef3.current.src = receptionist;
 
-    const imagesLoaded = Promise.all([new Promise(resolve => (enemyRef.current.onload = resolve)),
+    const imagesLoaded = Promise.all([
+      new Promise(resolve => (enemyRef.current.onload = resolve)),
       new Promise(resolve => (enemyRef1.current.onload = resolve)),
       new Promise(resolve => (enemyRef2.current.onload = resolve)),
-      new Promise(resolve => (enemyRef3.current.onload = resolve))
+      new Promise(resolve => (enemyRef3.current.onload = resolve)),
     ]);
     // wait for all enemies to load before processing their sprites
     imagesLoaded.then(() => {

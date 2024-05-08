@@ -30,11 +30,9 @@ type TileMetadata = {
 };
 
 export class TilesetExtractor {
-  canvasMetadata: CanvasMetadata;
   metadata: TilesetMetadata;
   tileMatrix: number[][];
-  constructor(canvasMetadata: CanvasMetadata, metadata: TilesetMetadata, tileMatrix: number[][]) {
-    this.canvasMetadata = canvasMetadata;
+  constructor(metadata: TilesetMetadata, tileMatrix: number[][]) {
     this.metadata = metadata;
     this.tileMatrix = tileMatrix;
   }
