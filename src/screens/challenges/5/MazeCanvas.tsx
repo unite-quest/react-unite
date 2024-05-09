@@ -15,7 +15,7 @@ type Props = {
   onCollideWithEnemy: (entityId: string) => void;
   onCollideWithObjective: () => void;
 };
-const TICK_INTERVAL = 75;
+const TICK_INTERVAL = 50;
 
 export const MazeCanvas: React.FC<Props> = ({
   questionId,
@@ -64,15 +64,41 @@ export const MazeCanvas: React.FC<Props> = ({
   const updateGameState = useCallback(() => {
     tickRef.current += 1; // Increment the tick count
     // Handle other game logic updates
+    const MOVE_STEP = 2;
     if (direction === 'FORWARD') {
       movePlayer((currentPosition: Position) => ({
-        direction: 'FORWARD',
+        direction,
         position: {
-          x: currentPosition.x + 16,
-          y: currentPosition.y + 16,
+          x: currentPosition.x,
+          y: currentPosition.y - MOVE_STEP,
+        },
+      }));
+    } else if (direction === 'BACKWARD') {
+      movePlayer((currentPosition: Position) => ({
+        direction,
+        position: {
+          x: currentPosition.x,
+          y: currentPosition.y + MOVE_STEP,
+        },
+      }));
+    } else if (direction === 'LEFT') {
+      movePlayer((currentPosition: Position) => ({
+        direction,
+        position: {
+          x: currentPosition.x - MOVE_STEP,
+          y: currentPosition.y,
+        },
+      }));
+    } else if (direction === 'RIGHT') {
+      movePlayer((currentPosition: Position) => ({
+        direction,
+        position: {
+          x: currentPosition.x + MOVE_STEP,
+          y: currentPosition.y,
         },
       }));
     }
+
     if (direction === null) {
       stopPlayer();
     }

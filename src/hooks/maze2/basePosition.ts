@@ -47,7 +47,7 @@ export type MovePlayerFn = (
     direction: Direction;
     position: Position;
   },
-) => () => void;
+) => void;
 
 export type MoveEnemyFn = (entityId: string, position: Position) => void;
 

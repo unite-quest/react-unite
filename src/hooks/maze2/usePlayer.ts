@@ -13,6 +13,7 @@ export function usePlayer(questionId: number): {
   render: RenderPlayerFn;
 } {
   const [playerLoaded, setPlayerLoaded] = useState(false);
+  const [stopped, setStopped] = useState(true);
   const [positioning, setPlayerPositioning] = useState<PlayerPositioning>({
     type: 'player',
     direction: 'FORWARD',
@@ -60,32 +61,31 @@ export function usePlayer(questionId: number): {
         x: positioning.x,
         y: positioning.y,
       },
-      false,
+      stopped,
       frame,
     );
   };
 
-  const move =
-    (
-      getPosition: (currentPosition: Position) => {
-        direction: Direction;
-        position: Position;
-      },
-    ) =>
-    () => {
-      const { direction, position: newPosition } = getPosition({
-        x: positioning.x,
-        y: positioning.y,
-      });
-      setPlayerPositioning({
-        type: 'player',
-        direction,
-        x: newPosition.x,
-        y: newPosition.y,
-        h: 64,
-        w: 64,
-      });
-    };
+  const move = (
+    getPosition: (currentPosition: Position) => {
+      direction: Direction;
+      position: Position;
+    },
+  ) => {
+    const { direction, position: newPosition } = getPosition({
+      x: positioning.x,
+      y: positioning.y,
+    });
+    setStopped(false);
+    setPlayerPositioning({
+      type: 'player',
+      direction,
+      x: newPosition.x,
+      y: newPosition.y,
+      h: 64,
+      w: 64,
+    });
+  };
 
   return {
     loaded: playerLoaded,
@@ -93,7 +93,7 @@ export function usePlayer(questionId: number): {
     move,
     render,
     stop: () => {
-      setPlayerPositioning(currentPositioning => ({ ...currentPositioning, stopped: true }));
+      setStopped(true);
     },
   };
 }
