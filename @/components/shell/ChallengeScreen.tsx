@@ -13,12 +13,22 @@ const ChallengeScreen: React.FC<
   PropsWithChildren<{
     noBottomPadding?: boolean;
     noBackButton?: boolean;
+    noFlagButton?: boolean;
     noPadding?: boolean;
     description?: string;
     Footer: JSX.Element;
     onTipClick?: () => void;
   }>
-> = ({ noPadding, noBottomPadding, noBackButton, Footer, description, children, onTipClick }) => {
+> = ({
+  noPadding,
+  noBottomPadding,
+  noBackButton,
+  noFlagButton,
+  Footer,
+  description,
+  children,
+  onTipClick,
+}) => {
   const navigate = useNavigate();
   const { meta, screenType, id } = useCurrentChallenge();
 
@@ -34,6 +44,12 @@ const ChallengeScreen: React.FC<
       (screenType === 'challenge' && id === ChallengeIdentifier.Six_ApartmentTinder) ||
       (screenType === 'challenge' && id === ChallengeIdentifier.Eight_TornInvite));
 
+  const onFlagClick = noFlagButton
+    ? undefined
+    : () => {
+        navigate('/challenge/map');
+      };
+
   return (
     <>
       <div className={`min-h-svh ${meta.background}`}>
@@ -42,6 +58,7 @@ const ChallengeScreen: React.FC<
           variant="intro"
           style={meta.background}
           onBackClick={goBack}
+          onFlagClick={onFlagClick}
         />
         {noPadding ? (
           <>

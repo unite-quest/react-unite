@@ -7,6 +7,7 @@ import './index.css';
 import Challenges from './screens/challenges/core/Challenges.tsx';
 import ChallengesDetails from './screens/challenges/core/ChallengesDetails.tsx';
 import ChallengeLanding from './screens/challenges/core/ChallengesLanding.tsx';
+import ChallengeMap from './screens/challenges/map/ChallengeMap.tsx';
 import Credits from './screens/credits/Credits.tsx';
 import Home from './screens/home/Home.tsx';
 import Registry from './screens/registry/Registry.tsx';
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: 'story',
         element: <Story />,
+      },
+      {
+        path: 'challenge/map',
+        element: <ChallengeMap />,
       },
       {
         path: 'challenge/:challengeId/landing',
