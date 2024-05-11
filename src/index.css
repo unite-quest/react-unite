@@ -74,3 +74,13 @@
       @apply bg-background text-foreground;
     }
   }
+
+@font-face {
+  font-family: "osd";
+  src: url("/fonts/osd.ttf");
+}
+
+@font-face {
+  font-family: "Bitmap Pixel";
+  src: url("/fonts/bitmap-pixel.ttf");
+}

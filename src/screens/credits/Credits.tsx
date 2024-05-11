@@ -1,78 +1,111 @@
 import { StackSpacing } from '@/components/ui/stack-spacing';
-import { UniteText, UniteTitle } from '@/components/ui/unite-text';
+import { UniteText } from '@/components/ui/unite-text';
 import { LoaderContext } from '@/shared/loader/LoaderProvider';
 import { CreditEntry, creditEntries } from '@/shared/utils/creditsEntries';
-import { useContext, useEffect } from 'react';
+import { Fragment, useContext, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function Credits() {
+  const creditsRef = useRef<HTMLDivElement>(null);
   const { setLoading } = useContext(LoaderContext);
   const navigate = useNavigate();
+  const [animate, setAnimate] = useState(true);
 
   useEffect(() => {
     setTimeout(() => {
       document.body.style.overflow = 'hidden';
 
       setLoading(false);
-    }, 400);
+    }, 1);
   }, [setLoading]);
+
+  useEffect(() => {
+    const creditsEl = creditsRef.current;
+    if (!creditsEl) {
+      return;
+    }
+
+    const enableScrolling = () => {
+      document.body.style.overflow = 'auto';
+      creditsEl.style.position = 'relative'; // Reset position to static or adjust as needed
+      creditsEl.style.bottom = '0'; // Reset top to bring it into view
+      setAnimate(false);
+      setTimeout(() => {
+        window.scrollTo(0, document.body.scrollHeight);
+      }, 1);
+    };
+
+    creditsEl.addEventListener('animationend', enableScrolling);
+
+    return () => {
+      creditsEl.removeEventListener('animationend', enableScrolling);
+    };
+  }, []);
 
   const goHome = () => {
     navigate('..');
   };
+  const openGithub = () => {
+    window.open('https://github.com/unite-quest/react-unite');
+  };
 
   function fromCreditEntryToLayout(entry: CreditEntry): JSX.Element {
+    const angle = `${Math.random() >= 0.5 ? '' : '-'}${Math.random() * 5}deg`;
     return (
       <>
-        <div className="flex justify-center">
+        <div className="flex justify-center" key={entry.label}>
           <div>
-            <UniteText align="center" size="md" weight="bold">
+            <span className={`font-bitmap-pixel text-3xl font-medium text-center ${entry.color}`}>
               {entry.label}
-            </UniteText>
+            </span>
             <StackSpacing size="xs" />
-            {entry.type === 'names' ? (
-              entry.value.map(creditName => {
-                return (
-                  <>
-                    <UniteText align="center">{creditName}</UniteText>
-                    <StackSpacing size="xs" />
-                  </>
-                );
-              })
-            ) : entry.type === 'links' ? (
-              <>
-                <UniteText
-                  align="center"
-                  onClick={() => {
-                    window.open(entry.link);
-                  }}
-                >
-                  Link
-                </UniteText>
-                <StackSpacing size="xs" />
-              </>
-            ) : null}
-            {entry.type === 'names' && entry.image ? (
-              <img height={100} width={100} src={entry.image} />
+            {entry.value.map(creditName => {
+              return (
+                <Fragment key={creditName}>
+                  <span className={`font-osd text-2xl text-center`}>{creditName}</span>
+                  <StackSpacing size="xs" />
+                </Fragment>
+              );
+            })}
+            {entry.image ? (
+              <img
+                height={250}
+                width={250}
+                className="rotate-[4deg] border-8 border-white"
+                style={{ rotate: angle }}
+                src={entry.image}
+              />
             ) : null}
           </div>
         </div>
-        <StackSpacing size="sm" />
+        <StackSpacing size="lg" />
       </>
     );
   }
 
   return (
     <div className="min-h-svh animate-credits-with-color">
-      <div className="absolute w-[300px] h-[700px] left-[50%] m-[-150px] animate-credits">
-        <UniteTitle align="center">Unite Quest</UniteTitle>
+      <div
+        className={`absolute w-[300px] left-[50%] mr-[-150px] ml-[-150px] ${animate ? ' h-[700px] animate-credits' : ''}`}
+        ref={creditsRef}
+      >
         <StackSpacing size="md" />
+        <h1 className="font-bitmap-pixel text-6xl text-[#7f7ffa]">Unite Quest</h1>
+        <StackSpacing size="xl" />
         {creditEntries.map(fromCreditEntryToLayout)}
+        <StackSpacing size="md" />
+        <UniteText align="center" onClick={openGithub}>
+          Github
+        </UniteText>
+        <StackSpacing size="md" />
+        <UniteText align="center" onClick={openGithub}>
+          Dar presente
+        </UniteText>
         <StackSpacing size="md" />
         <UniteText align="center" onClick={goHome}>
           Voltar para home
         </UniteText>
-        <StackSpacing size="md" />
+        <StackSpacing size="lg" />
       </div>
     </div>
   );

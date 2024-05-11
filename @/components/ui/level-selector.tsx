@@ -8,17 +8,24 @@ const LevelSelector: React.FC<{
   subtitle: string;
   status: 'todo' | 'doing' | 'done';
   onClick: () => void;
-}> = ({ label, image, title, subtitle, status, onClick }) => {
+}> = ({ label, image, title, status, onClick }) => {
   const fullSubtitle = status === 'doing' ? 'EM ANDAMENTO' : 'CONCLUÍDO';
+  const labelColor = status === 'todo' ? '' : 'border-white bg-dark-green';
+  const backgroundColor =
+    status === 'todo'
+      ? 'bg-neutral-400 bg-blend-luminosity'
+      : status === 'doing'
+        ? ''
+        : 'bg-cool-green bg-blend-multiply';
 
   const doingOrDone = (
     <>
       <div className="flex flex-col">
-        <UniteText size="md" weight="bold" textStyle="text-white">
+        <UniteText size="md" weight="bold" textStyle="text-white" align="center">
           {title}
         </UniteText>
-        <UniteText size="xs" weight="light" textStyle="text-white">
-          {fullSubtitle} {subtitle}
+        <UniteText size="xs" weight="light" textStyle="text-white" align="center">
+          {fullSubtitle}
         </UniteText>
       </div>
       <div>
@@ -38,24 +45,27 @@ const LevelSelector: React.FC<{
   );
 
   const todo = (
-    <div className="absolute ">
+    <div className="absolute top-0 z-10 w-full h-full flex items-center justify-center">
       <img src={questionMark} height={50} width={50} />
     </div>
   );
 
   return (
     <>
-      <div
-        className="p-10 flex justify-between bg-blend-multiply bg-cover bg-center bg-neutral-400 relative"
+      <button
+        className={`relative bg-cover bg-center ${backgroundColor} w-full h-full`}
         style={{ backgroundImage: `url('${image}')` }}
       >
-        <div className="h-10 w-10 border-2 border-white flex items-center justify-center bg-dark-green">
-          <UniteText size="md" weight="bold" textStyle="text-white">
-            {label}
-          </UniteText>
+        <div className="p-10 flex justify-between">
+          <div className={`h-10 w-10 border-2 flex items-center justify-center ${labelColor}`}>
+            <UniteText size="md" weight="bold" textStyle="text-white">
+              {label}
+            </UniteText>
+          </div>
+          {status !== 'todo' ? doingOrDone : null}
         </div>
-        {status === 'todo' ? todo : doingOrDone}
-      </div>
+        {status === 'todo' ? todo : null}
+      </button>
     </>
   );
 };

@@ -1,7 +1,10 @@
 import { Header } from '@/components/ui/header';
 import { LevelSelector } from '@/components/ui/level-selector';
 import { LoaderContext } from '@/shared/loader/LoaderProvider';
-import { ChallengeIdentifier } from '@/shared/utils/ChallengeIdentifiers';
+import {
+  ChallengeIdentifier,
+  fromChallengeIdentifierToDBKey,
+} from '@/shared/utils/ChallengeIdentifiers';
 import { challengeMetadataMap } from '@/shared/utils/challengeMetadata';
 import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -31,6 +34,11 @@ function ChallengeMap() {
     [ChallengeIdentifier.Eight_TornInvite]: 'todo',
   };
 
+  const goToChallenge = (id: ChallengeIdentifier) => {
+    console.log(id);
+    navigate(`/challenge/${fromChallengeIdentifierToDBKey(id)}/landing`);
+  };
+
   return (
     <>
       <div className="bg-[#EDEDED] min-h-svh">
@@ -44,7 +52,7 @@ function ChallengeMap() {
               image={challenge.image}
               label={key}
               title={challenge.title}
-              onClick={console.log}
+              onClick={() => goToChallenge(key as unknown as ChallengeIdentifier)}
               status={statuses[key as unknown as ChallengeIdentifier]}
               subtitle={challenge.period}
             />

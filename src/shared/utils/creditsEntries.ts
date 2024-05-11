@@ -1,37 +1,44 @@
-export type CreditEntry =
-  | {
-      type: 'names';
-      label: string;
-      image?: string;
-      value: string[];
-    }
-  | {
-      type: 'links';
-      label: string;
-      link: string;
-    };
-
-import gabriel from '../../assets/gabriel-profile.png';
-import mimi from '../../assets/mimi-profile.png';
-import mochi from '../../assets/mochi-profile.webp';
+export type CreditEntry = {
+  label: string;
+  image?: string;
+  value: string[];
+  color: string;
+};
 
 export const creditEntries: CreditEntry[] = [
   {
-    type: 'names',
-    label: 'Direção',
+    label: 'Direction',
     value: ['Mimi', 'Gabriel'],
-    image: gabriel,
+    image: 'https://gabrieltnishimura.github.io/unite/challenges-intro/intro-maze.webp',
+    color: 'text-[#1616EF]',
   },
-  { type: 'names', label: 'Game Design', value: ['Mimi', 'Gabriel'], image: mimi },
-  { type: 'names', label: 'UI/UX Design', value: ['Ricardo Humaytá'], image: mochi },
   {
-    type: 'names',
+    label: 'Game Design',
+    value: ['Mimi', 'Gabriel', 'Humayta'],
+    image: 'https://gabrieltnishimura.github.io/unite/challenges-intro/intro-maze.webp',
+    color: 'text-[#1414C8]',
+  },
+  {
+    label: 'UI/UX Design',
+    value: ['Humayta'],
+    image: 'https://gabrieltnishimura.github.io/unite/challenges-intro/intro-maze.webp',
+    color: 'text-[#0F0FD1]',
+  },
+  {
     label: 'Pixel Art',
     value: ['Matheus Bitencourt', 'ChatGPT', 'Midjourney', 'Mimi'],
+    color: 'text-[#1919B3]',
   },
-  { type: 'names', label: 'Desenvolvimento', value: ['Mimi', 'Gabriel'] },
-  { type: 'names', label: 'Alpha Testing', value: ['Paty', 'Luiza', 'Jessica'] },
-  { type: 'names', label: 'Beta Testing', value: ['TBD'] },
-  { type: 'names', label: 'Jogadores', value: ['Você'] },
-  { type: 'links', label: 'Github', link: 'https://github.com/unite-quest/react-unite' },
+  { label: 'Development', value: ['Mimi', 'Gabriel'], color: 'text-[#027599]' },
+  {
+    label: 'Alpha Testing',
+    value: ['Paty', 'Luiza', 'Jessica'],
+    color: 'text-[#026482]',
+  },
+  {
+    label: 'Beta Testing',
+    value: ['Caique', 'Carol', 'Claudia', 'Gianfranco', 'Guilherme', 'Fabio', 'Rodrigo', 'Roberto'],
+    color: 'text-[#024D66]',
+  },
+  { label: 'Players', value: ['Voce'], color: 'text-[#015F7A]' },
 ];

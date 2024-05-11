@@ -21,6 +21,8 @@ module.exports = {
         'sacramento': ['Sacramento'],
         'roboto': ['Roboto'],
         'pt-serif': ['PT Serif'],
+        'osd': ['osd'],
+        'bitmap-pixel': ['Bitmap Pixel'],
       },
       colors: {
         'separator': '#A0A0A0',
@@ -89,10 +91,10 @@ module.exports = {
         },
         'credits': {
           '0%': {
-            top: '130%',
+            top: '100vh', // Starts just below the viewport
           },
           '100%': {
-            top: '-100%',
+            top: '-320vh', // Moves up far enough to accommodate different screen heights
           },
         },
         'credits-with-color': {

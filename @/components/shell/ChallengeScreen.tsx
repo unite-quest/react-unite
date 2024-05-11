@@ -58,7 +58,7 @@ const ChallengeScreen: React.FC<
           variant="intro"
           style={meta.background}
           onBackClick={goBack}
-          onFlagClick={onFlagClick}
+          onFlagClick={screenType === 'landing' ? onFlagClick : undefined}
         />
         {noPadding ? (
           <>
