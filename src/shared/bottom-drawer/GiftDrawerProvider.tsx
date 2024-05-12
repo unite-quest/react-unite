@@ -96,6 +96,10 @@ export const GiftDrawerProvider: React.FC<PropsWithChildren> = ({ children }) =>
     navigator.clipboard.writeText(payments.btc);
   };
 
+  const onGoToWhats = () => {
+    window.open('https://wa.me/5511972045477');
+  };
+
   return (
     <GiftDrawerContext.Provider value={{ openDrawer }}>
       {drawerInfo ? (
@@ -169,6 +173,15 @@ export const GiftDrawerProvider: React.FC<PropsWithChildren> = ({ children }) =>
                 Após o pagamento, espere até um dia para o estoque ser atualizado. Por favor avise o
                 Gabriel caso esses botões não estejam funcionando =)
               </UniteText>
+              <StackSpacing size="sm" />
+              <UniteText>
+                Se quiser enviar uma mensagem, pode enviar diretamente para{' '}
+                <UniteText inline onClick={onGoToWhats}>
+                  WhatsApp
+                </UniteText>
+              </UniteText>
+
+              <StackSpacing size="sm" />
             </div>
           </div>
         </div>

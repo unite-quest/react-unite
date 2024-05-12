@@ -57,6 +57,7 @@ function Registry() {
             );
           })}
         </div>
+        <StackSpacing size="xl" />
       </UniteScreen>
     </>
   );

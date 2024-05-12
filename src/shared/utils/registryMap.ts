@@ -1,10 +1,4 @@
-const present1 = 'https://gabrieltnishimura.github.io/unite/registry/hobbiton.webp';
-const present2 = 'https://gabrieltnishimura.github.io/unite/registry/kiwi.webp';
-const present3 = 'https://gabrieltnishimura.github.io/unite/registry/glowworm.webp';
-const present4 = 'https://gabrieltnishimura.github.io/unite/registry/onsen.webp';
-
 export type RegistryEntry = {
-  questionId: string;
   image: string;
   text: string;
   price: number;
@@ -14,35 +8,171 @@ export type RegistryEntry = {
 
 export const registryMap: RegistryEntry[] = [
   {
-    questionId: '1',
-    image: present1,
+    image: 'https://gabrieltnishimura.github.io/unite/registry/hobbiton.webp',
     text: 'Tour do cenario de filme Hobbiton',
     price: 365.04,
     totalStock: 2,
     currentStock: 2,
   },
   {
-    questionId: '2',
-    image: present2,
+    image: 'https://gabrieltnishimura.github.io/unite/registry/kiwi.webp',
     text: 'Parque Kiwi Birdlife',
     price: 171.62,
     totalStock: 2,
     currentStock: 2,
   },
   {
-    questionId: '3',
-    image: present3,
+    image: 'https://gabrieltnishimura.github.io/unite/registry/glowworm.webp',
     text: 'Experiência na caverna Waitomo Glowworm',
     price: 1014,
     totalStock: 2,
     currentStock: 2,
   },
   {
-    questionId: '3',
-    image: present4,
+    image: 'https://gabrieltnishimura.github.io/unite/registry/onsen.webp',
     text: 'Relaxamento no Onsen Hot Pools',
     price: 1140,
     totalStock: 2,
     currentStock: 2,
+  },
+  {
+    image: 'https://gabrieltnishimura.github.io/unite/registry/shotover.webp',
+    text: 'Passeio radical de barco',
+    price: 159 * 3,
+    totalStock: 2,
+    currentStock: 2,
+  },
+  {
+    image: 'https://gabrieltnishimura.github.io/unite/registry/lotr.webp',
+    text: 'Aventura de Safari - Senhor dos Anéis',
+    price: 270 * 3,
+    totalStock: 2,
+    currentStock: 2,
+  },
+  {
+    image: 'https://gabrieltnishimura.github.io/unite/registry/ski-rental.webp',
+    text: 'Aluguel de equipamento de ski',
+    price: 200 * 3,
+    totalStock: 2,
+    currentStock: 2,
+  },
+  {
+    image: 'https://gabrieltnishimura.github.io/unite/registry/ski.webp',
+    text: 'Lift do resort de ski',
+    price: 200 * 3,
+    totalStock: 2,
+    currentStock: 2,
+  },
+  {
+    image: 'https://gabrieltnishimura.github.io/unite/registry/skydiving.webp',
+    text: 'Pular de para-quedas em Queenstown',
+    price: 415 * 3,
+    totalStock: 2,
+    currentStock: 2,
+  },
+  {
+    image: 'https://gabrieltnishimura.github.io/unite/registry/glacier.webp',
+    text: 'Trilha nas geleiras Tasman',
+    price: 799 * 3,
+    totalStock: 2,
+    currentStock: 2,
+  },
+  {
+    image: 'https://gabrieltnishimura.github.io/unite/registry/milford.webp',
+    text: 'Cruzeiro em Milford Sound',
+    price: 975,
+    totalStock: 2,
+    currentStock: 2,
+  },
+  {
+    image: 'https://gabrieltnishimura.github.io/unite/registry/zip.webp',
+    text: 'Tiroleza em Christchurch',
+    price: 110 * 3,
+    totalStock: 2,
+    currentStock: 2,
+  },
+  {
+    image: 'https://gabrieltnishimura.github.io/unite/registry/rotorua.webp',
+    text: 'Passagem de Christchurch para Rotorua',
+    price: 255,
+    totalStock: 2,
+    currentStock: 2,
+  },
+  {
+    image: 'https://gabrieltnishimura.github.io/unite/registry/maori.webp',
+    text: 'Experiência cultural dos Maoris',
+    price: 155 * 3,
+    totalStock: 2,
+    currentStock: 2,
+  },
+  {
+    image: 'https://gabrieltnishimura.github.io/unite/registry/gondola.webp',
+    text: 'Gondola em Christchurch',
+    price: 77 * 3,
+    totalStock: 2,
+    currentStock: 2,
+  },
+  {
+    image: 'https://gabrieltnishimura.github.io/unite/registry/hotel-queenstown.webp',
+    text: 'Diária no hotel em Queenstown',
+    price: 725,
+    totalStock: 3,
+    currentStock: 3,
+  },
+  {
+    image: 'https://gabrieltnishimura.github.io/unite/registry/hotel-cardrona.webp',
+    text: 'Diária no hotel em Cardrona',
+    price: 659,
+    totalStock: 3,
+    currentStock: 3,
+  },
+  {
+    image: 'https://gabrieltnishimura.github.io/unite/registry/hotel-cook.webp',
+    text: 'Diária no hotel em Monte Cook',
+    price: 824,
+    totalStock: 3,
+    currentStock: 3,
+  },
+  {
+    image: 'https://gabrieltnishimura.github.io/unite/registry/hotel-hamilton.webp',
+    text: 'Diária no hotel em Hamilton',
+    price: 616,
+    totalStock: 1,
+    currentStock: 1,
+  },
+  {
+    image: 'https://gabrieltnishimura.github.io/unite/registry/hotel-christchurch.webp',
+    text: 'Diária no hotel em Christchurch',
+    price: 514,
+    totalStock: 2,
+    currentStock: 2,
+  },
+  {
+    image: 'https://gabrieltnishimura.github.io/unite/registry/hotel-rotorua.webp',
+    text: 'Diária no hotel em Rotorua',
+    price: 616,
+    totalStock: 2,
+    currentStock: 2,
+  },
+  {
+    image: 'https://gabrieltnishimura.github.io/unite/registry/hotel-auckland.webp',
+    text: 'Diária no hotel em Auckland',
+    price: 698,
+    totalStock: 2,
+    currentStock: 2,
+  },
+  {
+    image: 'https://gabrieltnishimura.github.io/unite/registry/car-rental.webp',
+    text: 'Diária do aluguel de carro',
+    price: 150 * 3,
+    totalStock: 15,
+    currentStock: 15,
+  },
+  {
+    image: 'https://gabrieltnishimura.github.io/unite/registry/restaurant.webp',
+    text: 'Refeição em Nova Zelândia',
+    price: 210,
+    totalStock: 30,
+    currentStock: 30,
   },
 ];

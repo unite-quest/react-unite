@@ -6,9 +6,10 @@ const UniteText: React.FC<
     size?: 'xs' | 'sm' | 'md' | 'lg';
     weight?: 'light' | 'bold';
     textStyle?: string;
+    inline?: boolean;
     onClick?: () => void;
   }>
-> = ({ children, size = 'sm', align = 'left', weight = 'light', textStyle, onClick }) => {
+> = ({ children, size = 'sm', align = 'left', weight = 'light', textStyle, onClick, inline }) => {
   const alignStyle = align === 'center' ? '' : 'text-left';
   const textSize =
     size === 'xs'
@@ -21,7 +22,7 @@ const UniteText: React.FC<
   const fontWeight = weight === 'light' ? 'font-light' : 'font-medium';
   return (
     <>
-      <div className={`${alignStyle}`}>
+      <div className={`${alignStyle} ${inline ? 'inline' : ''}`}>
         <span
           className={`break-words font-roboto ${fontWeight} ${textSize} ${textStyle || ''} ${onClick ? 'underline' : ''}`}
           onClick={onClick}
