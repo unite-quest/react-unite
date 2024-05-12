@@ -50,6 +50,8 @@ export const GiftDrawerProvider: React.FC<PropsWithChildren> = ({ children }) =>
       payments.pix.code,
       drawerInfo.price,
     );
+    setBtcCopied(false);
+    setPixCopied(false);
     setPixCode(pix.getPayload());
   }, [drawerInfo, payments]);
 

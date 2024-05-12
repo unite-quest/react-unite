@@ -13,8 +13,6 @@ function Credits() {
 
   useEffect(() => {
     setTimeout(() => {
-      document.body.style.overflow = 'hidden';
-
       setLoading(false);
     }, 1);
   }, [setLoading]);
@@ -44,6 +42,9 @@ function Credits() {
 
   const goHome = () => {
     navigate('..');
+  };
+  const gotoGift = () => {
+    navigate('/registry');
   };
   const openGithub = () => {
     window.open('https://github.com/unite-quest/react-unite');
@@ -98,7 +99,7 @@ function Credits() {
           Github
         </UniteText>
         <StackSpacing size="md" />
-        <UniteText align="center" onClick={openGithub}>
+        <UniteText align="center" onClick={gotoGift}>
           Dar presente
         </UniteText>
         <StackSpacing size="md" />

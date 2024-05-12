@@ -1,10 +1,7 @@
 import { Header } from '@/components/ui/header';
 import { LevelSelector } from '@/components/ui/level-selector';
 import { LoaderContext } from '@/shared/loader/LoaderProvider';
-import {
-  ChallengeIdentifier,
-  fromChallengeIdentifierToDBKey,
-} from '@/shared/utils/ChallengeIdentifiers';
+import { ChallengeIdentifier } from '@/shared/utils/ChallengeIdentifiers';
 import { challengeMetadataMap } from '@/shared/utils/challengeMetadata';
 import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -35,8 +32,7 @@ function ChallengeMap() {
   };
 
   const goToChallenge = (id: ChallengeIdentifier) => {
-    console.log(id);
-    navigate(`/challenge/${fromChallengeIdentifierToDBKey(id)}/landing`);
+    navigate(`/challenge/${String(Number(id) + 1)}/landing`);
   };
 
   return (
@@ -50,7 +46,7 @@ function ChallengeMap() {
             <LevelSelector
               key={key}
               image={challenge.image}
-              label={key}
+              label={String(Number(key) + 1)}
               title={challenge.title}
               onClick={() => goToChallenge(key as unknown as ChallengeIdentifier)}
               status={statuses[key as unknown as ChallengeIdentifier]}

@@ -51,10 +51,11 @@ function Home() {
         <div className="bg-light-blue">
           <StackSpacing size="lg" />
           <InsetSpacing size={'md'}>
+            <StackSpacing size="lg" />
             <UniteTitle color="text-dark-green" align="left">
               A nossa história
             </UniteTitle>
-            <StackSpacing size="sm" />
+            <StackSpacing size="md" />
             <UniteText align="left">
               Decidimos contar um pouco de nossa trajetória até aqui de uma maneira diferente!
               Convidamos cada um de vocês para participar de uma sequência de desafios preparados
@@ -75,10 +76,11 @@ function Home() {
         <div className="bg-light-beige">
           <StackSpacing size="lg" />
           <InsetSpacing size={'md'}>
+            <StackSpacing size="lg" />
             <UniteTitle color="text-dark-green" align="left">
               Lista de presentes
             </UniteTitle>
-            <StackSpacing size="sm" />
+            <StackSpacing size="md" />
             <UniteText align="left">
               Como forma de receber auxílio em nossa nova fase, sugerimos algumas opções de
               presentes que serão revertidos em dinheiro para nós. Dessa maneira, receberemos uma

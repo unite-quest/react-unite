@@ -6,13 +6,16 @@ import { GiftDrawerContext } from '@/shared/bottom-drawer/GiftDrawerProvider';
 import { LoaderContext } from '@/shared/loader/LoaderProvider';
 import { RegistryEntry, registryMap } from '@/shared/utils/registryMap';
 import { useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Registry() {
   const { setLoading } = useContext(LoaderContext);
   const { openDrawer } = useContext(GiftDrawerContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setTimeout(() => {
+      window.scrollTo(0, 0);
       setLoading(false);
     }, 10);
   }, [setLoading]);
@@ -21,10 +24,16 @@ function Registry() {
     openDrawer(choice);
   };
 
+  const onBack = () => {
+    navigate(-1);
+  };
+
   return (
     <>
       <UniteScreen background="bg-light-blue" Header={<></>} Footer={<></>}>
         <StackSpacing size="md" />
+        <UniteText onClick={onBack}>Voltar</UniteText>
+        <StackSpacing size="sm" />
         <UniteTitle color="text-dark-green">Lista de presentes</UniteTitle>
         <StackSpacing size="sm" />
         <UniteText>
