@@ -2,11 +2,10 @@ import { LoaderContext } from '@/shared/loader/LoaderProvider';
 import { ChallengeIdentifier } from '@/shared/utils/ChallengeIdentifiers';
 import React, { Suspense, useContext, useEffect } from 'react';
 import { useCurrentChallenge } from 'src/hooks/useCurrentChallenge';
-import TornInvite from '../8/TornInvite';
 
 function Challenges() {
   const { setLoading } = useContext(LoaderContext);
-  const { id: challengeId } = useCurrentChallenge();
+  const { id: challengeId, meta } = useCurrentChallenge();
 
   useEffect(() => {
     setTimeout(() => {
@@ -21,6 +20,7 @@ function Challenges() {
   const MediMazeAdventure = React.lazy(() => import('../5/MediMazeAdventure'));
   const RentalRumble = React.lazy(() => import('../6/RentalRumble'));
   const SimonSaysChallenge = React.lazy(() => import('../7/SimonSaysChallenge'));
+  const TornInvite = React.lazy(() => import('../8/TornInvite'));
 
   const Challenges: Record<ChallengeIdentifier, { component: JSX.Element }> = {
     [ChallengeIdentifier.One_LogoQuiz]: {
@@ -51,7 +51,9 @@ function Challenges() {
 
   return (
     <>
-      <Suspense fallback={<div>Loading...</div>}>{Challenges[challengeId].component}</Suspense>
+      <Suspense fallback={<div className={`min-h-svh ${meta.background}`} />}>
+        {Challenges[challengeId].component}
+      </Suspense>
     </>
   );
 }

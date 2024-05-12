@@ -11,7 +11,7 @@ export const LoaderContext = React.createContext<LoaderContextInterface>({
 });
 
 export const LoaderProvider: React.FC<PropsWithChildren> = ({ children }) => {
-  const [loading, setLoading] = React.useState(true);
+  const [loading, setLoading] = React.useState(false);
 
   return (
     <LoaderContext.Provider value={{ loading, setLoading }}>

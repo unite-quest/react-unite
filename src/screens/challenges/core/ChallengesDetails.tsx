@@ -5,7 +5,7 @@ import { useCurrentChallenge } from '../../../hooks/useCurrentChallenge';
 
 function ChallengesDetails() {
   const { setLoading } = useContext(LoaderContext);
-  const { id: challengeId } = useCurrentChallenge();
+  const { id: challengeId, meta } = useCurrentChallenge();
 
   useEffect(() => {
     setTimeout(() => {
@@ -47,9 +47,9 @@ function ChallengesDetails() {
   };
 
   return (
-    <>
-      <Suspense fallback={<div>Loading...</div>}>{Challenges[challengeId].component}</Suspense>
-    </>
+    <Suspense fallback={<div className={`min-h-svh ${meta.background}`} />}>
+      {Challenges[challengeId].component}
+    </Suspense>
   );
 }
 

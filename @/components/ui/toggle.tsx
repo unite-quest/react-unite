@@ -64,13 +64,13 @@ const UniteToggle: React.FC<{
           </div>
         </div>
         <div>
-          <button className="h-10 w-[4.5rem]" onClick={() => onChange(!state)}>
+          <div className="h-10 w-[4.5rem]" onClick={() => onChange(!state)}>
             <div
               className={`bg-black w-full h-full rounded-full flex items-center p-1 ${styles.toggleColor} ${styles.togglePositioning}`}
             >
               <div className="h-8 w-8 bg-white rounded-full"></div>
             </div>
-          </button>
+          </div>
         </div>
       </button>
       <StackSpacing size="md" />
