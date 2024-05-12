@@ -3,11 +3,13 @@ import { LoaderContext } from '@/shared/loader/LoaderProvider';
 import { ModalContext } from '@/shared/modal/ModalProvider';
 import { ChallengeRouteIdentifier } from '@/shared/utils/ChallengeIdentifiers';
 import { getMazeParameters } from '@/shared/utils/maze/mazeLevelMetadata';
+import { persistAnswerKey } from '@/shared/utils/validateAnswer';
 import { useContext, useState } from 'react';
 import { Joystick } from 'react-joystick-component';
 import { createSearchParams, useNavigate } from 'react-router-dom';
 import { useCurrentQuestion } from 'src/hooks/useCurrentQuestion';
 import { MazeCanvas } from './MazeCanvas';
+export const MAZE_QUESTIONS_LENGTH = 2;
 
 function getCanvasDimensions(): { sidePadding: number; width: number; height: number } {
   const sidePadding = 16;
@@ -36,7 +38,9 @@ function MediMazeAdventureDetails() {
     setLoading(false);
   };
 
-  const onReachObjective = () => {
+  const onReachObjective = async () => {
+    await persistAnswerKey(`c5-q${questionId}-true`);
+
     if (questionId === 1) {
       openModal({
         type: 'imageSuccess',

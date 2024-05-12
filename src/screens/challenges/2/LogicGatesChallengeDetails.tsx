@@ -2,6 +2,7 @@ import { ChallengeFooter } from '@/components/shell/ChallengeFooter';
 import { ChallengeScreen } from '@/components/shell/ChallengeScreen';
 import { ModalContext } from '@/shared/modal/ModalProvider';
 import { ChallengeRouteIdentifier } from '@/shared/utils/ChallengeIdentifiers';
+import { persistAnswerKey } from '@/shared/utils/validateAnswer';
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCurrentQuestion } from 'src/hooks/useCurrentQuestion';
@@ -95,7 +96,7 @@ function LogicGatesChallenge() {
     setShowProgressBar(false);
     setProgressBar(0);
     setSubmitState(false);
-  }, [questionId]);
+  }, [meta.numberOfInputs, questionId]);
 
   const toggleSwitch = (index: number) => {
     setInputs(inputs.map((input, idx) => (idx === index ? !input : input)));
@@ -140,7 +141,23 @@ function LogicGatesChallenge() {
     }
 
     await timeout(1000);
-    if (meta.validation(answers) && (questionId === 4 || questionId === 5)) {
+    // invalid answer
+    if (!meta.validation(answers)) {
+      openModal({
+        type: 'failure',
+        message: questionId === 5 ? 'Reveja a sua resposta :(' : 'Não acendeu a lâmpada :(',
+      });
+      setProgressBar(0);
+      setShowProgressBar(false);
+      setSubmitState(false);
+      return;
+    }
+
+    setSubmitState(false);
+    const appAnswer = answers.join('|');
+    await persistAnswerKey(`c2-q${questionId}-${appAnswer}`);
+
+    if (questionId === 4 || questionId === 5) {
       openModal({
         type: 'imageSuccess',
         message: 'Conseguimos nos formar graças à sua cola!',
@@ -151,20 +168,13 @@ function LogicGatesChallenge() {
       });
     } else if (meta.validation(answers)) {
       openModal({
-        type: 'challengeCompleted',
-        onPrimaryPress: () => {
+        type: 'success',
+        message: 'Ótima resposta, continue assim!',
+        dismiss: () => {
           navigate(meta.navigate);
         },
       });
-    } else {
-      openModal({
-        type: 'failure',
-        message: questionId === 5 ? 'Reveja a sua resposta :(' : 'Não acendeu a lâmpada :(',
-      });
-      setProgressBar(0);
-      setShowProgressBar(false);
     }
-    setSubmitState(false);
   };
 
   return (

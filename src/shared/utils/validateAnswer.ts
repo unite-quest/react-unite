@@ -12,8 +12,11 @@ export async function persistAnswerKey(key: string): Promise<void> {
   let updatedArray = [];
   if (answers) {
     const tentativeArray = JSON.parse(answers);
-    if (Array.isArray(tentativeArray) && !tentativeArray.includes(key)) {
-      tentativeArray.push(key);
+    if (Array.isArray(tentativeArray)) {
+      if (!tentativeArray.includes(key)) {
+        tentativeArray.push(key);
+      }
+      // keep the array the same regardless
       updatedArray = tentativeArray;
     }
   } else {

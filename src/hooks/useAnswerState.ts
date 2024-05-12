@@ -23,7 +23,7 @@ function getUserAnswers(): string[] {
   return [];
 }
 
-async function getCompletedQuestionsForChallenge(
+export async function getCompletedQuestionsForChallenge(
   challengeId: ChallengeIdentifier,
   answers: AnswersModel | null | undefined,
 ): Promise<string[]> {
@@ -80,5 +80,45 @@ export function useAnswerState(
   return {
     answeredQuestionIds,
     refetchAnsweredQuestions,
+  };
+}
+
+export function useLooseAnswerState(challengeId: ChallengeIdentifier): {
+  answeredQuestionIds: string[] | undefined; // questionId
+} {
+  const [answeredQuestionIds, setAnsweredQuestionIds] = useState<string[]>();
+
+  useEffect(() => {
+    const userAnswers = getUserAnswers();
+    if (!userAnswers.length) {
+      setAnsweredQuestionIds([]);
+      return;
+    }
+
+    const challengePrefix = `c${fromChallengeIdentifierToDBKey(challengeId)}-q`;
+    const challengeAnswers = userAnswers
+      .filter(answer => answer.startsWith(challengePrefix))
+      .reduce<string[]>((acc, cur) => {
+        const [questionId] = cur.replace(challengePrefix, '').split('-');
+        if (!acc.includes(questionId)) {
+          return [...acc, questionId];
+        }
+        return acc;
+      }, []);
+
+    if (challengeId === ChallengeIdentifier.Two_LogicGates) {
+      // logic gates business logic
+      if (challengeAnswers.includes('5')) {
+        setAnsweredQuestionIds(challengeAnswers);
+      } else if (challengeAnswers.length >= 4) {
+        setAnsweredQuestionIds(challengeAnswers);
+      }
+    } else if (challengeId === ChallengeIdentifier.Five_Labyrinth) {
+      setAnsweredQuestionIds(challengeAnswers);
+    }
+  }, [challengeId]);
+
+  return {
+    answeredQuestionIds,
   };
 }

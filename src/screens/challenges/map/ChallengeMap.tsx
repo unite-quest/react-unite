@@ -1,14 +1,18 @@
 import { Header } from '@/components/ui/header';
 import { LevelSelector } from '@/components/ui/level-selector';
 import { LoaderContext } from '@/shared/loader/LoaderProvider';
+import { ModalContext } from '@/shared/modal/ModalProvider';
 import { ChallengeIdentifier } from '@/shared/utils/ChallengeIdentifiers';
 import { challengeMetadataMap } from '@/shared/utils/challengeMetadata';
 import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import useAnswerStatus from 'src/hooks/useAnswerStatus';
 
 function ChallengeMap() {
   const { setLoading } = useContext(LoaderContext);
+  const { openModal } = useContext(ModalContext);
   const navigate = useNavigate();
+  const { statuses, allDone } = useAnswerStatus();
 
   useEffect(() => {
     setTimeout(() => {
@@ -20,20 +24,22 @@ function ChallengeMap() {
     navigate(-1);
   };
 
-  const statuses: Record<ChallengeIdentifier, 'todo' | 'doing' | 'done'> = {
-    [ChallengeIdentifier.One_LogoQuiz]: 'done',
-    [ChallengeIdentifier.Two_LogicGates]: 'done',
-    [ChallengeIdentifier.Three_Video]: 'done',
-    [ChallengeIdentifier.Four_DogCuisine]: 'doing',
-    [ChallengeIdentifier.Five_Labyrinth]: 'todo',
-    [ChallengeIdentifier.Six_ApartmentTinder]: 'todo',
-    [ChallengeIdentifier.Seven_SimonSays]: 'todo',
-    [ChallengeIdentifier.Eight_TornInvite]: 'todo',
-  };
-
   const goToChallenge = (id: ChallengeIdentifier) => {
     navigate(`/challenge/${String(Number(id) + 1)}/landing`);
   };
+
+  useEffect(() => {
+    if (!allDone) {
+      return;
+    }
+    openModal({
+      type: 'success',
+      message: 'Obrigado por completar todos os desafios! Clique no X para ver os créditos',
+      dismiss: () => {
+        navigate('/credits');
+      },
+    });
+  }, [allDone, navigate, openModal]);
 
   return (
     <>

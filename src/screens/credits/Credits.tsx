@@ -53,7 +53,7 @@ function Credits() {
   function fromCreditEntryToLayout(entry: CreditEntry): JSX.Element {
     const angle = `${Math.random() >= 0.5 ? '' : '-'}${Math.random() * 5}deg`;
     return (
-      <>
+      <Fragment key={entry.label}>
         <div className="flex justify-center" key={entry.label}>
           <div>
             <span className={`font-bitmap-pixel text-3xl font-medium text-center ${entry.color}`}>
@@ -80,7 +80,7 @@ function Credits() {
           </div>
         </div>
         <StackSpacing size="lg" />
-      </>
+      </Fragment>
     );
   }
 

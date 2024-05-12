@@ -11,6 +11,8 @@ import { createSearchParams, useNavigate } from 'react-router-dom';
 import { useAnswerState } from 'src/hooks/useAnswerState';
 import { useCurrentChallenge } from 'src/hooks/useCurrentChallenge';
 
+export const VIDEO_CHALLENGE_QUESTIONS_LENGTH = 8;
+
 const questions: { question: string }[] = [
   {
     question: 'Qual o nome do Gabriel?',

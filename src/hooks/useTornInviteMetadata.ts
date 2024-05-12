@@ -17,7 +17,7 @@ type ChallengeMetadata = {
   validateAnswer: (userAttempt: string) => Promise<boolean>;
 };
 
-const MAX_GUESSES = 12;
+export const TORN_INVITE_MAX_GUESSES = 12;
 
 export default function useTornInviteMetadata(): ChallengeMetadata {
   const { id: challengeId } = useCurrentChallenge();
@@ -55,7 +55,7 @@ export default function useTornInviteMetadata(): ChallengeMetadata {
       return undefined;
     }
 
-    if (answeredQuestionIds.length === MAX_GUESSES) {
+    if (answeredQuestionIds.length === TORN_INVITE_MAX_GUESSES) {
       return null;
     }
 
@@ -76,7 +76,7 @@ export default function useTornInviteMetadata(): ChallengeMetadata {
     currentQuestionId,
     alreadyAnswered: (answeredQuestionIds || []).includes(String(currentQuestionId + 1)),
     totalGuestsSubmitted: (answeredQuestionIds || []).length,
-    totalGuests: MAX_GUESSES,
+    totalGuests: TORN_INVITE_MAX_GUESSES,
     guestName,
     tipForGuestName,
     nextQuestionId,

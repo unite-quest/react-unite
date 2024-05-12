@@ -16,6 +16,8 @@ import useAllAnswers from 'src/hooks/useAllAnswers';
 import { useAnswerState } from 'src/hooks/useAnswerState';
 import { useCurrentChallenge } from 'src/hooks/useCurrentChallenge';
 
+export const DOG_CUISINE_QUESTIONS_LENGTH = 17;
+
 const todaysMenu: { image: string; itemName: string; tipWhenWrong: string }[] = [
   {
     image: 'https://gabrieltnishimura.github.io/unite/Beef.png',

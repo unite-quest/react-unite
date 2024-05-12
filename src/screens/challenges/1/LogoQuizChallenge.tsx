@@ -11,7 +11,7 @@ import { createSearchParams, useNavigate } from 'react-router-dom';
 import { useAnswerState } from 'src/hooks/useAnswerState';
 import { useCurrentChallenge } from 'src/hooks/useCurrentChallenge';
 
-const MINIMUM_ANSWERS = 7;
+export const LOGO_QUIZ_MINIMUM_ANSWERS = 7;
 
 function LogoQuizChallenge() {
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ function LogoQuizChallenge() {
 
   const [answers, setAnswers] = useState<boolean[]>(Array(logoMap.length).fill(false));
   const correctAnswers = answers.filter(value => !!value).length;
-  const challengeFinished = correctAnswers >= MINIMUM_ANSWERS;
+  const challengeFinished = correctAnswers >= LOGO_QUIZ_MINIMUM_ANSWERS;
 
   const goToLogoDetailedScreen = (index: number) => {
     navigate({
@@ -75,7 +75,7 @@ function LogoQuizChallenge() {
         description="Selecione cada um dos jogos abaixo e descubra o nome."
         Footer={
           <ChallengeFooter
-            title={`Finalizar ${correctAnswers}/${MINIMUM_ANSWERS}`}
+            title={`Finalizar ${correctAnswers}/${LOGO_QUIZ_MINIMUM_ANSWERS}`}
             disabled={!challengeFinished}
             onClick={goToNextChallenge}
           />
