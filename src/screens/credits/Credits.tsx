@@ -29,8 +29,8 @@ function Credits() {
       creditsEl.style.bottom = '0'; // Reset top to bring it into view
       setAnimate(false);
       setTimeout(() => {
-        window.scrollTo(0, document.body.scrollHeight);
-      }, 1);
+        window.scroll(0, 10000);
+      }, 10);
     };
 
     creditsEl.addEventListener('animationend', enableScrolling);
@@ -48,6 +48,11 @@ function Credits() {
   };
   const openGithub = () => {
     window.open('https://github.com/unite-quest/react-unite');
+  };
+  const askGift = () => {
+    window.open(
+      'https://docs.google.com/forms/d/e/1FAIpQLSf34G3X3PzGUp2MMGBboi0DrNjzs1YFIydSZxu3qIgFfAFpYA/viewform?usp=sf_link',
+    );
   };
 
   function fromCreditEntryToLayout(entry: CreditEntry): JSX.Element {
@@ -69,13 +74,18 @@ function Credits() {
               );
             })}
             {entry.image ? (
-              <img
-                height={250}
-                width={250}
-                className="rotate-[4deg] border-8 border-white"
-                style={{ rotate: angle }}
-                src={entry.image}
-              />
+              <>
+                <StackSpacing size="sm" />
+                <div className="flex justify-center items-center">
+                  <img
+                    height={250}
+                    width={250}
+                    className="rotate-[4deg] border-8 border-white"
+                    style={{ rotate: angle }}
+                    src={entry.image}
+                  />
+                </div>
+              </>
             ) : null}
           </div>
         </div>
@@ -95,6 +105,25 @@ function Credits() {
         <StackSpacing size="xl" />
         {creditEntries.map(fromCreditEntryToLayout)}
         <StackSpacing size="md" />
+        <div className="flex justify-center items-center">
+          <img
+            height={200}
+            width={200}
+            className="rounded-full border-2 border-[#7f7ffa]"
+            src="https://gabrieltnishimura.github.io/unite/credits/gift-credits.webp"
+          />
+        </div>
+        <StackSpacing size="md" />
+        <UniteText
+          size="lg"
+          align="center"
+          weight="bold"
+          onClick={askGift}
+          textStyle="text-[#228B22]"
+        >
+          Peça o seu brinde
+        </UniteText>
+        <StackSpacing size="xl" />
         <UniteText align="center" onClick={openGithub}>
           Github
         </UniteText>
