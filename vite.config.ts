@@ -11,6 +11,7 @@ export default defineConfig(({ mode }) => {
     define: {
       'process.env.REACT_APP_SECRET': JSON.stringify(env.REACT_APP_SECRET),
       'process.env.REACT_APP_SCRAMBLE_SECRET': JSON.stringify(env.REACT_APP_SCRAMBLE_SECRET),
+      'process.env.REACT_APP_PAYMENTS': JSON.stringify(env.REACT_APP_PAYMENTS),
     },
     plugins: [
       react(),
