@@ -55,14 +55,16 @@ const PresentTile: React.FC<{
   return (
     <button onClick={onClick} className={`w-full rounded-2xl p-5 mb-3 ${outOfStockBackground}`}>
       <div>
-        <UniteText size="xs" weight="bold" textStyle="text-black">
+        <UniteText size="md" weight="bold" textStyle="text-black">
           {text}
         </UniteText>
         <StackSpacing size="sm" />
         <div className="flex justify-between">
           <img height={130} width={130} className="rounded-md" src={image} />
           <div className="text-left flex flex-col justify-center items-center">
-            <UniteText size="xs">R${price}</UniteText>
+            <UniteText size="xs" weight="bold">
+              R${price}
+            </UniteText>
             <UniteText size="xs">Estoque: ({parts})</UniteText>
             <StackSpacing size="sm" />
             {outOfStock ? null : (

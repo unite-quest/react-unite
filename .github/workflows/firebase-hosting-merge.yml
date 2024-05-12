@@ -13,6 +13,7 @@ jobs:
       SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
       REACT_APP_SECRET: ${{ secrets.REACT_APP_SECRET }}
       REACT_APP_SCRAMBLE_SECRET: ${{ secrets.REACT_APP_SCRAMBLE_SECRET }}
+      REACT_APP_PAYMENTS: ${{ secrets.REACT_APP_PAYMENTS }}
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v1

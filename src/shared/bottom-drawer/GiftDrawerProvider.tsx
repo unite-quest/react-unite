@@ -162,6 +162,11 @@ export const GiftDrawerProvider: React.FC<PropsWithChildren> = ({ children }) =>
               >
                 {btcCopied ? 'Endereço Bitcoin Copiado ✔️' : 'Copiar endereço Bitcoin'}
               </button>
+              <StackSpacing size="sm" />
+              <UniteText>
+                Após o pagamento, espere até um dia para o estoque ser atualizado. Por favor avise o
+                Gabriel caso esses botões não estejam funcionando =)
+              </UniteText>
             </div>
           </div>
         </div>
