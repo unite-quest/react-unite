@@ -127,11 +127,11 @@ const mochiGrowthFeedback: Record<number, { message: string; image: string }> = 
     image: 'https://gabrieltnishimura.github.io/unite/mochi/mochi-2.webp',
   },
   3: {
-    message: 'Mochi está ficando maior e gostou de mais ingredientes ainda - continue assim!',
+    message: 'Mochi está ficando maior e gostou de vários ingredientes - continue assim!',
     image: 'https://gabrieltnishimura.github.io/unite/mochi/mochi-3.webp',
   },
   4: {
-    message: 'Mochi gostou de quase todo o prato!',
+    message: 'Mochi gostou de quase todo o prato! Faltam poucos ajustes no cardápio!',
     image: 'https://gabrieltnishimura.github.io/unite/mochi/mochi-4.webp',
   },
 };
