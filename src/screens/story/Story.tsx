@@ -7,6 +7,7 @@ import { LoaderContext } from '@/shared/loader/LoaderProvider';
 import { ChallengeRouteIdentifier } from '@/shared/utils/ChallengeIdentifiers';
 import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import useAnswerStatus from 'src/hooks/useAnswerStatus';
 import landscape from '../../../src/assets/adventure-landscape.png';
 
 const getAuth = () => import('../../shared/authentication/AuthenticationService');
@@ -15,6 +16,7 @@ function Story() {
   const { user } = useContext(AuthenticationContext);
   const { setLoading } = useContext(LoaderContext);
   const navigate = useNavigate();
+  const { started } = useAnswerStatus();
 
   const goBack = () => {
     navigate(-1);
@@ -39,6 +41,14 @@ function Story() {
     }
   }, [user]);
 
+  const goToAdventure = () => {
+    if (started) {
+      navigate(`/challenge/map`);
+      return;
+    }
+    navigate(`/challenge/${ChallengeRouteIdentifier.One_LogoQuiz}/landing`);
+  };
+
   return (
     <>
       <UniteScreen
@@ -47,11 +57,9 @@ function Story() {
         Footer={
           <FixedBottom
             background="bg-beige"
-            title="Iniciar"
+            title={started ? 'Resumir' : 'Iniciar'}
             buttonVariant="adventure"
-            onClick={() => {
-              navigate(`/challenge/${ChallengeRouteIdentifier.One_LogoQuiz}/landing`);
-            }}
+            onClick={goToAdventure}
             withArrow={true}
           >
             <img src={landscape} alt="Landscape" />

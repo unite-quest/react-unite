@@ -37,10 +37,11 @@ export function useSpawnEnemies(
     enemyRef2.current.src = doctor3;
     enemyRef3.current.src = receptionist;
 
-    const imagesLoaded = Promise.all([new Promise(resolve => (enemyRef.current.onload = resolve)),
+    const imagesLoaded = Promise.all([
+      new Promise(resolve => (enemyRef.current.onload = resolve)),
       new Promise(resolve => (enemyRef1.current.onload = resolve)),
       new Promise(resolve => (enemyRef2.current.onload = resolve)),
-      new Promise(resolve => (enemyRef3.current.onload = resolve))
+      new Promise(resolve => (enemyRef3.current.onload = resolve)),
     ]);
     // wait for all enemies to load before processing their sprites
     imagesLoaded.then(() => {
@@ -49,7 +50,7 @@ export function useSpawnEnemies(
       if (questionId === 1) {
         const doctor = new CorridorsStaticEnemyDoctorSprite(
           enemyRef.current,
-          { x: 2, y: 4 },
+          { x: 2, y: 3 },
           scalingData,
           tick,
         );
