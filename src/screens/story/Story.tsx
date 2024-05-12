@@ -16,9 +16,9 @@ function Story() {
   const { setLoading } = useContext(LoaderContext);
   const navigate = useNavigate();
 
-  // const goBack = () => {
-  //   navigate(-1);
-  // };
+  const goBack = () => {
+    navigate(-1);
+  };
 
   const anonLogin = async () => {
     (await getAuth()).authenticationService.anonymousLogin();
@@ -59,6 +59,8 @@ function Story() {
         }
       >
         <StackSpacing size="lg" />
+        <UniteText onClick={goBack}>Voltar</UniteText>
+        <StackSpacing size="sm" />
         <UniteTitle align="left" color="text-dark-green">
           A nossa história
         </UniteTitle>

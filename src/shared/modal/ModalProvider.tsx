@@ -21,6 +21,7 @@ interface CustomModalData {
   type: 'success' | 'failure';
   message: string;
   dismiss?: () => void;
+  onPrimaryPress?: () => void;
 }
 
 type ModalData = CustomModalData | ImageModalData | ChallengeCompletedModalData;
@@ -59,8 +60,10 @@ export const ModalProvider: React.FC<PropsWithChildren> = ({ children }) => {
     }
   }, [modalInfo]);
 
+  const exceptionLogoQuiz = modalInfo?.type === 'success' && Boolean(modalInfo.onPrimaryPress);
+
   const primaryPress =
-    modalInfo?.type === 'challengeCompleted'
+    modalInfo?.type === 'challengeCompleted' || exceptionLogoQuiz
       ? () => {
           modalInfo?.onPrimaryPress?.();
           openModal(undefined);
@@ -82,6 +85,7 @@ export const ModalProvider: React.FC<PropsWithChildren> = ({ children }) => {
   };
 
   const successOrFailure = isSuccess || modalInfo?.type === 'failure';
+  const showDismiss: boolean = exceptionLogoQuiz || Boolean(!primaryPress);
 
   return (
     <ModalContext.Provider value={{ openModal }}>
@@ -89,7 +93,7 @@ export const ModalProvider: React.FC<PropsWithChildren> = ({ children }) => {
         <div className="fixed top-0 left-0 h-full w-full bg-black/[.75] p-5 z-50">
           <div className="flex items-center justify-center h-full">
             <div className="bg-white rounded-3xl min-h-72 min-w-80 p-5 justify-between relative">
-              {primaryPress ? null : (
+              {showDismiss ? (
                 <div className="absolute right-5">
                   <button
                     className="h-10 w-10 rounded-full border-black border-2 items-center justify-center"
@@ -98,7 +102,7 @@ export const ModalProvider: React.FC<PropsWithChildren> = ({ children }) => {
                     <span className="text-2xl leading-none">×</span>
                   </button>
                 </div>
-              )}
+              ) : null}
               <div className="flex justify-center pb-4">
                 {image ? (
                   <div className="pt-8">
