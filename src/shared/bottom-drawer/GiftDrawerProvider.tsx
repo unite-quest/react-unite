@@ -42,9 +42,10 @@ export const GiftDrawerProvider: React.FC<PropsWithChildren> = ({ children }) =>
     if (!payments || !drawerInfo) {
       return;
     }
+    const normalizedName = drawerInfo.text.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
     const pix = new Pix(
       payments.pix.code,
-      drawerInfo.text,
+      normalizedName,
       payments.pix.name,
       payments.pix.location,
       payments.pix.code,
