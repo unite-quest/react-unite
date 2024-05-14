@@ -26,7 +26,7 @@ export const registryMap: RegistryEntry[] = [
     text: 'Experiência na caverna Waitomo Glowworm',
     price: 1014,
     totalStock: 2,
-    currentStock: 2,
+    currentStock: 1,
   },
   {
     image: 'https://gabrieltnishimura.github.io/unite/registry/onsen.webp',
@@ -82,7 +82,7 @@ export const registryMap: RegistryEntry[] = [
     text: 'Cruzeiro em Milford Sound',
     price: 975,
     totalStock: 2,
-    currentStock: 2,
+    currentStock: 1,
   },
   {
     image: 'https://gabrieltnishimura.github.io/unite/registry/zip.webp',
