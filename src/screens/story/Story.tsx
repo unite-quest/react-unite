@@ -62,6 +62,8 @@ function Story() {
             onClick={goToAdventure}
             withArrow={true}
           >
+            <h1 className="font-bitmap-pixel text-4xl text-[#7f7ffa]">Unite Quest</h1>
+            <StackSpacing size="lg" />
             <img src={landscape} alt="Landscape" />
           </FixedBottom>
         }
