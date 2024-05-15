@@ -110,7 +110,7 @@ export const registryMap: RegistryEntry[] = [
     text: 'Gondola em Christchurch',
     price: 77 * 3,
     totalStock: 2,
-    currentStock: 2,
+    currentStock: 1,
   },
   {
     image: 'https://gabrieltnishimura.github.io/unite/registry/hotel-queenstown.webp',
