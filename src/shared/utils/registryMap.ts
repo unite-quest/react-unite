@@ -12,7 +12,7 @@ export const registryMap: RegistryEntry[] = [
     text: 'Tour do cenario de filme Hobbiton',
     price: 365.04,
     totalStock: 2,
-    currentStock: 1,
+    currentStock: 0,
   },
   {
     image: 'https://gabrieltnishimura.github.io/unite/registry/kiwi.webp',
