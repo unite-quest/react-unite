@@ -61,7 +61,7 @@ export const registryMap: RegistryEntry[] = [
     text: 'Lift do resort de ski',
     price: 200 * 3,
     totalStock: 2,
-    currentStock: 2,
+    currentStock: 1,
   },
   {
     image: 'https://gabrieltnishimura.github.io/unite/registry/skydiving.webp',
@@ -173,6 +173,6 @@ export const registryMap: RegistryEntry[] = [
     text: 'Refeição em Nova Zelândia',
     price: 210,
     totalStock: 30,
-    currentStock: 30,
+    currentStock: 29,
   },
 ];
