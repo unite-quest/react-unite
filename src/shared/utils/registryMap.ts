@@ -47,7 +47,7 @@ export const registryMap: RegistryEntry[] = [
     text: 'Aventura de Safari - Senhor dos Anéis',
     price: 270 * 3,
     totalStock: 2,
-    currentStock: 1,
+    currentStock: 0,
   },
   {
     image: 'https://gabrieltnishimura.github.io/unite/registry/ski-rental.webp',
@@ -117,7 +117,7 @@ export const registryMap: RegistryEntry[] = [
     text: 'Diária no hotel em Queenstown',
     price: 725,
     totalStock: 3,
-    currentStock: 3,
+    currentStock: 0,
   },
   {
     image: 'https://gabrieltnishimura.github.io/unite/registry/hotel-cardrona.webp',
