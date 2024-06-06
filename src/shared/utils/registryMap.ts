@@ -8,27 +8,6 @@ export type RegistryEntry = {
 
 export const registryMap: RegistryEntry[] = [
   {
-    image: 'https://gabrieltnishimura.github.io/unite/registry/hobbiton.webp',
-    text: 'Tour do cenario de filme Hobbiton',
-    price: 365.04,
-    totalStock: 2,
-    currentStock: 0,
-  },
-  {
-    image: 'https://gabrieltnishimura.github.io/unite/registry/kiwi.webp',
-    text: 'Parque Kiwi Birdlife',
-    price: 171.62,
-    totalStock: 2,
-    currentStock: 1,
-  },
-  {
-    image: 'https://gabrieltnishimura.github.io/unite/registry/glowworm.webp',
-    text: 'Experiência na caverna Waitomo Glowworm',
-    price: 1014,
-    totalStock: 2,
-    currentStock: 1,
-  },
-  {
     image: 'https://gabrieltnishimura.github.io/unite/registry/onsen.webp',
     text: 'Relaxamento no Onsen Hot Pools',
     price: 1140,
@@ -41,13 +20,6 @@ export const registryMap: RegistryEntry[] = [
     price: 159 * 3,
     totalStock: 2,
     currentStock: 2,
-  },
-  {
-    image: 'https://gabrieltnishimura.github.io/unite/registry/lotr.webp',
-    text: 'Aventura de Safari - Senhor dos Anéis',
-    price: 270 * 3,
-    totalStock: 2,
-    currentStock: 0,
   },
   {
     image: 'https://gabrieltnishimura.github.io/unite/registry/ski-rental.webp',
@@ -75,7 +47,7 @@ export const registryMap: RegistryEntry[] = [
     text: 'Trilha nas geleiras Tasman',
     price: 799 * 3,
     totalStock: 2,
-    currentStock: 2,
+    currentStock: 1,
   },
   {
     image: 'https://gabrieltnishimura.github.io/unite/registry/milford.webp',
@@ -113,13 +85,6 @@ export const registryMap: RegistryEntry[] = [
     currentStock: 1,
   },
   {
-    image: 'https://gabrieltnishimura.github.io/unite/registry/hotel-queenstown.webp',
-    text: 'Diária no hotel em Queenstown',
-    price: 725,
-    totalStock: 3,
-    currentStock: 0,
-  },
-  {
     image: 'https://gabrieltnishimura.github.io/unite/registry/hotel-cardrona.webp',
     text: 'Diária no hotel em Cardrona',
     price: 659,
@@ -131,7 +96,7 @@ export const registryMap: RegistryEntry[] = [
     text: 'Diária no hotel em Monte Cook',
     price: 824,
     totalStock: 3,
-    currentStock: 3,
+    currentStock: 2,
   },
   {
     image: 'https://gabrieltnishimura.github.io/unite/registry/hotel-hamilton.webp',
@@ -174,5 +139,40 @@ export const registryMap: RegistryEntry[] = [
     price: 210,
     totalStock: 30,
     currentStock: 29,
+  },
+  {
+    image: 'https://gabrieltnishimura.github.io/unite/registry/kiwi.webp',
+    text: 'Parque Kiwi Birdlife',
+    price: 171.62,
+    totalStock: 2,
+    currentStock: 0,
+  },
+  {
+    image: 'https://gabrieltnishimura.github.io/unite/registry/hobbiton.webp',
+    text: 'Tour do cenario de filme Hobbiton',
+    price: 365.04,
+    totalStock: 2,
+    currentStock: 0,
+  },
+  {
+    image: 'https://gabrieltnishimura.github.io/unite/registry/lotr.webp',
+    text: 'Aventura de Safari - Senhor dos Anéis',
+    price: 270 * 3,
+    totalStock: 2,
+    currentStock: 0,
+  },
+  {
+    image: 'https://gabrieltnishimura.github.io/unite/registry/hotel-queenstown.webp',
+    text: 'Diária no hotel em Queenstown',
+    price: 725,
+    totalStock: 3,
+    currentStock: 0,
+  },
+  {
+    image: 'https://gabrieltnishimura.github.io/unite/registry/glowworm.webp',
+    text: 'Experiência na caverna Waitomo Glowworm',
+    price: 1014,
+    totalStock: 2,
+    currentStock: 0,
   },
 ];
