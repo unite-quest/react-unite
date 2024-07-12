@@ -8,20 +8,6 @@ export type RegistryEntry = {
 
 export const registryMap: RegistryEntry[] = [
   {
-    image: 'https://gabrieltnishimura.github.io/unite/registry/onsen.webp',
-    text: 'Relaxamento no Onsen Hot Pools',
-    price: 1140,
-    totalStock: 2,
-    currentStock: 2,
-  },
-  {
-    image: 'https://gabrieltnishimura.github.io/unite/registry/shotover.webp',
-    text: 'Passeio radical de barco',
-    price: 159 * 3,
-    totalStock: 2,
-    currentStock: 2,
-  },
-  {
     image: 'https://gabrieltnishimura.github.io/unite/registry/ski-rental.webp',
     text: 'Aluguel de equipamento de ski',
     price: 200 * 3,
@@ -41,13 +27,6 @@ export const registryMap: RegistryEntry[] = [
     price: 415 * 3,
     totalStock: 2,
     currentStock: 2,
-  },
-  {
-    image: 'https://gabrieltnishimura.github.io/unite/registry/glacier.webp',
-    text: 'Trilha nas geleiras Tasman',
-    price: 799 * 3,
-    totalStock: 2,
-    currentStock: 1,
   },
   {
     image: 'https://gabrieltnishimura.github.io/unite/registry/milford.webp',
@@ -76,13 +55,6 @@ export const registryMap: RegistryEntry[] = [
     price: 155 * 3,
     totalStock: 2,
     currentStock: 2,
-  },
-  {
-    image: 'https://gabrieltnishimura.github.io/unite/registry/gondola.webp',
-    text: 'Gondola em Christchurch',
-    price: 77 * 3,
-    totalStock: 2,
-    currentStock: 1,
   },
   {
     image: 'https://gabrieltnishimura.github.io/unite/registry/hotel-cardrona.webp',
@@ -127,6 +99,13 @@ export const registryMap: RegistryEntry[] = [
     currentStock: 2,
   },
   {
+    image: 'https://gabrieltnishimura.github.io/unite/registry/onsen.webp',
+    text: 'Relaxamento no Onsen Hot Pools',
+    price: 1140,
+    totalStock: 2,
+    currentStock: 2,
+  },
+  {
     image: 'https://gabrieltnishimura.github.io/unite/registry/car-rental.webp',
     text: 'Diária do aluguel de carro',
     price: 150 * 3,
@@ -138,7 +117,28 @@ export const registryMap: RegistryEntry[] = [
     text: 'Refeição em Nova Zelândia',
     price: 210,
     totalStock: 30,
-    currentStock: 29,
+    currentStock: 27,
+  },
+  {
+    image: 'https://gabrieltnishimura.github.io/unite/registry/shotover.webp',
+    text: 'Passeio radical de barco',
+    price: 159 * 3,
+    totalStock: 2,
+    currentStock: 0,
+  },
+  {
+    image: 'https://gabrieltnishimura.github.io/unite/registry/glacier.webp',
+    text: 'Trilha nas geleiras Tasman',
+    price: 799 * 3,
+    totalStock: 2,
+    currentStock: 0,
+  },
+  {
+    image: 'https://gabrieltnishimura.github.io/unite/registry/gondola.webp',
+    text: 'Gondola em Christchurch',
+    price: 77 * 3,
+    totalStock: 2,
+    currentStock: 0,
   },
   {
     image: 'https://gabrieltnishimura.github.io/unite/registry/kiwi.webp',
