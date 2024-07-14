@@ -37,7 +37,7 @@ function Home() {
               25 de agosto de 2024 | 16h
             </UniteText>
             <UniteText align="center">
-              Botânico Quintal - Av. Imperatriz Leopoldina, 681 - Vila Leopoldina, São Paulo - SP
+              Botânico Quintal - Av. Imperatriz Leopoldina, 681 - Vila Leopoldina, São Paulo - SP | Esporte Fino
             </UniteText>
           </div>
         </InsetSpacing>
