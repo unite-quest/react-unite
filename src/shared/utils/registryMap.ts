@@ -29,13 +29,6 @@ export const registryMap: RegistryEntry[] = [
     currentStock: 2,
   },
   {
-    image: 'https://gabrieltnishimura.github.io/unite/registry/rotorua.webp',
-    text: 'Passagem de Christchurch para Rotorua',
-    price: 255,
-    totalStock: 2,
-    currentStock: 1,
-  },
-  {
     image: 'https://gabrieltnishimura.github.io/unite/registry/hotel-cardrona.webp',
     text: 'Diaria no hotel em Cardrona',
     price: 659,
@@ -89,7 +82,14 @@ export const registryMap: RegistryEntry[] = [
     text: 'Refeição em Nova Zelândia',
     price: 210,
     totalStock: 30,
-    currentStock: 21,
+    currentStock: 19,
+  },
+  {
+    image: 'https://gabrieltnishimura.github.io/unite/registry/rotorua.webp',
+    text: 'Passagem de Christchurch para Rotorua',
+    price: 255,
+    totalStock: 2,
+    currentStock: 0,
   },
   {
     image: 'https://gabrieltnishimura.github.io/unite/registry/onsen.webp',
